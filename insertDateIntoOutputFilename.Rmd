@@ -1,0 +1,19 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = paste0(substr(inputFile,1,nchar(inputFile)-4),"_",Sys.Date(),'.pdf')) })
+---
+
+From: http://stackoverflow.com/questions/32377291/insert-date-in-filename-while-knitting-document-using-rstudio-knit-button
+
+This code (see header above) will insert the current date in to the html output filename. Limited - only works with pdf & changes function of knit button! 
+
+Change the `.pdf` to `.html` if you knit to html.
+
+Better to use:
+
+`rmarkdown::render("test.Rmd",output_file=paste0('test',Sys.Date(),'.html'))`
+
+(or similar) in the console...

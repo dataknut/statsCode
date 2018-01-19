@@ -1,0 +1,1152 @@
+16/11/01 17:33:26 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 17:33:27 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 17:33:27 INFO SecurityManager: Changing view acls to: ben
+16/11/01 17:33:27 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 17:33:27 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 17:33:27 INFO Utils: Successfully started service 'sparkDriver' on port 62260.
+16/11/01 17:33:27 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 17:33:27 INFO Remoting: Starting remoting
+16/11/01 17:33:27 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:62261]
+16/11/01 17:33:27 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 62261.
+16/11/01 17:33:27 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 17:33:27 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 17:33:27 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-b41e46f7-ccfb-4781-a152-7ba036abf58c
+16/11/01 17:33:27 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 17:33:27 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 17:33:27 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+16/11/01 17:33:27 INFO SparkUI: Started SparkUI at http://127.0.0.1:4040
+16/11/01 17:33:27 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-96840ebd-12e8-47cd-b515-eafbaa278b1c/httpd-a16b9ba4-3078-4820-b3f7-ad9ce844e456
+16/11/01 17:33:27 INFO HttpServer: Starting HTTP Server
+16/11/01 17:33:27 INFO Utils: Successfully started service 'HTTP file server' on port 62262.
+16/11/01 17:33:28 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:62262/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478021608005
+16/11/01 17:33:28 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:62262/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478021608007
+16/11/01 17:33:28 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:62262/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478021608009
+16/11/01 17:33:28 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:62262/jars/sparklyr-1.6-2.10.jar with timestamp 1478021608010
+16/11/01 17:33:28 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 17:33:28 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 62263.
+16/11/01 17:33:28 INFO NettyBlockTransferService: Server created on 62263
+16/11/01 17:33:28 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 17:33:28 INFO BlockManagerMasterEndpoint: Registering block manager localhost:62263 with 511.1 MB RAM, BlockManagerId(driver, localhost, 62263)
+16/11/01 17:33:28 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 17:33:29 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 17:33:29 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:33:29 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:33:29 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:33:29 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:33:29 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:33:29 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:33:29 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:33:30 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:33:31 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:33:32 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:32 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:33 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:33 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:33 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:33:33 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:33:33 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:33:34 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:33:34 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:33:34 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:33:34 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:33:34 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:33:34 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:33:34 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:33:34 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:33:34 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:35 INFO SessionState: Created HDFS directory: /tmp/hive/ben
+16/11/01 17:33:35 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben
+16/11/01 17:33:35 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/02f1ebc1-ae3e-45db-ac71-ae8b4d2d7cb5_resources
+16/11/01 17:33:35 INFO SessionState: Created HDFS directory: /tmp/hive/ben/02f1ebc1-ae3e-45db-ac71-ae8b4d2d7cb5
+16/11/01 17:33:35 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/02f1ebc1-ae3e-45db-ac71-ae8b4d2d7cb5
+16/11/01 17:33:35 INFO SessionState: Created HDFS directory: /tmp/hive/ben/02f1ebc1-ae3e-45db-ac71-ae8b4d2d7cb5/_tmp_space.db
+16/11/01 17:33:35 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 17:33:35 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 17:33:35 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:33:35 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:33:35 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:33:35 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:33:35 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:33:35 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:33:35 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:33:35 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:33:36 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:33:37 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:37 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:38 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:33:38 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:33:38 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:33:38 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:33:38 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:33:38 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:33:38 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:33:38 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:33:38 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:33:38 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:33:38 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:33:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:33:38 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ee8635b0-c9c5-4da4-b5db-b8b6f1542d6c_resources
+16/11/01 17:33:38 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ee8635b0-c9c5-4da4-b5db-b8b6f1542d6c
+16/11/01 17:33:38 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/ee8635b0-c9c5-4da4-b5db-b8b6f1542d6c
+16/11/01 17:33:38 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ee8635b0-c9c5-4da4-b5db-b8b6f1542d6c/_tmp_space.db
+16/11/01 17:34:16 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 17:34:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 17:34:16 INFO SecurityManager: Changing view acls to: ben
+16/11/01 17:34:16 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 17:34:16 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 17:34:16 INFO Utils: Successfully started service 'sparkDriver' on port 62326.
+16/11/01 17:34:17 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 17:34:17 INFO Remoting: Starting remoting
+16/11/01 17:34:17 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:62327]
+16/11/01 17:34:17 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 62327.
+16/11/01 17:34:17 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 17:34:17 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 17:34:17 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-771d8c96-4298-444c-a921-a383299ed607
+16/11/01 17:34:17 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 17:34:17 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 17:34:17 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+16/11/01 17:34:17 INFO Utils: Successfully started service 'SparkUI' on port 4041.
+16/11/01 17:34:17 INFO SparkUI: Started SparkUI at http://127.0.0.1:4041
+16/11/01 17:34:17 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-045b5633-dbc7-4011-a4d6-846026d65f8e/httpd-6388273d-ec7e-41dd-8375-1be460e91cf8
+16/11/01 17:34:17 INFO HttpServer: Starting HTTP Server
+16/11/01 17:34:17 INFO Utils: Successfully started service 'HTTP file server' on port 62328.
+16/11/01 17:34:17 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:62328/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478021657666
+16/11/01 17:34:17 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:62328/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478021657667
+16/11/01 17:34:17 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:62328/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478021657669
+16/11/01 17:34:17 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:62328/jars/sparklyr-1.6-2.10.jar with timestamp 1478021657670
+16/11/01 17:34:17 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 17:34:17 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 62329.
+16/11/01 17:34:17 INFO NettyBlockTransferService: Server created on 62329
+16/11/01 17:34:17 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 17:34:17 INFO BlockManagerMasterEndpoint: Registering block manager localhost:62329 with 511.1 MB RAM, BlockManagerId(driver, localhost, 62329)
+16/11/01 17:34:17 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 17:34:18 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 17:34:18 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:34:18 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:34:19 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:34:19 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:34:19 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:34:19 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:34:19 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:34:19 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:34:20 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:34:21 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:21 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:22 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:22 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:22 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:34:22 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:34:22 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:34:22 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:34:23 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:34:23 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:34:23 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:34:23 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:34:23 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:34:23 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:34:23 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:34:23 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:23 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/b876859a-01e5-4eeb-9b83-89dba9626250_resources
+16/11/01 17:34:23 INFO SessionState: Created HDFS directory: /tmp/hive/ben/b876859a-01e5-4eeb-9b83-89dba9626250
+16/11/01 17:34:23 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/b876859a-01e5-4eeb-9b83-89dba9626250
+16/11/01 17:34:23 INFO SessionState: Created HDFS directory: /tmp/hive/ben/b876859a-01e5-4eeb-9b83-89dba9626250/_tmp_space.db
+16/11/01 17:34:23 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 17:34:23 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 17:34:23 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:34:23 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:34:24 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:34:24 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:34:24 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:34:24 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:34:24 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:34:24 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:34:25 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:34:25 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:25 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:26 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:26 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:26 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:34:26 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:34:27 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:34:27 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:34:27 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:34:27 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:34:27 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:34:27 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:34:27 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:34:27 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:34:27 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:34:27 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:34:27 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/85968cdd-0903-4167-9d4e-40dadee8b8b4_resources
+16/11/01 17:34:27 INFO SessionState: Created HDFS directory: /tmp/hive/ben/85968cdd-0903-4167-9d4e-40dadee8b8b4
+16/11/01 17:34:27 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/85968cdd-0903-4167-9d4e-40dadee8b8b4
+16/11/01 17:34:27 INFO SessionState: Created HDFS directory: /tmp/hive/ben/85968cdd-0903-4167-9d4e-40dadee8b8b4/_tmp_space.db
+16/11/01 17:34:28 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 17:34:28 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 17:37:03 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 17:37:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 17:37:04 INFO SecurityManager: Changing view acls to: ben
+16/11/01 17:37:04 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 17:37:04 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 17:37:04 INFO Utils: Successfully started service 'sparkDriver' on port 62477.
+16/11/01 17:37:04 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 17:37:04 INFO Remoting: Starting remoting
+16/11/01 17:37:05 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:62478]
+16/11/01 17:37:05 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 62478.
+16/11/01 17:37:05 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 17:37:05 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 17:37:05 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-413d8480-f828-4fc7-a267-37400d1999d9
+16/11/01 17:37:05 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 17:37:05 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 17:37:05 WARN Utils: Service 'SparkUI' could not bind on port 4040. Attempting port 4041.
+16/11/01 17:37:05 WARN Utils: Service 'SparkUI' could not bind on port 4041. Attempting port 4042.
+16/11/01 17:37:05 INFO Utils: Successfully started service 'SparkUI' on port 4042.
+16/11/01 17:37:05 INFO SparkUI: Started SparkUI at http://127.0.0.1:4042
+16/11/01 17:37:05 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-f7b29fe7-828f-4ed9-a3d9-c9362a60017e/httpd-98da7f35-cfef-4165-8b6b-e0be27335d94
+16/11/01 17:37:05 INFO HttpServer: Starting HTTP Server
+16/11/01 17:37:05 INFO Utils: Successfully started service 'HTTP file server' on port 62479.
+16/11/01 17:37:05 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:62479/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478021825508
+16/11/01 17:37:05 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:62479/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478021825509
+16/11/01 17:37:05 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:62479/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478021825511
+16/11/01 17:37:05 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:62479/jars/sparklyr-1.6-2.10.jar with timestamp 1478021825512
+16/11/01 17:37:05 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 17:37:05 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 62480.
+16/11/01 17:37:05 INFO NettyBlockTransferService: Server created on 62480
+16/11/01 17:37:05 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 17:37:05 INFO BlockManagerMasterEndpoint: Registering block manager localhost:62480 with 511.1 MB RAM, BlockManagerId(driver, localhost, 62480)
+16/11/01 17:37:05 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 17:37:06 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 17:37:06 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:37:06 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:37:07 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:37:07 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:37:07 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:37:07 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:37:07 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:37:07 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:37:08 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:37:09 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:09 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:10 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:10 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:10 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:37:10 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:37:10 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:37:10 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:37:10 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:37:10 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:37:11 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:37:11 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:37:11 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:37:11 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:37:11 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:37:11 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:11 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/8fd98a1c-17ab-406f-b909-366fc92276f6_resources
+16/11/01 17:37:11 INFO SessionState: Created HDFS directory: /tmp/hive/ben/8fd98a1c-17ab-406f-b909-366fc92276f6
+16/11/01 17:37:11 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/8fd98a1c-17ab-406f-b909-366fc92276f6
+16/11/01 17:37:11 INFO SessionState: Created HDFS directory: /tmp/hive/ben/8fd98a1c-17ab-406f-b909-366fc92276f6/_tmp_space.db
+16/11/01 17:37:11 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 17:37:11 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 17:37:11 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 17:37:11 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 17:37:12 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 17:37:12 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 17:37:12 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 17:37:12 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 17:37:12 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:37:12 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 17:37:14 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 17:37:14 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:14 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:15 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:15 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:15 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 17:37:15 INFO ObjectStore: Initialized ObjectStore
+16/11/01 17:37:16 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 17:37:16 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 17:37:16 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 17:37:16 INFO HiveMetaStore: Added public role in metastore
+16/11/01 17:37:16 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 17:37:16 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 17:37:16 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 17:37:16 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 17:37:16 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 17:37:16 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 17:37:16 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/be46ebd0-628b-4e06-9e7f-5006d0e501ec_resources
+16/11/01 17:37:16 INFO SessionState: Created HDFS directory: /tmp/hive/ben/be46ebd0-628b-4e06-9e7f-5006d0e501ec
+16/11/01 17:37:16 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/be46ebd0-628b-4e06-9e7f-5006d0e501ec
+16/11/01 17:37:16 INFO SessionState: Created HDFS directory: /tmp/hive/ben/be46ebd0-628b-4e06-9e7f-5006d0e501ec/_tmp_space.db
+16/11/01 17:37:18 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 17:37:18 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4042
+16/11/01 17:37:18 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 17:37:18 INFO MemoryStore: MemoryStore cleared
+16/11/01 17:37:18 INFO BlockManager: BlockManager stopped
+16/11/01 17:37:18 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 17:37:18 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 17:37:18 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 17:37:18 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 17:37:18 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-69a1ac33-123e-43e3-b8f0-484246b142a9
+16/11/01 17:37:18 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 17:37:18 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 17:37:19 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-f7b29fe7-828f-4ed9-a3d9-c9362a60017e/httpd-98da7f35-cfef-4165-8b6b-e0be27335d94
+16/11/01 17:37:19 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-f7b29fe7-828f-4ed9-a3d9-c9362a60017e
+16/11/01 17:37:19 INFO RemoteActorRefProvider$RemotingTerminator: Remoting shut down.
+16/11/01 17:44:27 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 17:44:27 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 17:44:27 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4041
+16/11/01 17:44:27 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4040
+16/11/01 17:44:27 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 17:44:27 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 17:44:27 INFO MemoryStore: MemoryStore cleared
+16/11/01 17:44:27 INFO BlockManager: BlockManager stopped
+16/11/01 17:44:27 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 17:44:27 INFO MemoryStore: MemoryStore cleared
+16/11/01 17:44:27 INFO BlockManager: BlockManager stopped
+16/11/01 17:44:27 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 17:44:27 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 17:44:27 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 17:44:27 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 17:44:27 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 17:44:27 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-045b5633-dbc7-4011-a4d6-846026d65f8e
+16/11/01 17:44:27 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-045b5633-dbc7-4011-a4d6-846026d65f8e/httpd-6388273d-ec7e-41dd-8375-1be460e91cf8
+16/11/01 17:44:27 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-1f8b47e7-314d-44b4-bad7-f7ef581d67b0
+16/11/01 17:44:28 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 17:44:28 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 17:44:28 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-05ffa4a3-18e3-4f93-b14d-a99a6da0804b
+16/11/01 17:44:28 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 17:44:28 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 17:44:28 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 17:44:28 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 17:44:28 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-96840ebd-12e8-47cd-b515-eafbaa278b1c/httpd-a16b9ba4-3078-4820-b3f7-ad9ce844e456
+16/11/01 17:44:28 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-96840ebd-12e8-47cd-b515-eafbaa278b1c
+16/11/01 20:07:45 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 20:07:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 20:07:45 INFO SecurityManager: Changing view acls to: ben
+16/11/01 20:07:45 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 20:07:45 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 20:07:46 INFO Utils: Successfully started service 'sparkDriver' on port 52099.
+16/11/01 20:07:46 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 20:07:46 INFO Remoting: Starting remoting
+16/11/01 20:07:46 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:52100]
+16/11/01 20:07:46 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 52100.
+16/11/01 20:07:46 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 20:07:46 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 20:07:46 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-3b8972f8-8334-4d11-9c9e-d00e88faa4d8
+16/11/01 20:07:46 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 20:07:46 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 20:07:47 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+16/11/01 20:07:47 INFO SparkUI: Started SparkUI at http://127.0.0.1:4040
+16/11/01 20:07:47 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-7f8595cc-7c11-49d0-81bb-75da922b193a/httpd-87b87af1-3a30-4b63-8c35-a07553fba726
+16/11/01 20:07:47 INFO HttpServer: Starting HTTP Server
+16/11/01 20:07:47 INFO Utils: Successfully started service 'HTTP file server' on port 52101.
+16/11/01 20:07:47 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:52101/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478030867091
+16/11/01 20:07:47 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:52101/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478030867093
+16/11/01 20:07:47 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:52101/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478030867096
+16/11/01 20:07:47 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:52101/jars/sparklyr-1.6-2.10.jar with timestamp 1478030867099
+16/11/01 20:07:47 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 20:07:47 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 52102.
+16/11/01 20:07:47 INFO NettyBlockTransferService: Server created on 52102
+16/11/01 20:07:47 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 20:07:47 INFO BlockManagerMasterEndpoint: Registering block manager localhost:52102 with 511.1 MB RAM, BlockManagerId(driver, localhost, 52102)
+16/11/01 20:07:47 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 20:07:48 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 20:07:48 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:07:48 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:07:48 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:07:48 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:07:49 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:07:49 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:07:49 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:07:49 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:07:50 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:07:51 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:51 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:53 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:53 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:53 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:07:53 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:07:53 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:07:53 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:07:53 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:07:53 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:07:53 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:07:53 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:07:53 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:07:54 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:07:54 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:07:54 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:54 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/edf727cb-9a92-4d05-b85d-693af457f771_resources
+16/11/01 20:07:54 INFO SessionState: Created HDFS directory: /tmp/hive/ben/edf727cb-9a92-4d05-b85d-693af457f771
+16/11/01 20:07:54 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/edf727cb-9a92-4d05-b85d-693af457f771
+16/11/01 20:07:54 INFO SessionState: Created HDFS directory: /tmp/hive/ben/edf727cb-9a92-4d05-b85d-693af457f771/_tmp_space.db
+16/11/01 20:07:54 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 20:07:54 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 20:07:54 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:07:54 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:07:54 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:07:54 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:07:54 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:07:54 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:07:55 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:07:55 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:07:55 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:07:56 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:56 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:57 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:57 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:57 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:07:57 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:07:57 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:07:57 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:07:57 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:07:57 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:07:57 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:07:57 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:07:57 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:07:57 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:07:57 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:07:57 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:07:58 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/3aba8b4d-8cf2-47b0-a664-f09a781ba241_resources
+16/11/01 20:07:58 INFO SessionState: Created HDFS directory: /tmp/hive/ben/3aba8b4d-8cf2-47b0-a664-f09a781ba241
+16/11/01 20:07:58 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/3aba8b4d-8cf2-47b0-a664-f09a781ba241
+16/11/01 20:07:58 INFO SessionState: Created HDFS directory: /tmp/hive/ben/3aba8b4d-8cf2-47b0-a664-f09a781ba241/_tmp_space.db
+16/11/01 20:07:59 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 20:07:59 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4040
+16/11/01 20:07:59 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 20:07:59 INFO MemoryStore: MemoryStore cleared
+16/11/01 20:07:59 INFO BlockManager: BlockManager stopped
+16/11/01 20:07:59 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 20:07:59 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 20:07:59 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 20:07:59 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 20:07:59 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-5282bfe4-2849-4845-b452-1214f388ee04
+16/11/01 20:07:59 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 20:07:59 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 20:07:59 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-7f8595cc-7c11-49d0-81bb-75da922b193a
+16/11/01 20:07:59 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-7f8595cc-7c11-49d0-81bb-75da922b193a/httpd-87b87af1-3a30-4b63-8c35-a07553fba726
+16/11/01 20:08:33 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 20:08:33 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 20:08:33 INFO SecurityManager: Changing view acls to: ben
+16/11/01 20:08:33 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 20:08:33 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 20:08:33 INFO Utils: Successfully started service 'sparkDriver' on port 52139.
+16/11/01 20:08:34 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 20:08:34 INFO Remoting: Starting remoting
+16/11/01 20:08:34 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:52140]
+16/11/01 20:08:34 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 52140.
+16/11/01 20:08:34 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 20:08:34 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 20:08:34 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-639e0201-c123-4727-8aa3-b94c17b2c15b
+16/11/01 20:08:34 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 20:08:34 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 20:08:34 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+16/11/01 20:08:34 INFO SparkUI: Started SparkUI at http://127.0.0.1:4040
+16/11/01 20:08:34 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/httpd-fe23a3a3-77e1-47b4-8ca2-e3e1430a5bb3
+16/11/01 20:08:34 INFO HttpServer: Starting HTTP Server
+16/11/01 20:08:34 INFO Utils: Successfully started service 'HTTP file server' on port 52141.
+16/11/01 20:08:34 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:52141/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478030914595
+16/11/01 20:08:34 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:52141/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478030914597
+16/11/01 20:08:34 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:52141/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478030914598
+16/11/01 20:08:34 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:52141/jars/sparklyr-1.6-2.10.jar with timestamp 1478030914599
+16/11/01 20:08:34 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 20:08:34 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 52142.
+16/11/01 20:08:34 INFO NettyBlockTransferService: Server created on 52142
+16/11/01 20:08:34 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 20:08:34 INFO BlockManagerMasterEndpoint: Registering block manager localhost:52142 with 511.1 MB RAM, BlockManagerId(driver, localhost, 52142)
+16/11/01 20:08:34 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 20:08:35 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 20:08:35 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:08:35 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:08:35 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:08:35 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:08:36 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:08:36 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:08:36 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:08:36 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:08:37 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:08:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:38 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:39 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:08:39 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:08:39 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:08:39 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:08:39 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:08:39 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:08:39 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:08:39 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:08:39 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:08:39 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:08:39 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:08:39 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:40 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/284e279c-6e64-4a8e-b8d0-31ddf6ae0bfa_resources
+16/11/01 20:08:40 INFO SessionState: Created HDFS directory: /tmp/hive/ben/284e279c-6e64-4a8e-b8d0-31ddf6ae0bfa
+16/11/01 20:08:40 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/284e279c-6e64-4a8e-b8d0-31ddf6ae0bfa
+16/11/01 20:08:40 INFO SessionState: Created HDFS directory: /tmp/hive/ben/284e279c-6e64-4a8e-b8d0-31ddf6ae0bfa/_tmp_space.db
+16/11/01 20:08:40 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 20:08:40 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 20:08:40 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:08:40 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:08:40 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:08:40 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:08:40 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:08:40 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:08:40 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:08:40 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:08:41 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:08:42 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:42 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:42 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:42 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:43 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:08:43 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:08:43 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:08:43 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:08:43 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:08:43 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:08:43 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:08:43 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:08:43 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:08:43 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:08:43 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:08:43 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:08:43 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ccb302ce-2d8c-477f-9e1a-e2f17f059b38_resources
+16/11/01 20:08:43 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ccb302ce-2d8c-477f-9e1a-e2f17f059b38
+16/11/01 20:08:44 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/ccb302ce-2d8c-477f-9e1a-e2f17f059b38
+16/11/01 20:08:44 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ccb302ce-2d8c-477f-9e1a-e2f17f059b38/_tmp_space.db
+16/11/01 20:08:46 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:08:46 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:08:47 INFO SparkContext: Starting job: collect at utils.scala:59
+16/11/01 20:08:47 INFO DAGScheduler: Got job 0 (collect at utils.scala:59) with 1 output partitions
+16/11/01 20:08:47 INFO DAGScheduler: Final stage: ResultStage 0 (collect at utils.scala:59)
+16/11/01 20:08:47 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:08:47 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:08:47 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[3] at map at utils.scala:56), which has no missing parents
+16/11/01 20:08:47 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 5.4 KB, free 5.4 KB)
+16/11/01 20:08:47 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 3.0 KB, free 8.4 KB)
+16/11/01 20:08:47 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:52142 (size: 3.0 KB, free: 511.1 MB)
+16/11/01 20:08:47 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:47 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[3] at map at utils.scala:56)
+16/11/01 20:08:47 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
+16/11/01 20:08:47 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, partition 0,PROCESS_LOCAL, 2396 bytes)
+16/11/01 20:08:47 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+16/11/01 20:08:47 INFO Executor: Fetching http://127.0.0.1:52141/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478030914595
+16/11/01 20:08:47 INFO Utils: Fetching http://127.0.0.1:52141/jars/com.databricks_spark-csv_2.11-1.3.0.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/fetchFileTemp4581436840469395223.tmp
+16/11/01 20:08:47 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/com.databricks_spark-csv_2.11-1.3.0.jar to class loader
+16/11/01 20:08:47 INFO Executor: Fetching http://127.0.0.1:52141/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478030914597
+16/11/01 20:08:47 INFO Utils: Fetching http://127.0.0.1:52141/jars/org.apache.commons_commons-csv-1.1.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/fetchFileTemp5477201824826350197.tmp
+16/11/01 20:08:47 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/org.apache.commons_commons-csv-1.1.jar to class loader
+16/11/01 20:08:47 INFO Executor: Fetching http://127.0.0.1:52141/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478030914598
+16/11/01 20:08:47 INFO Utils: Fetching http://127.0.0.1:52141/jars/com.univocity_univocity-parsers-1.5.1.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/fetchFileTemp1541626578878919577.tmp
+16/11/01 20:08:47 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/com.univocity_univocity-parsers-1.5.1.jar to class loader
+16/11/01 20:08:47 INFO Executor: Fetching http://127.0.0.1:52141/jars/sparklyr-1.6-2.10.jar with timestamp 1478030914599
+16/11/01 20:08:47 INFO Utils: Fetching http://127.0.0.1:52141/jars/sparklyr-1.6-2.10.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/fetchFileTemp5866016967742168475.tmp
+16/11/01 20:08:47 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/userFiles-5bdf92eb-d261-4501-a8a2-b80eed82275a/sparklyr-1.6-2.10.jar to class loader
+16/11/01 20:08:48 INFO GenerateUnsafeProjection: Code generated in 501.115856 ms
+16/11/01 20:08:48 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1060 bytes result sent to driver
+16/11/01 20:08:48 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 917 ms on localhost (1/1)
+16/11/01 20:08:48 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+16/11/01 20:08:48 INFO DAGScheduler: ResultStage 0 (collect at utils.scala:59) finished in 0.939 s
+16/11/01 20:08:48 INFO DAGScheduler: Job 0 finished: collect at utils.scala:59, took 1.102569 s
+16/11/01 20:08:48 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:08:48 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 61.8 KB, free 70.2 KB)
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 19.3 KB, free 89.5 KB)
+16/11/01 20:08:51 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on localhost:52142 (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:08:51 INFO SparkContext: Created broadcast 1 from textFile at TextFile.scala:30
+16/11/01 20:08:51 INFO FileInputFormat: Total input paths to process : 1
+16/11/01 20:08:51 INFO SparkContext: Starting job: take at CsvRelation.scala:249
+16/11/01 20:08:51 INFO DAGScheduler: Got job 1 (take at CsvRelation.scala:249) with 1 output partitions
+16/11/01 20:08:51 INFO DAGScheduler: Final stage: ResultStage 1 (take at CsvRelation.scala:249)
+16/11/01 20:08:51 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:08:51 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:08:51 INFO DAGScheduler: Submitting ResultStage 1 (/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T//RtmphZuYgX/file8621f716f1d.csv MapPartitionsRDD[6] at textFile at TextFile.scala:30), which has no missing parents
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 3.1 KB, free 92.7 KB)
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 1904.0 B, free 94.5 KB)
+16/11/01 20:08:51 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on localhost:52142 (size: 1904.0 B, free: 511.1 MB)
+16/11/01 20:08:51 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:51 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T//RtmphZuYgX/file8621f716f1d.csv MapPartitionsRDD[6] at textFile at TextFile.scala:30)
+16/11/01 20:08:51 INFO TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
+16/11/01 20:08:51 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, localhost, partition 0,PROCESS_LOCAL, 2477 bytes)
+16/11/01 20:08:51 INFO Executor: Running task 0.0 in stage 1.0 (TID 1)
+16/11/01 20:08:51 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/RtmphZuYgX/file8621f716f1d.csv:0+28285423
+16/11/01 20:08:51 INFO deprecation: mapred.tip.id is deprecated. Instead, use mapreduce.task.id
+16/11/01 20:08:51 INFO deprecation: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+16/11/01 20:08:51 INFO deprecation: mapred.task.is.map is deprecated. Instead, use mapreduce.task.ismap
+16/11/01 20:08:51 INFO deprecation: mapred.task.partition is deprecated. Instead, use mapreduce.task.partition
+16/11/01 20:08:51 INFO deprecation: mapred.job.id is deprecated. Instead, use mapreduce.job.id
+16/11/01 20:08:51 INFO Executor: Finished task 0.0 in stage 1.0 (TID 1). 2510 bytes result sent to driver
+16/11/01 20:08:51 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 54 ms on localhost (1/1)
+16/11/01 20:08:51 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+16/11/01 20:08:51 INFO DAGScheduler: ResultStage 1 (take at CsvRelation.scala:249) finished in 0.054 s
+16/11/01 20:08:51 INFO DAGScheduler: Job 1 finished: take at CsvRelation.scala:249, took 0.064210 s
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 208.5 KB, free 303.0 KB)
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 19.3 KB, free 322.4 KB)
+16/11/01 20:08:51 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on localhost:52142 (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:08:51 INFO SparkContext: Created broadcast 3 from textFile at TextFile.scala:30
+16/11/01 20:08:51 INFO FileInputFormat: Total input paths to process : 1
+16/11/01 20:08:51 INFO SparkContext: Starting job: sql at NativeMethodAccessorImpl.java:-2
+16/11/01 20:08:51 INFO DAGScheduler: Registering RDD 16 (sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:08:51 INFO DAGScheduler: Got job 2 (sql at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/11/01 20:08:51 INFO DAGScheduler: Final stage: ResultStage 3 (sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:08:51 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 2)
+16/11/01 20:08:51 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 2)
+16/11/01 20:08:51 INFO DAGScheduler: Submitting ShuffleMapStage 2 (MapPartitionsRDD[16] at sql at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_4 stored as values in memory (estimated size 17.5 KB, free 339.9 KB)
+16/11/01 20:08:51 INFO MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 8.4 KB, free 348.2 KB)
+16/11/01 20:08:51 INFO BlockManagerInfo: Added broadcast_4_piece0 in memory on localhost:52142 (size: 8.4 KB, free: 511.1 MB)
+16/11/01 20:08:51 INFO SparkContext: Created broadcast 4 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:51 INFO DAGScheduler: Submitting 2 missing tasks from ShuffleMapStage 2 (MapPartitionsRDD[16] at sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:08:51 INFO TaskSchedulerImpl: Adding task set 2.0 with 2 tasks
+16/11/01 20:08:51 INFO TaskSetManager: Starting task 0.0 in stage 2.0 (TID 2, localhost, partition 0,PROCESS_LOCAL, 2466 bytes)
+16/11/01 20:08:51 INFO TaskSetManager: Starting task 1.0 in stage 2.0 (TID 3, localhost, partition 1,PROCESS_LOCAL, 2466 bytes)
+16/11/01 20:08:51 INFO Executor: Running task 0.0 in stage 2.0 (TID 2)
+16/11/01 20:08:51 INFO Executor: Running task 1.0 in stage 2.0 (TID 3)
+16/11/01 20:08:51 INFO CacheManager: Partition rdd_13_0 not found, computing it
+16/11/01 20:08:51 INFO CacheManager: Partition rdd_13_1 not found, computing it
+16/11/01 20:08:51 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/RtmphZuYgX/file8621f716f1d.csv:0+28285423
+16/11/01 20:08:51 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/RtmphZuYgX/file8621f716f1d.csv:28285423+28285423
+16/11/01 20:08:51 INFO GenerateUnsafeProjection: Code generated in 11.725664 ms
+16/11/01 20:08:51 INFO BlockManagerInfo: Removed broadcast_2_piece0 on localhost:52142 in memory (size: 1904.0 B, free: 511.1 MB)
+16/11/01 20:08:51 INFO ContextCleaner: Cleaned accumulator 4
+16/11/01 20:08:51 INFO BlockManagerInfo: Removed broadcast_1_piece0 on localhost:52142 in memory (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:08:51 INFO BlockManagerInfo: Removed broadcast_0_piece0 on localhost:52142 in memory (size: 3.0 KB, free: 511.1 MB)
+16/11/01 20:08:51 INFO ContextCleaner: Cleaned accumulator 3
+16/11/01 20:08:51 INFO ContextCleaner: Cleaned accumulator 2
+16/11/01 20:08:56 INFO MemoryStore: Block rdd_13_0 stored as values in memory (estimated size 6.9 MB, free 7.2 MB)
+16/11/01 20:08:56 INFO BlockManagerInfo: Added rdd_13_0 in memory on localhost:52142 (size: 6.9 MB, free: 504.2 MB)
+16/11/01 20:08:56 INFO GeneratePredicate: Code generated in 3.879937 ms
+16/11/01 20:08:56 INFO MemoryStore: Block rdd_13_1 stored as values in memory (estimated size 7.0 MB, free 14.2 MB)
+16/11/01 20:08:56 INFO BlockManagerInfo: Added rdd_13_1 in memory on localhost:52142 (size: 7.0 MB, free: 497.1 MB)
+16/11/01 20:08:56 INFO GenerateColumnAccessor: Code generated in 25.119172 ms
+16/11/01 20:08:56 INFO GenerateMutableProjection: Code generated in 6.170387 ms
+16/11/01 20:08:56 INFO GenerateUnsafeProjection: Code generated in 13.690032 ms
+16/11/01 20:08:56 INFO GenerateMutableProjection: Code generated in 6.637029 ms
+16/11/01 20:08:56 INFO GenerateUnsafeRowJoiner: Code generated in 7.129828 ms
+16/11/01 20:08:56 INFO GenerateUnsafeProjection: Code generated in 7.85634 ms
+16/11/01 20:08:56 INFO Executor: Finished task 0.0 in stage 2.0 (TID 2). 19337 bytes result sent to driver
+16/11/01 20:08:56 INFO Executor: Finished task 1.0 in stage 2.0 (TID 3). 19576 bytes result sent to driver
+16/11/01 20:08:56 INFO TaskSetManager: Finished task 1.0 in stage 2.0 (TID 3) in 5151 ms on localhost (1/2)
+16/11/01 20:08:56 INFO TaskSetManager: Finished task 0.0 in stage 2.0 (TID 2) in 5153 ms on localhost (2/2)
+16/11/01 20:08:56 INFO TaskSchedulerImpl: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+16/11/01 20:08:56 INFO DAGScheduler: ShuffleMapStage 2 (sql at NativeMethodAccessorImpl.java:-2) finished in 5.155 s
+16/11/01 20:08:56 INFO DAGScheduler: looking for newly runnable stages
+16/11/01 20:08:56 INFO DAGScheduler: running: Set()
+16/11/01 20:08:56 INFO DAGScheduler: waiting: Set(ResultStage 3)
+16/11/01 20:08:56 INFO DAGScheduler: failed: Set()
+16/11/01 20:08:56 INFO DAGScheduler: Submitting ResultStage 3 (MapPartitionsRDD[19] at sql at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/11/01 20:08:56 INFO MemoryStore: Block broadcast_5 stored as values in memory (estimated size 9.3 KB, free 14.2 MB)
+16/11/01 20:08:56 INFO MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 4.6 KB, free 14.2 MB)
+16/11/01 20:08:56 INFO BlockManagerInfo: Added broadcast_5_piece0 in memory on localhost:52142 (size: 4.6 KB, free: 497.1 MB)
+16/11/01 20:08:56 INFO SparkContext: Created broadcast 5 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:56 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 3 (MapPartitionsRDD[19] at sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:08:56 INFO TaskSchedulerImpl: Adding task set 3.0 with 1 tasks
+16/11/01 20:08:56 INFO TaskSetManager: Starting task 0.0 in stage 3.0 (TID 4, localhost, partition 0,NODE_LOCAL, 2290 bytes)
+16/11/01 20:08:56 INFO Executor: Running task 0.0 in stage 3.0 (TID 4)
+16/11/01 20:08:56 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 2 blocks
+16/11/01 20:08:56 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 5 ms
+16/11/01 20:08:56 INFO GenerateMutableProjection: Code generated in 6.562984 ms
+16/11/01 20:08:56 INFO GenerateMutableProjection: Code generated in 5.500098 ms
+16/11/01 20:08:56 INFO Executor: Finished task 0.0 in stage 3.0 (TID 4). 1830 bytes result sent to driver
+16/11/01 20:08:56 INFO TaskSetManager: Finished task 0.0 in stage 3.0 (TID 4) in 89 ms on localhost (1/1)
+16/11/01 20:08:56 INFO TaskSchedulerImpl: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+16/11/01 20:08:56 INFO DAGScheduler: ResultStage 3 (sql at NativeMethodAccessorImpl.java:-2) finished in 0.090 s
+16/11/01 20:08:56 INFO DAGScheduler: Job 2 finished: sql at NativeMethodAccessorImpl.java:-2, took 5.290931 s
+16/11/01 20:08:56 INFO ParseDriver: Parsing command: SELECT count(*) FROM `saveDT`
+16/11/01 20:08:57 INFO ParseDriver: Parse Completed
+16/11/01 20:08:57 INFO SparkContext: Starting job: collect at utils.scala:181
+16/11/01 20:08:57 INFO DAGScheduler: Registering RDD 23 (collect at utils.scala:181)
+16/11/01 20:08:57 INFO DAGScheduler: Got job 3 (collect at utils.scala:181) with 1 output partitions
+16/11/01 20:08:57 INFO DAGScheduler: Final stage: ResultStage 5 (collect at utils.scala:181)
+16/11/01 20:08:57 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 4)
+16/11/01 20:08:57 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 4)
+16/11/01 20:08:57 INFO DAGScheduler: Submitting ShuffleMapStage 4 (MapPartitionsRDD[23] at collect at utils.scala:181), which has no missing parents
+16/11/01 20:08:57 INFO MemoryStore: Block broadcast_6 stored as values in memory (estimated size 17.5 KB, free 14.2 MB)
+16/11/01 20:08:57 INFO MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 8.4 KB, free 14.3 MB)
+16/11/01 20:08:57 INFO BlockManagerInfo: Added broadcast_6_piece0 in memory on localhost:52142 (size: 8.4 KB, free: 497.1 MB)
+16/11/01 20:08:57 INFO SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:57 INFO DAGScheduler: Submitting 2 missing tasks from ShuffleMapStage 4 (MapPartitionsRDD[23] at collect at utils.scala:181)
+16/11/01 20:08:57 INFO TaskSchedulerImpl: Adding task set 4.0 with 2 tasks
+16/11/01 20:08:57 INFO TaskSetManager: Starting task 0.0 in stage 4.0 (TID 5, localhost, partition 0,PROCESS_LOCAL, 2466 bytes)
+16/11/01 20:08:57 INFO TaskSetManager: Starting task 1.0 in stage 4.0 (TID 6, localhost, partition 1,PROCESS_LOCAL, 2466 bytes)
+16/11/01 20:08:57 INFO Executor: Running task 0.0 in stage 4.0 (TID 5)
+16/11/01 20:08:57 INFO Executor: Running task 1.0 in stage 4.0 (TID 6)
+16/11/01 20:08:57 INFO BlockManager: Found block rdd_13_0 locally
+16/11/01 20:08:57 INFO BlockManager: Found block rdd_13_1 locally
+16/11/01 20:08:58 INFO Executor: Finished task 0.0 in stage 4.0 (TID 5). 2679 bytes result sent to driver
+16/11/01 20:08:58 INFO Executor: Finished task 1.0 in stage 4.0 (TID 6). 2679 bytes result sent to driver
+16/11/01 20:08:58 INFO TaskSetManager: Finished task 0.0 in stage 4.0 (TID 5) in 95 ms on localhost (1/2)
+16/11/01 20:08:58 INFO TaskSetManager: Finished task 1.0 in stage 4.0 (TID 6) in 95 ms on localhost (2/2)
+16/11/01 20:08:58 INFO TaskSchedulerImpl: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+16/11/01 20:08:58 INFO DAGScheduler: ShuffleMapStage 4 (collect at utils.scala:181) finished in 0.097 s
+16/11/01 20:08:58 INFO DAGScheduler: looking for newly runnable stages
+16/11/01 20:08:58 INFO DAGScheduler: running: Set()
+16/11/01 20:08:58 INFO DAGScheduler: waiting: Set(ResultStage 5)
+16/11/01 20:08:58 INFO DAGScheduler: failed: Set()
+16/11/01 20:08:58 INFO DAGScheduler: Submitting ResultStage 5 (MapPartitionsRDD[26] at collect at utils.scala:181), which has no missing parents
+16/11/01 20:08:58 INFO MemoryStore: Block broadcast_7 stored as values in memory (estimated size 9.4 KB, free 14.3 MB)
+16/11/01 20:08:58 INFO MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 4.6 KB, free 14.3 MB)
+16/11/01 20:08:58 INFO BlockManagerInfo: Added broadcast_7_piece0 in memory on localhost:52142 (size: 4.6 KB, free: 497.1 MB)
+16/11/01 20:08:58 INFO SparkContext: Created broadcast 7 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:58 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 5 (MapPartitionsRDD[26] at collect at utils.scala:181)
+16/11/01 20:08:58 INFO TaskSchedulerImpl: Adding task set 5.0 with 1 tasks
+16/11/01 20:08:58 INFO TaskSetManager: Starting task 0.0 in stage 5.0 (TID 7, localhost, partition 0,NODE_LOCAL, 2290 bytes)
+16/11/01 20:08:58 INFO Executor: Running task 0.0 in stage 5.0 (TID 7)
+16/11/01 20:08:58 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 2 blocks
+16/11/01 20:08:58 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 0 ms
+16/11/01 20:08:58 INFO Executor: Finished task 0.0 in stage 5.0 (TID 7). 1830 bytes result sent to driver
+16/11/01 20:08:58 INFO TaskSetManager: Finished task 0.0 in stage 5.0 (TID 7) in 11 ms on localhost (1/1)
+16/11/01 20:08:58 INFO DAGScheduler: ResultStage 5 (collect at utils.scala:181) finished in 0.011 s
+16/11/01 20:08:58 INFO TaskSchedulerImpl: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+16/11/01 20:08:58 INFO DAGScheduler: Job 3 finished: collect at utils.scala:181, took 0.125808 s
+16/11/01 20:08:58 INFO ParseDriver: Parsing command: SELECT *
+FROM `saveDT` AS `zzz1`
+WHERE (0 = 1)
+16/11/01 20:08:58 INFO ParseDriver: Parse Completed
+16/11/01 20:08:58 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:08:58 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:08:58 INFO SparkContext: Starting job: collect at utils.scala:59
+16/11/01 20:08:58 INFO DAGScheduler: Got job 4 (collect at utils.scala:59) with 1 output partitions
+16/11/01 20:08:58 INFO DAGScheduler: Final stage: ResultStage 6 (collect at utils.scala:59)
+16/11/01 20:08:58 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:08:58 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:08:58 INFO DAGScheduler: Submitting ResultStage 6 (MapPartitionsRDD[30] at map at utils.scala:56), which has no missing parents
+16/11/01 20:08:58 INFO MemoryStore: Block broadcast_8 stored as values in memory (estimated size 5.4 KB, free 14.3 MB)
+16/11/01 20:08:58 INFO MemoryStore: Block broadcast_8_piece0 stored as bytes in memory (estimated size 3.0 KB, free 14.3 MB)
+16/11/01 20:08:58 INFO BlockManagerInfo: Added broadcast_8_piece0 in memory on localhost:52142 (size: 3.0 KB, free: 497.1 MB)
+16/11/01 20:08:58 INFO SparkContext: Created broadcast 8 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:08:58 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 6 (MapPartitionsRDD[30] at map at utils.scala:56)
+16/11/01 20:08:58 INFO TaskSchedulerImpl: Adding task set 6.0 with 1 tasks
+16/11/01 20:08:58 INFO TaskSetManager: Starting task 0.0 in stage 6.0 (TID 8, localhost, partition 0,PROCESS_LOCAL, 2696 bytes)
+16/11/01 20:08:58 INFO Executor: Running task 0.0 in stage 6.0 (TID 8)
+16/11/01 20:08:58 INFO Executor: Finished task 0.0 in stage 6.0 (TID 8). 1069 bytes result sent to driver
+16/11/01 20:08:58 INFO TaskSetManager: Finished task 0.0 in stage 6.0 (TID 8) in 6 ms on localhost (1/1)
+16/11/01 20:08:58 INFO TaskSchedulerImpl: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+16/11/01 20:08:58 INFO DAGScheduler: ResultStage 6 (collect at utils.scala:59) finished in 0.007 s
+16/11/01 20:08:58 INFO DAGScheduler: Job 4 finished: collect at utils.scala:59, took 0.015038 s
+16/11/01 20:09:00 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 20:09:00 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4040
+16/11/01 20:09:00 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 20:09:00 INFO MemoryStore: MemoryStore cleared
+16/11/01 20:09:00 INFO BlockManager: BlockManager stopped
+16/11/01 20:09:00 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 20:09:00 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 20:09:00 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 20:09:00 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 20:09:00 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87/httpd-fe23a3a3-77e1-47b4-8ca2-e3e1430a5bb3
+16/11/01 20:09:00 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-b30009aa-dde6-4c01-b711-a34c9bea7b87
+16/11/01 20:09:00 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-7b3f52c6-bf2a-4087-8123-1329a5dc5332
+16/11/01 20:09:00 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 20:09:00 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 20:11:57 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 20:11:58 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 20:11:58 INFO SecurityManager: Changing view acls to: ben
+16/11/01 20:11:58 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 20:11:58 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 20:11:58 INFO Utils: Successfully started service 'sparkDriver' on port 52245.
+16/11/01 20:11:58 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 20:11:58 INFO Remoting: Starting remoting
+16/11/01 20:11:59 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:52246]
+16/11/01 20:11:59 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 52246.
+16/11/01 20:11:59 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 20:11:59 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 20:11:59 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-e3a52f39-3fc6-4753-8762-7307136259e9
+16/11/01 20:11:59 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 20:11:59 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 20:11:59 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+16/11/01 20:11:59 INFO SparkUI: Started SparkUI at http://127.0.0.1:4040
+16/11/01 20:11:59 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/httpd-c334fafb-364a-48c4-80ff-bf1012487bfa
+16/11/01 20:11:59 INFO HttpServer: Starting HTTP Server
+16/11/01 20:11:59 INFO Utils: Successfully started service 'HTTP file server' on port 52247.
+16/11/01 20:11:59 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:52247/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478031119449
+16/11/01 20:11:59 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:52247/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478031119450
+16/11/01 20:11:59 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:52247/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478031119452
+16/11/01 20:11:59 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:52247/jars/sparklyr-1.6-2.10.jar with timestamp 1478031119453
+16/11/01 20:11:59 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 20:11:59 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 52248.
+16/11/01 20:11:59 INFO NettyBlockTransferService: Server created on 52248
+16/11/01 20:11:59 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 20:11:59 INFO BlockManagerMasterEndpoint: Registering block manager localhost:52248 with 511.1 MB RAM, BlockManagerId(driver, localhost, 52248)
+16/11/01 20:11:59 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 20:12:00 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 20:12:00 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:12:00 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:12:01 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:12:01 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:12:01 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:12:01 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:12:01 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:12:01 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:12:02 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:12:03 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:03 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:04 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:04 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:04 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:12:04 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:12:05 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:12:05 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:12:05 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:12:05 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:12:05 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:12:05 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:12:05 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:12:05 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:12:05 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:12:05 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:06 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/641bc346-3774-4e70-95c2-5400ce114d6e_resources
+16/11/01 20:12:06 INFO SessionState: Created HDFS directory: /tmp/hive/ben/641bc346-3774-4e70-95c2-5400ce114d6e
+16/11/01 20:12:06 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/641bc346-3774-4e70-95c2-5400ce114d6e
+16/11/01 20:12:06 INFO SessionState: Created HDFS directory: /tmp/hive/ben/641bc346-3774-4e70-95c2-5400ce114d6e/_tmp_space.db
+16/11/01 20:12:06 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 20:12:06 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 20:12:06 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 20:12:06 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 20:12:06 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 20:12:06 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 20:12:06 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 20:12:06 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 20:12:06 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:12:07 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 20:12:07 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 20:12:08 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:08 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:09 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:09 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:10 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 20:12:10 INFO ObjectStore: Initialized ObjectStore
+16/11/01 20:12:10 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 20:12:10 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 20:12:10 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 20:12:10 INFO HiveMetaStore: Added public role in metastore
+16/11/01 20:12:10 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 20:12:10 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 20:12:10 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 20:12:10 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 20:12:10 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 20:12:10 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 20:12:10 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ab962ae7-a521-41f1-bf0e-4cea204bf692_resources
+16/11/01 20:12:10 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ab962ae7-a521-41f1-bf0e-4cea204bf692
+16/11/01 20:12:10 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/ab962ae7-a521-41f1-bf0e-4cea204bf692
+16/11/01 20:12:10 INFO SessionState: Created HDFS directory: /tmp/hive/ben/ab962ae7-a521-41f1-bf0e-4cea204bf692/_tmp_space.db
+16/11/01 20:12:11 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:12:11 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:12:12 INFO SparkContext: Starting job: collect at utils.scala:59
+16/11/01 20:12:12 INFO DAGScheduler: Got job 0 (collect at utils.scala:59) with 1 output partitions
+16/11/01 20:12:12 INFO DAGScheduler: Final stage: ResultStage 0 (collect at utils.scala:59)
+16/11/01 20:12:12 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:12:12 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:12:12 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[3] at map at utils.scala:56), which has no missing parents
+16/11/01 20:12:12 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 5.4 KB, free 5.4 KB)
+16/11/01 20:12:12 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 3.0 KB, free 8.4 KB)
+16/11/01 20:12:12 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:52248 (size: 3.0 KB, free: 511.1 MB)
+16/11/01 20:12:12 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:12 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[3] at map at utils.scala:56)
+16/11/01 20:12:12 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
+16/11/01 20:12:12 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, partition 0,PROCESS_LOCAL, 2396 bytes)
+16/11/01 20:12:12 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+16/11/01 20:12:12 INFO Executor: Fetching http://127.0.0.1:52247/jars/sparklyr-1.6-2.10.jar with timestamp 1478031119453
+16/11/01 20:12:12 INFO Utils: Fetching http://127.0.0.1:52247/jars/sparklyr-1.6-2.10.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/fetchFileTemp1618179485647833087.tmp
+16/11/01 20:12:12 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/sparklyr-1.6-2.10.jar to class loader
+16/11/01 20:12:12 INFO Executor: Fetching http://127.0.0.1:52247/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478031119450
+16/11/01 20:12:12 INFO Utils: Fetching http://127.0.0.1:52247/jars/org.apache.commons_commons-csv-1.1.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/fetchFileTemp4310898057514023312.tmp
+16/11/01 20:12:12 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/org.apache.commons_commons-csv-1.1.jar to class loader
+16/11/01 20:12:12 INFO Executor: Fetching http://127.0.0.1:52247/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478031119452
+16/11/01 20:12:12 INFO Utils: Fetching http://127.0.0.1:52247/jars/com.univocity_univocity-parsers-1.5.1.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/fetchFileTemp7033785460557846928.tmp
+16/11/01 20:12:12 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/com.univocity_univocity-parsers-1.5.1.jar to class loader
+16/11/01 20:12:12 INFO Executor: Fetching http://127.0.0.1:52247/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478031119449
+16/11/01 20:12:12 INFO Utils: Fetching http://127.0.0.1:52247/jars/com.databricks_spark-csv_2.11-1.3.0.jar to /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/fetchFileTemp987878652021838256.tmp
+16/11/01 20:12:12 INFO Executor: Adding file:/private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/userFiles-1f5791f3-5c14-4426-bf28-014edca3736f/com.databricks_spark-csv_2.11-1.3.0.jar to class loader
+16/11/01 20:12:12 INFO GenerateUnsafeProjection: Code generated in 130.77678 ms
+16/11/01 20:12:12 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1060 bytes result sent to driver
+16/11/01 20:12:12 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 298 ms on localhost (1/1)
+16/11/01 20:12:12 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+16/11/01 20:12:12 INFO DAGScheduler: ResultStage 0 (collect at utils.scala:59) finished in 0.309 s
+16/11/01 20:12:12 INFO DAGScheduler: Job 0 finished: collect at utils.scala:59, took 0.399832 s
+16/11/01 20:12:12 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:12:12 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:12:15 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 61.8 KB, free 70.2 KB)
+16/11/01 20:12:15 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 19.3 KB, free 89.5 KB)
+16/11/01 20:12:15 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on localhost:52248 (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:12:15 INFO SparkContext: Created broadcast 1 from textFile at TextFile.scala:30
+16/11/01 20:12:15 INFO FileInputFormat: Total input paths to process : 1
+16/11/01 20:12:15 INFO SparkContext: Starting job: take at CsvRelation.scala:249
+16/11/01 20:12:15 INFO DAGScheduler: Got job 1 (take at CsvRelation.scala:249) with 1 output partitions
+16/11/01 20:12:15 INFO DAGScheduler: Final stage: ResultStage 1 (take at CsvRelation.scala:249)
+16/11/01 20:12:15 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:12:15 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:12:15 INFO DAGScheduler: Submitting ResultStage 1 (/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T//Rtmpx8NbrI/file865e3c07f623.csv MapPartitionsRDD[6] at textFile at TextFile.scala:30), which has no missing parents
+16/11/01 20:12:15 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 3.1 KB, free 92.7 KB)
+16/11/01 20:12:15 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 1897.0 B, free 94.5 KB)
+16/11/01 20:12:15 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on localhost:52248 (size: 1897.0 B, free: 511.1 MB)
+16/11/01 20:12:15 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:15 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T//Rtmpx8NbrI/file865e3c07f623.csv MapPartitionsRDD[6] at textFile at TextFile.scala:30)
+16/11/01 20:12:15 INFO TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
+16/11/01 20:12:15 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, localhost, partition 0,PROCESS_LOCAL, 2478 bytes)
+16/11/01 20:12:15 INFO Executor: Running task 0.0 in stage 1.0 (TID 1)
+16/11/01 20:12:15 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/Rtmpx8NbrI/file865e3c07f623.csv:0+28285423
+16/11/01 20:12:15 INFO deprecation: mapred.tip.id is deprecated. Instead, use mapreduce.task.id
+16/11/01 20:12:15 INFO deprecation: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+16/11/01 20:12:15 INFO deprecation: mapred.task.is.map is deprecated. Instead, use mapreduce.task.ismap
+16/11/01 20:12:15 INFO deprecation: mapred.task.partition is deprecated. Instead, use mapreduce.task.partition
+16/11/01 20:12:15 INFO deprecation: mapred.job.id is deprecated. Instead, use mapreduce.job.id
+16/11/01 20:12:15 INFO Executor: Finished task 0.0 in stage 1.0 (TID 1). 2510 bytes result sent to driver
+16/11/01 20:12:15 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 55 ms on localhost (1/1)
+16/11/01 20:12:15 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+16/11/01 20:12:15 INFO DAGScheduler: ResultStage 1 (take at CsvRelation.scala:249) finished in 0.056 s
+16/11/01 20:12:16 INFO DAGScheduler: Job 1 finished: take at CsvRelation.scala:249, took 0.130940 s
+16/11/01 20:12:16 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 208.5 KB, free 303.0 KB)
+16/11/01 20:12:16 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 19.3 KB, free 322.4 KB)
+16/11/01 20:12:16 INFO BlockManagerInfo: Added broadcast_3_piece0 in memory on localhost:52248 (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:12:16 INFO SparkContext: Created broadcast 3 from textFile at TextFile.scala:30
+16/11/01 20:12:16 INFO FileInputFormat: Total input paths to process : 1
+16/11/01 20:12:16 INFO SparkContext: Starting job: sql at NativeMethodAccessorImpl.java:-2
+16/11/01 20:12:16 INFO DAGScheduler: Registering RDD 16 (sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:12:16 INFO DAGScheduler: Got job 2 (sql at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/11/01 20:12:16 INFO DAGScheduler: Final stage: ResultStage 3 (sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:12:16 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 2)
+16/11/01 20:12:16 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 2)
+16/11/01 20:12:16 INFO DAGScheduler: Submitting ShuffleMapStage 2 (MapPartitionsRDD[16] at sql at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/11/01 20:12:16 INFO MemoryStore: Block broadcast_4 stored as values in memory (estimated size 17.5 KB, free 339.8 KB)
+16/11/01 20:12:16 INFO MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 8.4 KB, free 348.2 KB)
+16/11/01 20:12:16 INFO BlockManagerInfo: Added broadcast_4_piece0 in memory on localhost:52248 (size: 8.4 KB, free: 511.1 MB)
+16/11/01 20:12:16 INFO SparkContext: Created broadcast 4 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:16 INFO DAGScheduler: Submitting 2 missing tasks from ShuffleMapStage 2 (MapPartitionsRDD[16] at sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:12:16 INFO TaskSchedulerImpl: Adding task set 2.0 with 2 tasks
+16/11/01 20:12:16 INFO TaskSetManager: Starting task 0.0 in stage 2.0 (TID 2, localhost, partition 0,PROCESS_LOCAL, 2467 bytes)
+16/11/01 20:12:16 INFO TaskSetManager: Starting task 1.0 in stage 2.0 (TID 3, localhost, partition 1,PROCESS_LOCAL, 2467 bytes)
+16/11/01 20:12:16 INFO Executor: Running task 0.0 in stage 2.0 (TID 2)
+16/11/01 20:12:16 INFO Executor: Running task 1.0 in stage 2.0 (TID 3)
+16/11/01 20:12:16 INFO CacheManager: Partition rdd_13_1 not found, computing it
+16/11/01 20:12:16 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/Rtmpx8NbrI/file865e3c07f623.csv:28285423+28285423
+16/11/01 20:12:16 INFO CacheManager: Partition rdd_13_0 not found, computing it
+16/11/01 20:12:16 INFO HadoopRDD: Input split: file:/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/Rtmpx8NbrI/file865e3c07f623.csv:0+28285423
+16/11/01 20:12:16 INFO GenerateUnsafeProjection: Code generated in 14.717165 ms
+16/11/01 20:12:17 INFO BlockManagerInfo: Removed broadcast_2_piece0 on localhost:52248 in memory (size: 1897.0 B, free: 511.1 MB)
+16/11/01 20:12:17 INFO ContextCleaner: Cleaned accumulator 4
+16/11/01 20:12:17 INFO BlockManagerInfo: Removed broadcast_1_piece0 on localhost:52248 in memory (size: 19.3 KB, free: 511.1 MB)
+16/11/01 20:12:17 INFO BlockManagerInfo: Removed broadcast_0_piece0 on localhost:52248 in memory (size: 3.0 KB, free: 511.1 MB)
+16/11/01 20:12:17 INFO ContextCleaner: Cleaned accumulator 3
+16/11/01 20:12:17 INFO ContextCleaner: Cleaned accumulator 2
+16/11/01 20:12:27 INFO MemoryStore: Block rdd_13_0 stored as values in memory (estimated size 6.9 MB, free 7.2 MB)
+16/11/01 20:12:27 INFO BlockManagerInfo: Added rdd_13_0 in memory on localhost:52248 (size: 6.9 MB, free: 504.2 MB)
+16/11/01 20:12:27 INFO GeneratePredicate: Code generated in 4.87324 ms
+16/11/01 20:12:27 INFO MemoryStore: Block rdd_13_1 stored as values in memory (estimated size 7.0 MB, free 14.2 MB)
+16/11/01 20:12:27 INFO BlockManagerInfo: Added rdd_13_1 in memory on localhost:52248 (size: 7.0 MB, free: 497.1 MB)
+16/11/01 20:12:27 INFO GenerateColumnAccessor: Code generated in 23.046918 ms
+16/11/01 20:12:27 INFO GenerateMutableProjection: Code generated in 12.892538 ms
+16/11/01 20:12:27 INFO GenerateUnsafeProjection: Code generated in 6.692263 ms
+16/11/01 20:12:27 INFO GenerateMutableProjection: Code generated in 10.478821 ms
+16/11/01 20:12:27 INFO GenerateUnsafeRowJoiner: Code generated in 12.988875 ms
+16/11/01 20:12:27 INFO GenerateUnsafeProjection: Code generated in 13.483091 ms
+16/11/01 20:12:27 INFO Executor: Finished task 0.0 in stage 2.0 (TID 2). 19337 bytes result sent to driver
+16/11/01 20:12:27 INFO TaskSetManager: Finished task 0.0 in stage 2.0 (TID 2) in 10696 ms on localhost (1/2)
+16/11/01 20:12:27 INFO Executor: Finished task 1.0 in stage 2.0 (TID 3). 19576 bytes result sent to driver
+16/11/01 20:12:27 INFO DAGScheduler: ShuffleMapStage 2 (sql at NativeMethodAccessorImpl.java:-2) finished in 10.702 s
+16/11/01 20:12:27 INFO TaskSetManager: Finished task 1.0 in stage 2.0 (TID 3) in 10700 ms on localhost (2/2)
+16/11/01 20:12:27 INFO TaskSchedulerImpl: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+16/11/01 20:12:27 INFO DAGScheduler: looking for newly runnable stages
+16/11/01 20:12:27 INFO DAGScheduler: running: Set()
+16/11/01 20:12:27 INFO DAGScheduler: waiting: Set(ResultStage 3)
+16/11/01 20:12:27 INFO DAGScheduler: failed: Set()
+16/11/01 20:12:27 INFO DAGScheduler: Submitting ResultStage 3 (MapPartitionsRDD[19] at sql at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/11/01 20:12:27 INFO MemoryStore: Block broadcast_5 stored as values in memory (estimated size 9.3 KB, free 14.2 MB)
+16/11/01 20:12:27 INFO MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 4.6 KB, free 14.2 MB)
+16/11/01 20:12:27 INFO BlockManagerInfo: Added broadcast_5_piece0 in memory on localhost:52248 (size: 4.6 KB, free: 497.1 MB)
+16/11/01 20:12:27 INFO SparkContext: Created broadcast 5 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:27 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 3 (MapPartitionsRDD[19] at sql at NativeMethodAccessorImpl.java:-2)
+16/11/01 20:12:27 INFO TaskSchedulerImpl: Adding task set 3.0 with 1 tasks
+16/11/01 20:12:27 INFO TaskSetManager: Starting task 0.0 in stage 3.0 (TID 4, localhost, partition 0,NODE_LOCAL, 2290 bytes)
+16/11/01 20:12:27 INFO Executor: Running task 0.0 in stage 3.0 (TID 4)
+16/11/01 20:12:27 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 2 blocks
+16/11/01 20:12:27 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 5 ms
+16/11/01 20:12:27 INFO GenerateMutableProjection: Code generated in 8.659088 ms
+16/11/01 20:12:27 INFO GenerateMutableProjection: Code generated in 8.970577 ms
+16/11/01 20:12:27 INFO Executor: Finished task 0.0 in stage 3.0 (TID 4). 1830 bytes result sent to driver
+16/11/01 20:12:27 INFO TaskSetManager: Finished task 0.0 in stage 3.0 (TID 4) in 128 ms on localhost (1/1)
+16/11/01 20:12:27 INFO TaskSchedulerImpl: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+16/11/01 20:12:27 INFO DAGScheduler: ResultStage 3 (sql at NativeMethodAccessorImpl.java:-2) finished in 0.129 s
+16/11/01 20:12:27 INFO DAGScheduler: Job 2 finished: sql at NativeMethodAccessorImpl.java:-2, took 10.875910 s
+16/11/01 20:12:27 INFO ParseDriver: Parsing command: SELECT count(*) FROM `saveDT`
+16/11/01 20:12:28 INFO ParseDriver: Parse Completed
+16/11/01 20:12:28 INFO SparkContext: Starting job: collect at utils.scala:181
+16/11/01 20:12:28 INFO DAGScheduler: Registering RDD 23 (collect at utils.scala:181)
+16/11/01 20:12:28 INFO DAGScheduler: Got job 3 (collect at utils.scala:181) with 1 output partitions
+16/11/01 20:12:28 INFO DAGScheduler: Final stage: ResultStage 5 (collect at utils.scala:181)
+16/11/01 20:12:28 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 4)
+16/11/01 20:12:28 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 4)
+16/11/01 20:12:28 INFO DAGScheduler: Submitting ShuffleMapStage 4 (MapPartitionsRDD[23] at collect at utils.scala:181), which has no missing parents
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_6 stored as values in memory (estimated size 17.5 KB, free 14.2 MB)
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 8.4 KB, free 14.3 MB)
+16/11/01 20:12:28 INFO BlockManagerInfo: Added broadcast_6_piece0 in memory on localhost:52248 (size: 8.4 KB, free: 497.1 MB)
+16/11/01 20:12:28 INFO SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:28 INFO DAGScheduler: Submitting 2 missing tasks from ShuffleMapStage 4 (MapPartitionsRDD[23] at collect at utils.scala:181)
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Adding task set 4.0 with 2 tasks
+16/11/01 20:12:28 INFO TaskSetManager: Starting task 0.0 in stage 4.0 (TID 5, localhost, partition 0,PROCESS_LOCAL, 2467 bytes)
+16/11/01 20:12:28 INFO TaskSetManager: Starting task 1.0 in stage 4.0 (TID 6, localhost, partition 1,PROCESS_LOCAL, 2467 bytes)
+16/11/01 20:12:28 INFO Executor: Running task 0.0 in stage 4.0 (TID 5)
+16/11/01 20:12:28 INFO Executor: Running task 1.0 in stage 4.0 (TID 6)
+16/11/01 20:12:28 INFO BlockManager: Found block rdd_13_0 locally
+16/11/01 20:12:28 INFO BlockManager: Found block rdd_13_1 locally
+16/11/01 20:12:28 INFO Executor: Finished task 0.0 in stage 4.0 (TID 5). 2679 bytes result sent to driver
+16/11/01 20:12:28 INFO Executor: Finished task 1.0 in stage 4.0 (TID 6). 2679 bytes result sent to driver
+16/11/01 20:12:28 INFO TaskSetManager: Finished task 0.0 in stage 4.0 (TID 5) in 72 ms on localhost (1/2)
+16/11/01 20:12:28 INFO TaskSetManager: Finished task 1.0 in stage 4.0 (TID 6) in 75 ms on localhost (2/2)
+16/11/01 20:12:28 INFO DAGScheduler: ShuffleMapStage 4 (collect at utils.scala:181) finished in 0.076 s
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+16/11/01 20:12:28 INFO DAGScheduler: looking for newly runnable stages
+16/11/01 20:12:28 INFO DAGScheduler: running: Set()
+16/11/01 20:12:28 INFO DAGScheduler: waiting: Set(ResultStage 5)
+16/11/01 20:12:28 INFO DAGScheduler: failed: Set()
+16/11/01 20:12:28 INFO DAGScheduler: Submitting ResultStage 5 (MapPartitionsRDD[26] at collect at utils.scala:181), which has no missing parents
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_7 stored as values in memory (estimated size 9.4 KB, free 14.3 MB)
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 4.6 KB, free 14.3 MB)
+16/11/01 20:12:28 INFO BlockManagerInfo: Added broadcast_7_piece0 in memory on localhost:52248 (size: 4.6 KB, free: 497.1 MB)
+16/11/01 20:12:28 INFO SparkContext: Created broadcast 7 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:28 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 5 (MapPartitionsRDD[26] at collect at utils.scala:181)
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Adding task set 5.0 with 1 tasks
+16/11/01 20:12:28 INFO TaskSetManager: Starting task 0.0 in stage 5.0 (TID 7, localhost, partition 0,NODE_LOCAL, 2290 bytes)
+16/11/01 20:12:28 INFO Executor: Running task 0.0 in stage 5.0 (TID 7)
+16/11/01 20:12:28 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 2 blocks
+16/11/01 20:12:28 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 2 ms
+16/11/01 20:12:28 INFO Executor: Finished task 0.0 in stage 5.0 (TID 7). 1830 bytes result sent to driver
+16/11/01 20:12:28 INFO TaskSetManager: Finished task 0.0 in stage 5.0 (TID 7) in 16 ms on localhost (1/1)
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+16/11/01 20:12:28 INFO DAGScheduler: ResultStage 5 (collect at utils.scala:181) finished in 0.018 s
+16/11/01 20:12:28 INFO DAGScheduler: Job 3 finished: collect at utils.scala:181, took 0.113133 s
+16/11/01 20:12:28 INFO ParseDriver: Parsing command: SELECT *
+FROM `saveDT` AS `zzz1`
+WHERE (0 = 1)
+16/11/01 20:12:28 INFO ParseDriver: Parse Completed
+16/11/01 20:12:28 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 20:12:28 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	
+16/11/01 20:12:28 INFO SparkContext: Starting job: collect at utils.scala:59
+16/11/01 20:12:28 INFO DAGScheduler: Got job 4 (collect at utils.scala:59) with 1 output partitions
+16/11/01 20:12:28 INFO DAGScheduler: Final stage: ResultStage 6 (collect at utils.scala:59)
+16/11/01 20:12:28 INFO DAGScheduler: Parents of final stage: List()
+16/11/01 20:12:28 INFO DAGScheduler: Missing parents: List()
+16/11/01 20:12:28 INFO DAGScheduler: Submitting ResultStage 6 (MapPartitionsRDD[30] at map at utils.scala:56), which has no missing parents
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_8 stored as values in memory (estimated size 5.4 KB, free 14.3 MB)
+16/11/01 20:12:28 INFO MemoryStore: Block broadcast_8_piece0 stored as bytes in memory (estimated size 3.0 KB, free 14.3 MB)
+16/11/01 20:12:28 INFO BlockManagerInfo: Added broadcast_8_piece0 in memory on localhost:52248 (size: 3.0 KB, free: 497.1 MB)
+16/11/01 20:12:28 INFO SparkContext: Created broadcast 8 from broadcast at DAGScheduler.scala:1006
+16/11/01 20:12:28 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 6 (MapPartitionsRDD[30] at map at utils.scala:56)
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Adding task set 6.0 with 1 tasks
+16/11/01 20:12:28 INFO TaskSetManager: Starting task 0.0 in stage 6.0 (TID 8, localhost, partition 0,PROCESS_LOCAL, 2696 bytes)
+16/11/01 20:12:28 INFO Executor: Running task 0.0 in stage 6.0 (TID 8)
+16/11/01 20:12:28 INFO Executor: Finished task 0.0 in stage 6.0 (TID 8). 1069 bytes result sent to driver
+16/11/01 20:12:28 INFO DAGScheduler: ResultStage 6 (collect at utils.scala:59) finished in 0.011 s
+16/11/01 20:12:28 INFO TaskSetManager: Finished task 0.0 in stage 6.0 (TID 8) in 8 ms on localhost (1/1)
+16/11/01 20:12:28 INFO TaskSchedulerImpl: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+16/11/01 20:12:28 INFO DAGScheduler: Job 4 finished: collect at utils.scala:59, took 0.021963 s
+16/11/01 20:12:30 INFO SparkContext: Invoking stop() from shutdown hook
+16/11/01 20:12:30 INFO SparkUI: Stopped Spark web UI at http://127.0.0.1:4040
+16/11/01 20:12:30 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+16/11/01 20:12:30 INFO MemoryStore: MemoryStore cleared
+16/11/01 20:12:30 INFO BlockManager: BlockManager stopped
+16/11/01 20:12:30 INFO BlockManagerMaster: BlockManagerMaster stopped
+16/11/01 20:12:30 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+16/11/01 20:12:30 INFO RemoteActorRefProvider$RemotingTerminator: Shutting down remote daemon.
+16/11/01 20:12:30 INFO SparkContext: Successfully stopped SparkContext
+16/11/01 20:12:30 INFO ShutdownHookManager: Shutdown hook called
+16/11/01 20:12:30 INFO RemoteActorRefProvider$RemotingTerminator: Remote daemon shut down; proceeding with flushing remote transports.
+16/11/01 20:12:30 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-a902b2f8-5bf2-4135-8862-d7f93cd61717
+16/11/01 20:12:30 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d/httpd-c334fafb-364a-48c4-80ff-bf1012487bfa
+16/11/01 20:12:30 INFO RemoteActorRefProvider$RemotingTerminator: Remoting shut down.
+16/11/01 20:12:30 INFO ShutdownHookManager: Deleting directory /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-90f259d3-52ac-4c56-b490-0f3252ac2c5d
+16/11/01 21:05:12 INFO SparkContext: Running Spark version 1.6.2
+16/11/01 21:05:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/11/01 21:05:13 INFO SecurityManager: Changing view acls to: ben
+16/11/01 21:05:13 INFO SecurityManager: Changing modify acls to: ben
+16/11/01 21:05:13 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(ben); users with modify permissions: Set(ben)
+16/11/01 21:05:13 INFO Utils: Successfully started service 'sparkDriver' on port 55752.
+16/11/01 21:05:13 INFO Slf4jLogger: Slf4jLogger started
+16/11/01 21:05:13 INFO Remoting: Starting remoting
+16/11/01 21:05:14 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@127.0.0.1:55753]
+16/11/01 21:05:14 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 55753.
+16/11/01 21:05:14 INFO SparkEnv: Registering MapOutputTracker
+16/11/01 21:05:14 INFO SparkEnv: Registering BlockManagerMaster
+16/11/01 21:05:14 INFO DiskBlockManager: Created local directory at /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/blockmgr-6e6e6b96-12d5-4e7c-b878-98a443c04859
+16/11/01 21:05:14 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
+16/11/01 21:05:14 INFO SparkEnv: Registering OutputCommitCoordinator
+16/11/01 21:05:14 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+16/11/01 21:05:14 INFO SparkUI: Started SparkUI at http://127.0.0.1:4040
+16/11/01 21:05:14 INFO HttpFileServer: HTTP File server directory is /private/var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/spark-29048dfd-568e-4889-8f6b-1f0b8dcd33ce/httpd-f2355cee-5019-4d32-a0d9-8d535c2e725b
+16/11/01 21:05:14 INFO HttpServer: Starting HTTP Server
+16/11/01 21:05:14 INFO Utils: Successfully started service 'HTTP file server' on port 55754.
+16/11/01 21:05:14 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.databricks_spark-csv_2.11-1.3.0.jar at http://127.0.0.1:55754/jars/com.databricks_spark-csv_2.11-1.3.0.jar with timestamp 1478034314647
+16/11/01 21:05:14 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/org.apache.commons_commons-csv-1.1.jar at http://127.0.0.1:55754/jars/org.apache.commons_commons-csv-1.1.jar with timestamp 1478034314650
+16/11/01 21:05:14 INFO SparkContext: Added JAR file:/Users/ben/.ivy2/jars/com.univocity_univocity-parsers-1.5.1.jar at http://127.0.0.1:55754/jars/com.univocity_univocity-parsers-1.5.1.jar with timestamp 1478034314652
+16/11/01 21:05:14 INFO SparkContext: Added JAR file:/Library/Frameworks/R.framework/Versions/3.3/Resources/library/sparklyr/java/sparklyr-1.6-2.10.jar at http://127.0.0.1:55754/jars/sparklyr-1.6-2.10.jar with timestamp 1478034314655
+16/11/01 21:05:14 INFO Executor: Starting executor ID driver on host localhost
+16/11/01 21:05:14 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 55755.
+16/11/01 21:05:14 INFO NettyBlockTransferService: Server created on 55755
+16/11/01 21:05:14 INFO BlockManagerMaster: Trying to register BlockManager
+16/11/01 21:05:14 INFO BlockManagerMasterEndpoint: Registering block manager localhost:55755 with 511.1 MB RAM, BlockManagerId(driver, localhost, 55755)
+16/11/01 21:05:14 INFO BlockManagerMaster: Registered BlockManager
+16/11/01 21:05:16 INFO HiveContext: Initializing execution hive, version 1.2.1
+16/11/01 21:05:16 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 21:05:16 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 21:05:16 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 21:05:16 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 21:05:16 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 21:05:16 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 21:05:16 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 21:05:17 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 21:05:18 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 21:05:18 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:18 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:19 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:19 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:20 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 21:05:20 INFO ObjectStore: Initialized ObjectStore
+16/11/01 21:05:20 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 21:05:20 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 21:05:20 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 21:05:20 INFO HiveMetaStore: Added public role in metastore
+16/11/01 21:05:20 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 21:05:20 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 21:05:20 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 21:05:20 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 21:05:20 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 21:05:20 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:21 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/f2a28d61-d0bf-4d33-befc-7f97198e0106_resources
+16/11/01 21:05:21 INFO SessionState: Created HDFS directory: /tmp/hive/ben/f2a28d61-d0bf-4d33-befc-7f97198e0106
+16/11/01 21:05:21 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/f2a28d61-d0bf-4d33-befc-7f97198e0106
+16/11/01 21:05:21 INFO SessionState: Created HDFS directory: /tmp/hive/ben/f2a28d61-d0bf-4d33-befc-7f97198e0106/_tmp_space.db
+16/11/01 21:05:21 INFO HiveContext: default warehouse location is /user/hive/warehouse
+16/11/01 21:05:21 INFO HiveContext: Initializing HiveMetastoreConnection version 1.2.1 using Spark classes.
+16/11/01 21:05:21 INFO ClientWrapper: Inspected Hadoop version: 2.6.0
+16/11/01 21:05:21 INFO ClientWrapper: Loaded org.apache.hadoop.hive.shims.Hadoop23Shims for Hadoop version 2.6.0
+16/11/01 21:05:21 INFO HiveMetaStore: 0: Opening raw store with implemenation class:org.apache.hadoop.hive.metastore.ObjectStore
+16/11/01 21:05:21 INFO ObjectStore: ObjectStore, initialize called
+16/11/01 21:05:21 INFO Persistence: Property hive.metastore.integral.jdo.pushdown unknown - will be ignored
+16/11/01 21:05:21 INFO Persistence: Property datanucleus.cache.level2 unknown - will be ignored
+16/11/01 21:05:21 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 21:05:22 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
+16/11/01 21:05:22 INFO ObjectStore: Setting MetaStore object pin classes with hive.metastore.cache.pinobjtypes="Table,StorageDescriptor,SerDeInfo,Partition,Database,Type,FieldSchema,Order"
+16/11/01 21:05:23 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:23 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:24 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MFieldSchema" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:24 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MOrder" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:24 INFO MetaStoreDirectSql: Using direct SQL, underlying DB is DERBY
+16/11/01 21:05:24 INFO ObjectStore: Initialized ObjectStore
+16/11/01 21:05:24 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+16/11/01 21:05:24 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+16/11/01 21:05:24 INFO HiveMetaStore: Added admin role in metastore
+16/11/01 21:05:24 INFO HiveMetaStore: Added public role in metastore
+16/11/01 21:05:24 INFO HiveMetaStore: No user is added in admin role, since config is empty
+16/11/01 21:05:24 INFO HiveMetaStore: 0: get_all_databases
+16/11/01 21:05:24 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_all_databases	
+16/11/01 21:05:24 INFO HiveMetaStore: 0: get_functions: db=default pat=*
+16/11/01 21:05:24 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_functions: db=default pat=*	
+16/11/01 21:05:24 INFO Datastore: The class "org.apache.hadoop.hive.metastore.model.MResourceUri" is tagged as "embedded-only" so does not have its own datastore table.
+16/11/01 21:05:25 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/bafb5cb3-bd26-4d6e-91f0-da4742af52c5_resources
+16/11/01 21:05:25 INFO SessionState: Created HDFS directory: /tmp/hive/ben/bafb5cb3-bd26-4d6e-91f0-da4742af52c5
+16/11/01 21:05:25 INFO SessionState: Created local directory: /var/folders/q4/7d7n92rj4fl3z6fvqlbt__r40000gn/T/ben/bafb5cb3-bd26-4d6e-91f0-da4742af52c5
+16/11/01 21:05:25 INFO SessionState: Created HDFS directory: /tmp/hive/ben/bafb5cb3-bd26-4d6e-91f0-da4742af52c5/_tmp_space.db
+16/11/01 21:05:25 INFO HiveMetaStore: 0: get_tables: db=default pat=.*
+16/11/01 21:05:25 INFO audit: ugi=ben	ip=unknown-ip-addr	cmd=get_tables: db=default pat=.*	

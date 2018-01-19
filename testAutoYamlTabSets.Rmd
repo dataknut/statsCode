@@ -1,0 +1,63 @@
+---
+title: "Test Auto-yaml and Tab sets"
+author: "Ben Anderson `@dataknut`"
+date: 'Last run at: `r Sys.time()`'
+bibliography: ~/bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+```
+
+# Purpose
+
+To test:
+
+ * [auto-inclusion](http://rmarkdown.rstudio.com/html_document_format.html#shared_options) of the `_output.yaml` file;
+ * [tabsets](http://rmarkdown.rstudio.com/html_document_format.html#tabbed_sections)
+
+Key packages used:
+
+ * base R - for the basics [@baseR]
+ * knitr - to create this document [@knitr]
+ 
+# Auto-yaml
+
+Anything below (within) the `output:` container seems to be OK in the yaml file. But the ordering seems to matter so it refuses to knit to pdf if you have html first in the yaml file. Ifyou put the html last in the yaml file and then ask to knit to html it gnores  your html yaml settings.
+
+It also does not re-use title, author etc. nor the bibliograpphy option. Which is all a bit of a pain... don't use it until understand it better!
+
+Would be helpful if we could have a global ~/output.yaml file which is over-ridden on a script by script basis? 
+
+# Tabset Heading {.tabset}
+
+This is really very useful...
+
+## mtcars
+
+```{r }
+kable(caption = "mtcars",
+      summary(mtcars)
+)
+```
+
+## ChickWeight
+
+```{r }
+kable(caption = "ChickWeight",
+      summary(ChickWeight)
+)
+```
+
+
+## PlantGrowth
+
+```{r }
+kable(caption = "PlantGrowth",
+      summary(PlantGrowth)
+)
+```
+
+# References

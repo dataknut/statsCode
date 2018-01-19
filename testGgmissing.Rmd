@@ -1,0 +1,55 @@
+---
+title: "Testing ggmissing"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+This is very clever - plots missing data within ggplots!
+
+https://github.com/njtierney/ggmissing
+
+```{r setup}
+library(ggmissing)
+# devtools::install_github("njtierney/ggmissing")
+library(ggplot2)
+library(dplyr)
+```
+
+Original plot:
+```{r originalPlot}
+ggplot(data = airquality,
+       aes(x = Ozone,
+           y = Solar.R)) +
+  geom_point()
+```
+
+New plot:
+
+```{r newPlot}
+ggplot(data = airquality,
+       aes(x = Ozone,
+           y = Solar.R)) +
+  geom_missing_point()
+```
+
+New plot with facets:
+
+```{r newPLotFacets}
+  p1 <-
+ggplot(data = airquality,
+       aes(x = Ozone,
+           y = Solar.R)) + 
+  geom_missing_point() + 
+  facet_wrap(~Month, ncol = 2) + 
+  theme(legend.position = "bottom")
+
+p1
+
+```
+
+Looks like lots of missing in June for some reason...
+
+See the github page for a set of very useful missing summary functions.
+
+e.g. `summarise_missingness`

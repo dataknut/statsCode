@@ -1,0 +1,99 @@
+---
+title: 'R Notebook: Rio package tests'
+author: Ben Anderson (b.anderson@soton.ac.uk/@dataknut) [Energy & Climate Change,
+  Faculty of Engineering & Environment, University of Southampton]
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document:
+    toc: yes
+  html_notebook:
+    number_sections: yes
+    toc: yes
+bibliography: ~/bibliography.bib
+---
+
+# Setup
+```{r setup}
+startTime <- Sys.time() # always good to time your code
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
+knitr::opts_chunk$set(fig_caption = TRUE)
+knitr::opts_chunk$set(tidy = TRUE)
+
+library(data.table)
+library(rio)
+library(readr)
+
+dpath <- "~//Data/DECC/NEED/PUF_2014/"
+dfile <- paste0(dpath, "need_public_use_file_2014.csv")
+dfilegz <- paste0(dpath, "need_public_use_file_2014.csv.gz")
+```
+
+Key packages used:
+
+ * base R - for the basics [@baseR]
+ * data.table - for fast (big) data handling [@data.table]
+ * rio - for import/export [@rio]
+ * readr - for .csv reading [@readr]
+ * knitr - to create this document [@knitr]
+ 
+# Tests
+
+Now we're going to compare the `fread` function that comes with data.table with the `import` function that comes with rio. We will use a suitably large data file for both:
+
+`r dfile`: `r file.size(dfile)` Mb
+
+First, try `data.table::fread`:
+```{r data.tableTest}
+system.time(
+  freadDT <- fread(dfile)
+)
+```
+
+Now try `rio::import`:
+```{r rioTest}
+system.time(
+  importDF <- import(dfile) # creates a dataframe
+)
+```
+
+Now try `readr::read_csv`:
+```{r readrTest}
+system.time(
+  read_csvDF <- read_csv(dfile) # creates a dataframe
+)
+```
+
+Remember that fread has the *really useful* ability to read from compressed files:
+
+```{r freadGzipTest}
+loadcmd <- paste0("gunzip -c ", dfilegz)
+system.time(
+  freadGzipDT <- fread(loadcmd)
+)
+```
+
+Which was quicker?
+
+Now convert the data frames created by import and readr to data tables. 
+
+```{r convertDF}
+# convert to DT afterwards
+system.time(
+  importDT <- as.data.table(importDF)
+)
+
+system.time(
+  read_csvDT <- as.data.table(read_csvDF)
+)
+```
+
+We would need to allow for this extra time as well so fread from a .gzip looks the best :-)
+
+***
+__Meta:__
+Analysis completed in: `r round(Sys.time() - startTime,3)` seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com).
+
+# References
+

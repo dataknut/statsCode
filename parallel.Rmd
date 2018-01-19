@@ -1,0 +1,45 @@
+---
+title: "Testing parallel"
+output:
+  html_document: 
+    number_sections: yes
+---
+
+```{r loadLibs}
+library(parallel)
+```
+
+See https://www.r-bloggers.com/how-to-go-parallel-in-r-basics-tips/
+
+Set up cluster:
+```{r parSetUp} 
+# Calculate the number of cores
+n_cores <- detectCores() - 1
+ 
+# Initiate cluster
+cl <- makeCluster(n_cores, type="FORK") # so all vars & envs go to and it also saves memomry space
+```
+
+Using `r n_cores` of the available `r detectCores()` cores.
+
+Do something:
+
+```{r runPar}
+myList <- list(1:20)
+parLapply(cl, myList,
+          tryCatch({
+            function(exponent)
+              2^exponent
+          }, error = function(e) return(paste0("The variable '",
+                                               exponent, "'", 
+                                               " caused the error: '", 
+                                               e, "'"))
+          )
+)
+```
+
+Close the cluster:
+
+```{r closeClus}
+stopCluster(cl)
+```

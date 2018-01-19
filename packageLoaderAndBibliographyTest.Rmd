@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+bibliography: ~/bibliography.bib
+---
+
+# Create function to install packages
+
+This is Luke Blunden's really nice function for installing packages that can't be loaded. Use with caution in a script which may not have internet access...
+
+```{r, cache=TRUE}
+# This is a function to install any packages that cannot be loaded
+myRequiredPackages <- function(x,y){
+  for( i in x ){
+    #  require returns TRUE if it was able to load package
+    if( ! require( i , character.only = TRUE ) ){
+      #  If package was not able to be loaded then re-install
+      install.packages( i , repos=y , 
+                        #type="win.binary" , comment out so runs on OS X etc
+                        quiet=TRUE , dependencies = TRUE , verbose = FALSE )
+      #  Load package after installing
+      require( i , character.only = TRUE, quietly = TRUE )
+    }
+  }
+}
+```
+
+#Load required libraries
+
+```{r echo=TRUE}
+# warning=FALSE, message=FALSE
+# the options above suppress/show any warnings & messages
+# call the function my_required_packages
+myRequiredPackages(c("car", 
+                     "data.table", # fast data munching
+                     "knitr"
+                     ),"http://cran.rstudio.com/")
+```
+
+Packages used:
+
+ * car - [@car]
+ * data.table - [@data.table]
+ * knitr = [@knitr]
+
+Check they were loaded:
+
+```{r }
+print(search())
+```
+# References

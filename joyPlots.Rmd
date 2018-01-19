@@ -1,0 +1,104 @@
+---
+title: "Testing the survey package"
+author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
+date: 'Last run at: `r Sys.time()`'
+output: 
+  html_document: 
+    fig_caption: yes
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+bibliography: ~/bibliography.bib
+---
+
+# Libraries used
+
+ * survey [@survey] - for survey data (weighting etc)
+ * ggplot [@ggplot2] - for graphs
+ * data.table [@data.table] - for fast big tables
+ * skimr [@skimr] - for summaries
+ * knitr [@knitr] - for knited tables
+
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(survey)
+library(ggplot2)
+library(data.table)
+library(skimr)
+library(knitr)
+```
+
+Load some data that looks a bit like survey data (ggplot's diamonds data) and turn it into a data.table. Then create a random value between 0 and 1 which we will use as a pretend survey non-response weight.
+
+```{r set data}
+diamondsDT <- data.table(diamonds)
+skim(diamonds)
+
+diamondsDT <- diamondsDT[, wt := runif(nrow(diamondsDT))]
+
+t <- diamondsDT[, .(Mean = mean(wt), Min = min(wt), Max = max(wt), N = .N)]
+
+kable(caption = "Distribution of wt", t)
+
+# create a fake unique 'id' for each row
+diamondsDT <- diamondsDT[, id := seq(1:nrow(diamondsDT))]
+
+# create 1/0 code for cut = Fair
+diamondsDT <- diamondsDT[, isFair := ifelse(cut == "Fair", 1, 0)]
+
+# check
+with(diamondsDT, table(isFair, cut, useNA = "always"))
+```
+
+Now we use the wt to pretend to create a large survey design object which has a non-response weight = wt.
+
+```{r Set weight}
+diamondsSVY <- svydesign(ids = ~ id, 
+                                    weights = ~wt, 
+                                    data = diamondsDT
+)
+```
+
+Now compare a simple and a weighted table.
+
+```{r Test simple tables}
+
+uwt <- table(diamondsDT$cut, diamondsDT$color)
+
+kable(caption = "Cut vs colour, unweighted", uwt)
+
+wt <- svytable(~ cut + color, diamondsSVY)
+
+kable(caption = "Cut vs colour, unweighted", round(wt,2))
+  
+```
+
+Something of a difference...
+
+Now test what happens when we set a category to 1/0 and take the mean and proportion.
+
+```{r Test survey mean and proportions}
+
+meanT <- svymean(isFair ~ color, diamondsSVY)
+
+print("Using svymean")
+meanT
+confint(meanT)
+
+propT <- svyciprop(~ isFair, diamondsSVY)
+
+print("Using svyciprop")
+propT
+
+tableT <- svytable(~ color + isFair, diamondsSVY)
+print("Using svytable")
+tableT
+
+tableDT <- as.data.table(tableT)
+
+
+```
+
+
+# References

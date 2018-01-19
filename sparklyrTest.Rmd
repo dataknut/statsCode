@@ -1,0 +1,58 @@
+---
+title: "Sparklyr Test"
+author: "Ben Anderson `@dataknut`"
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document
+bibliography: ~/bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Purpose
+
+To test `sparklyr` interface to spark & hadoop. See http://spark.rstudio.com/.
+
+Uses:
+
+ * base R [@baseR]
+ * knitr [@knitr]
+ * sparklyr [@sparklyr]
+ * dtplyr [@dtplyr]
+ * data.table [@data.table]
+
+# Set Up
+
+```{r setUp, cache=TRUE}
+# Libraries
+library(sparklyr)
+library(dplyr)
+library(data.table)
+
+# Run Spark ----
+spark_install(version = "1.6.2") # careful - on a new PC this will dowbload & install spark & hadoop etc!
+sc <- spark_connect(master = "local")
+#spark_log(sc)
+```
+
+Now load some data and copy to spark.
+
+```{r loadData}
+# Copy some files to the spark instance for testing ----
+# 1. A SAVE navetas data file
+# Load via gzip
+# NB: this may not work on Windows - YMMV
+loadcmd <- "gunzip -c ~/Data/SAVE/navetas/s3_15m/NAX-2016-10-30.csv.gz"
+saveDT <- fread(loadcmd)
+saveDT_tbl <- copy_to(sc, saveDT)
+```
+
+Check the tables in spark:
+
+```{r checkTables}
+src_tbls(sc)
+```
+
+# References

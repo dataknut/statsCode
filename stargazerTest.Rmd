@@ -1,0 +1,80 @@
+---
+title: 'R Notebook: Stargazer Package Tests'
+author: Ben Anderson (b.anderson@soton.ac.uk/@dataknut) [Energy & Climate Change,
+  Faculty of Engineering & Environment, University of Southampton]
+date: 'Last run at: `r Sys.time()`'
+output:
+  pdf_document:
+    toc: yes
+    number_sections: yes
+  html_document:
+    toc: yes
+bibliography: ~/bibliography.bib
+---
+
+# Setup
+```{r setup}
+startTime <- Sys.time() # always good to time your code
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
+knitr::opts_chunk$set(fig_caption = TRUE)
+knitr::opts_chunk$set(tidy = TRUE)
+
+
+library(knitr) # for kable
+library(stargazer)
+```
+
+Key packages used:
+
+ * base R - for the basics [@baseR]
+ * stargazer - for pretty tables [@stargazer]
+ * knitr - to create this document [@knitr]
+ 
+# Summary
+
+We can print an ordinary table:
+
+```{r oldTable}
+summary(cars)
+```
+
+# Kable
+
+We can also do that using kable:
+
+```{r kableTable}
+t <- summary(cars)
+kable(caption = "Cars",
+      t
+      )
+```
+
+# Stargazer
+
+We can also use stargazer:
+```{r stargazerTable, results='asis'}
+# NB: we need to force knitr to keep the html (asis)
+stargazer(cars, type = "html")
+```
+
+Stargazer is especially good at regression model outputs:
+
+```{r modelTable, results='asis'}
+model1 <- lm(mpg ~ disp + cyl, mtcars)
+model2 <- lm(mpg ~ disp + cyl + hp + qsec, mtcars)
+
+stargazer(model1, model2, type = "html",
+          column.sep.width = "2pt", # default = 5pt
+          font.size = "tiny" # tiny, scriptsize, footnotesize,small,normalsize,large
+          )
+```
+
+Stargazer has a lot of [options](https://www.rdocumentation.org/packages/stargazer/versions/5.2/topics/stargazer) that can be used to change what goes where...
+
+***
+__Meta:__
+Analysis completed in: `r round(Sys.time() - startTime,3)` seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com).
+
+# References

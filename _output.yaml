@@ -1,0 +1,11 @@
+html_document:
+  fig_caption: yes
+  keep_md: yes
+  number_sections: yes
+  theme: journal
+  toc: yes
+  toc_float: true
+pdf_document: 
+  number_sections: yes
+  toc: yes
+  toc_depth: 3

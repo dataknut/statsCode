@@ -1,0 +1,22 @@
+---
+title: "Testing plotly"
+always_allow_html: yes
+output:
+  html_document: 
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+  html_notebook: default
+---
+
+Embedded plotly:
+
+```{r testPotly}
+library(plotly)
+set.seed(100)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+plot_ly(d, x = ~carat, y = ~price, color = ~carat,
+        size = ~carat, text = ~paste("Clarity: ", clarity))
+```
+
+Oh, that's rather clever.

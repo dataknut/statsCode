@@ -1,0 +1,30 @@
+---
+title: "skimr"
+author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
+date: 'Last run at: `r Sys.time()`'
+output: 
+  html_document: 
+    fig_caption: yes
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+bibliography: ~/bibliography.bib
+---
+
+# skimr
+
+https://github.com/ropenscilabs/skimr#skimr - [@skimr]
+
+
+```{r setup}
+knitr::opts_chunk$set(echo = TRUE)
+library(skimr)
+```
+
+Go!
+
+```{r Simple test on numeric data}
+skim(mtcars)
+```
+
+# References

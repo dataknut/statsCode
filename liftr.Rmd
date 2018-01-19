@@ -1,0 +1,77 @@
+---
+title: "Testing liftr"
+author: "Ben Anderson (b.anderson@soton.ac.uk `@dataknut`)"
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document:
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+liftr:
+  biocpkg: null
+  cranpkg: ggplot
+  from: rocker/r-base:latest
+  ghpkg: null
+  latex: no
+  maintainer: Ben Anderson (b.anderson@soton.ac.uk `@dataknut`)
+  maintainer_email: b.anderson@soton.ac.uk
+  pandoc: yes
+  rabix: yes
+  rabix_args:
+  - reference: https://s3.amazonaws.com/rabix/rabix-test/chr20.fa
+  - reads: https://s3.amazonaws.com/rabix/rabix-test/example_human_Illumina.pe_1.fastq
+  - reads: https://s3.amazonaws.com/rabix/rabix-test/example_human_Illumina.pe_2.fastq
+  rabix_d: ~/liftr_rabix/bwa/
+  rabix_json: https://s3.amazonaws.com/rabix/rabix-test/bwa-mem.json
+  syslib: null
+bibliography: ~/bibliography.bib
+---
+```{r knitrSetUp, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # do not echo code
+```
+
+```{r functions}
+# This is a function to install any packages that are not present
+# Especially useful when running on virtual machines where package installation is not persistent. Like UoS sve :-(
+# It will fail if the packages need to be installed but there is no internet access
+# Courtesy of Luke Blunden
+lb_myRequiredPackages <- function(x,y){
+  for( i in x ){
+    #  require returns TRUE if it was able to load package
+    if( ! require( i , character.only = TRUE ) ){
+      #  If package was not able to be loaded then re-install
+      install.packages( i , repos=y , 
+                        #type="win.binary" , comment out so runs on OS X etc
+                        quiet=TRUE , dependencies = TRUE , verbose = FALSE )
+      #  Load package after installing
+      require( i , character.only = TRUE, quietly = TRUE )
+    }
+  }
+}
+```
+
+```{r loadLibs}
+# Load libraries ----
+# NB libraries required by saveFunctions.R should already be loaded
+reqLibsLocal <- c("ggplot2" # slick graphs
+                     )
+print(paste0("Loading the following libraries using lb_myRequiredPackages: ", reqLibsLocal))
+# Use Luke's function to require/install/load
+lb_myRequiredPackages(reqLibsLocal,"http://cran.rstudio.com/")
+```
+
+
+# Test plot
+
+```{r pressure, echo=TRUE}
+ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_point()
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

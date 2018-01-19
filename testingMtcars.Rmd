@@ -1,0 +1,107 @@
+---
+title: "Testing mtcars"
+author: "Ben Anderson"
+date: 'Last run at: `r Sys.time()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(data.table)
+```
+
+# Test partition by transmission
+
+ggplot visualisation of the model
+```{r testPartition}
+mtcarsDT <- as.data.table(mtcars)
+mtcarsDT <- mtcarsDT[, transmission := factor(am, labels = c("Automatic", "Manual"))]
+ggplot(mtcarsDT, aes(x=qsec, y=mpg, color=transmission)) +
+    geom_point(shape=1) +    # Use hollow circles
+    # theme(legend.position="bottom") +
+    geom_smooth(method=lm,
+                se = FALSE)   # Add linear regression line 
+                             #  (by default includes 95% confidence region)
+```
+
+# Create model estimation results suitable for graphing with 95% CI
+
+```{r testPlot1}
+mpgModel2 <- lm(mpg ~ qsec + wt * hp, mtcarsDT) # interaction term
+
+# basic results
+summary(mpgModel2)
+
+library(broom)    
+mpgModel2DF <- tidy(mpgModel2)
+mpgModel2DF$ci_lower <- mpgModel2DF$estimate - qnorm(0.975) * mpgModel2DF$std.error
+mpgModel2DF$ci_upper <- mpgModel2DF$estimate + qnorm(0.975) * mpgModel2DF$std.error
+
+ggplot(mpgModel2DF, aes(x=term, y=estimate)) + 
+    geom_bar(position=position_dodge(), stat="identity", fill = "yellowgreen") +
+    geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9)
+                  )
+```
+
+Repeat this but put model 1 beside model 2:
+
+```{r testPlot2}
+mpgModel1 <- lm(mpg ~ qsec, mtcarsDT)
+
+# basic results
+summary(mpgModel1)
+
+mpgModel2 <- lm(mpg ~ qsec + wt, mtcarsDT)
+
+# basic results
+summary(mpgModel2)
+
+library(broom)    
+mpgModel1DF <- tidy(mpgModel1)
+mpgModel1DF$ci_lower <- mpgModel1DF$estimate - qnorm(0.975) * mpgModel1DF$std.error
+mpgModel1DF$ci_upper <- mpgModel1DF$estimate + qnorm(0.975) * mpgModel1DF$std.error
+mpgModel1DF$model <- "Model 1"
+
+
+mpgModel2DF <- tidy(mpgModel2)
+mpgModel2DF$ci_lower <- mpgModel2DF$estimate - qnorm(0.975) * mpgModel2DF$std.error
+mpgModel2DF$ci_upper <- mpgModel2DF$estimate + qnorm(0.975) * mpgModel2DF$std.error
+mpgModel2DF$model <- "Model 2"
+
+# combine the results
+modelsDF <- rbind(mpgModel1DF, mpgModel2DF)
+
+# draw the plots using 'model' to seperate them
+plotModels <- ggplot(modelsDF, aes(x = term, y = estimate)) + 
+    geom_bar(aes(fill = model), 
+             position=position_dodge(), stat="identity") +
+    geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper, group = model),
+                  width=.2,                    # Width of the error bars
+                  colour = "black", # make them visible
+                  position=position_dodge(.9)
+                  )
+plotModels
+
+```
+
+Things to fix:
+
+ * the bar with only one variable in model 2 expands.
+ 
+# Prediction
+
+```{r prediction}
+
+mtcarsDT$mpgPrediction <- predict(mpgModel2)
+ggplot(mtcarsDT, aes(x=wt, y=mpg, color = "Observed")) +
+    geom_point(shape=1) +    # Use hollow circles
+    # theme(legend.position="bottom") +
+    geom_point(aes(y = mpgPrediction, color = "Prediction"))
+```
+
+Next: add some new car observations to the data table and predict their mpg using this model.
+

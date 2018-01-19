@@ -1,0 +1,33 @@
+---
+title: "Test source"
+author: "Ben Anderson (b.anderson@soton.ac.uk `@dataknut`)"
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document:
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+bibliography: ~/bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+```
+
+# Test source
+
+To test how to include Rmarkdown as 'child' documents.
+
+```{r include1, child="testSourceInclude1.Rmd"}
+# presumably this is ignored
+R.Version()
+```
