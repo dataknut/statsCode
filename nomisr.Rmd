@@ -1,0 +1,88 @@
+---
+title: "Nomisr testing"
+author: 'Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document:
+    code_folding: hide
+    fig_caption: true
+    keep_md: true
+    number_sections: true
+    self_contained: no
+    toc: true
+    toc_float: true
+    toc_depth: 2
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(nomisr)
+library(data.table) # for big data
+library(knitr) # for kable etc
+```
+
+# nomisr
+
+An R interface to UK Census data via [nomis](https://www.nomisweb.co.uk/api/v01/help). For more info see:
+
+ * https://cran.r-project.org/web/packages/nomisr/index.html
+ * https://github.com/ropensci/nomisr
+ * Citation - [@nomisr]
+ 
+This code also uses data.table [@data.table].
+
+# Get full list of tables
+
+nomisr provides various ways to search the tables list but it is a bit easier on the API to get the list as a data table and then search it locally...
+
+```{r getTableList}
+
+nomisTablesDT <- as.data.table(nomis_data_info())
+
+knitr::kable(caption = paste0("List of first 5 NOMIS tables (of ", nrow(nomisTablesDT)), head(nomisTablesDT, 5))
+```
+
+That gives a list of `r nrow(nomisTablesDT)` tables.
+
+# Tables on heating
+
+The following are the tables that have 'heating' in the name...
+
+```{r getHeatingTableList}
+
+knitr::kable(caption = "List of NOMIS tables with 'heating' in the name", nomisTablesDT[name.value %like% "heat"])
+```
+
+Let's see what geographies are available for 'NM_146_1'.
+
+```{r getHeatingTableGeoList}
+
+knitr::kable(caption = "NM_146_1 geography list", 
+             nomis_get_metadata(id = "NM_146_1", concept = "geography", type = "type"))
+```
+
+So we can get OAs & LSOAs etc.
+
+Get the data at local authority level... lower levels of geography generate time-outs on the API if we do not have a key.
+
+
+```{r getHeatingTableData}
+
+NM_146_1_DT <- as.data.table(nomis_get_data(id = "NM_146_1", time = "latest", geography = "TYPE464"))
+
+knitr::kable(caption = paste0("NM_146_1 Local Authority level (first 5 rows of ", nrow(NM_146_1_DT)),
+             head(NM_146_1_DT,5))
+```
+
+
+
+# References
+

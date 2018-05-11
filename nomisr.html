@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ben Anderson (b.anderson@soton.ac.uk, @dataknut)" />
+
+
+<title>Nomisr testing</title>
+
+<script src="nomisr_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="nomisr_files/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="nomisr_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="nomisr_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="nomisr_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="nomisr_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="nomisr_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="nomisr_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="nomisr_files/navigation-1.1/tabsets.js"></script>
+<script src="nomisr_files/navigation-1.1/codefolding.js"></script>
+<link href="nomisr_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="nomisr_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Nomisr testing</h1>
+<h4 class="author"><em>Ben Anderson (<a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
+<h4 class="date"><em>Last run at: 2018-05-11 17:43:13</em></h4>
+
+</div>
+
+
+<div id="nomisr" class="section level1">
+<h1><span class="header-section-number">1</span> nomisr</h1>
+<p>An R interface to UK Census data via <a href="https://www.nomisweb.co.uk/api/v01/help">nomis</a>. For more info see:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/nomisr/index.html" class="uri">https://cran.r-project.org/web/packages/nomisr/index.html</a></li>
+<li><a href="https://github.com/ropensci/nomisr" class="uri">https://github.com/ropensci/nomisr</a></li>
+<li>Citation - <span class="citation">(Odell 2018)</span></li>
+</ul>
+<p>This code also uses data.table <span class="citation">(Dowle et al. 2015)</span>.</p>
+</div>
+<div id="get-full-list-of-tables" class="section level1">
+<h1><span class="header-section-number">2</span> Get full list of tables</h1>
+<p>nomisr provides various ways to search the tables list but it is a bit easier on the API to get the list as a data table and then search it locally…</p>
+<pre class="r"><code>nomisTablesDT &lt;- as.data.table(nomis_data_info())
+
+knitr::kable(caption = paste0(&quot;List of first 5 NOMIS tables (of &quot;, nrow(nomisTablesDT)), head(nomisTablesDT, 5))</code></pre>
+<table>
+<caption>List of first 5 NOMIS tables (of 1242</caption>
+<thead>
+<tr class="header">
+<th align="left">agencyid</th>
+<th align="left">id</th>
+<th align="left">uri</th>
+<th align="right">version</th>
+<th align="left">annotations.annotation</th>
+<th align="left">components.attribute</th>
+<th align="left">components.dimension</th>
+<th align="left">components.primarymeasure.conceptref</th>
+<th align="left">components.timedimension.codelist</th>
+<th align="left">components.timedimension.conceptref</th>
+<th align="left">description.value</th>
+<th align="left">description.lang</th>
+<th align="left">name.value</th>
+<th align="left">name.lang</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1_1</td>
+<td align="left">Nm-1d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Claimants,JSA,Rates”, “Persons”, “jsa”, “1”, “usw91 usp usu”, “us”, “2004-06-16 09:30:00”, “2018-04-17 09:30:00”, “2017-02-15 09:30:00”), annotationtitle = c(“Status”, “Keywords”, “Units”, “contenttype/sources”, “contenttype/sorting”, “SubDescription”, “Mnemonic”, “FirstReleased”, “LastUpdated”, “LastRevised”))</td>
+<td align="left">list(assignmentstatus = c(“Mandatory”, “Conditional”, “Conditional”, “Conditional”, “Mandatory”, “Mandatory”, “Mandatory”), attachmentlevel = c(“Observation”, “Observation”, “Observation”, “Series”, “Series”, “Series”, “Series”), codelist = c(“CL_OBS_STATUS”, “CL_OBS_CONF”, “CL_OBS_ROUND”, “CL_UNIT_MULT”, “CL_TIME_FORMAT”, “CL_UNIT”, NA), conceptref = c(“OBS_STATUS”, “OBS_CONF”, “OBS_ROUND”, “UNIT_MULTIPLIER”, “TIME_FORMAT”, “UNIT”, “TITLE_COMPL”))</td>
+<td align="left">list(codelist = c(“CL_1_1_GEOGRAPHY”, “CL_1_1_SEX”, “CL_1_1_ITEM”, “CL_1_1_MEASURES”, “CL_1_1_FREQ”), conceptref = c(“GEOGRAPHY”, “SEX”, “ITEM”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, “true”))</td>
+<td align="left">OBS_VALUE</td>
+<td align="left">CL_1_1_TIME</td>
+<td align="left">TIME</td>
+<td align="left">Records the number of people claiming Jobseeker’s Allowance (JSA) and National Insurance credits at Jobcentre Plus local offices. This is not an official measure of unemployment, but is the only indicative statistic available for areas smaller than Local Authorities.</td>
+<td align="left">en</td>
+<td align="left">Jobseeker’s Allowance with rates and proportions</td>
+<td align="left">en</td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_2_1</td>
+<td align="left">Nm-2d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Claimants,JSA,Age,Duration”, “Persons”, “jsa”, “usadw91 usadp usadu”, “usad”), annotationtitle = c(“Status”, “Keywords”, “Units”, “contenttype/sources”, “SubDescription”, “Mnemonic”))</td>
+<td align="left">list(assignmentstatus = c(“Mandatory”, “Conditional”, “Conditional”, “Conditional”, “Mandatory”, “Mandatory”, “Mandatory”), attachmentlevel = c(“Observation”, “Observation”, “Observation”, “Series”, “Series”, “Series”, “Series”), codelist = c(“CL_OBS_STATUS”, “CL_OBS_CONF”, “CL_OBS_ROUND”, “CL_UNIT_MULT”, “CL_TIME_FORMAT”, “CL_UNIT”, NA), conceptref = c(“OBS_STATUS”, “OBS_CONF”, “OBS_ROUND”, “UNIT_MULTIPLIER”, “TIME_FORMAT”, “UNIT”, “TITLE_COMPL”))</td>
+<td align="left">list(codelist = c(“CL_2_1_GEOGRAPHY”, “CL_2_1_SEX”, “CL_2_1_AGE_DUR”, “CL_2_1_MEASURES”, “CL_2_1_FREQ”), conceptref = c(“GEOGRAPHY”, “SEX”, “AGE_DUR”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, “true”))</td>
+<td align="left">OBS_VALUE</td>
+<td align="left">CL_2_1_TIME</td>
+<td align="left">TIME</td>
+<td align="left">A quartery count of claimants who were claiming Jobseeker’s Allowance on the count date analysed by their age and the duration.</td>
+<td align="left">en</td>
+<td align="left">claimant count - age and duration</td>
+<td align="left">en</td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_4_1</td>
+<td align="left">Nm-4d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Persons”, “jsa”, “ucadw91”, “ucad”, “2004-06-16 09:30:00”, “2018-04-17 09:30:00”, “2017-02-15 09:30:00”), annotationtitle = c(“Status”, “Units”, “contenttype/sources”, “SubDescription”, “Mnemonic”, “FirstReleased”, “LastUpdated”, “LastRevised”))</td>
+<td align="left">list(assignmentstatus = c(“Mandatory”, “Conditional”, “Conditional”, “Conditional”, “Mandatory”, “Mandatory”, “Mandatory”), attachmentlevel = c(“Observation”, “Observation”, “Observation”, “Series”, “Series”, “Series”, “Series”), codelist = c(“CL_OBS_STATUS”, “CL_OBS_CONF”, “CL_OBS_ROUND”, “CL_UNIT_MULT”, “CL_TIME_FORMAT”, “CL_UNIT”, NA), conceptref = c(“OBS_STATUS”, “OBS_CONF”, “OBS_ROUND”, “UNIT_MULTIPLIER”, “TIME_FORMAT”, “UNIT”, “TITLE_COMPL”))</td>
+<td align="left">list(codelist = c(“CL_4_1_GEOGRAPHY”, “CL_4_1_SEX”, “CL_4_1_AGE_DUR”, “CL_4_1_MEASURES”, “CL_4_1_FREQ”), conceptref = c(“GEOGRAPHY”, “SEX”, “AGE_DUR”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, “true”))</td>
+<td align="left">OBS_VALUE</td>
+<td align="left">CL_4_1_TIME</td>
+<td align="left">TIME</td>
+<td align="left">A monthly count of Jobseeker’s Allowance (JSA) claimants broken down by age and the duration of claim. Totals exclude non-computerised clerical claims (approx. 1%). Available for areas smaller than Local Authorities.</td>
+<td align="left">en</td>
+<td align="left">Jobseeker’s Allowance by age and duration</td>
+<td align="left">en</td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_5_1</td>
+<td align="left">Nm-5d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Persons”, “jsa”, “ubrd”, “ubrd”), annotationtitle = c(“Status”, “Units”, “contenttype/sources”, “SubDescription”, “Mnemonic”))</td>
+<td align="left">list(assignmentstatus = c(“Mandatory”, “Conditional”, “Conditional”, “Conditional”, “Mandatory”, “Mandatory”, “Mandatory”), attachmentlevel = c(“Observation”, “Observation”, “Observation”, “Series”, “Series”, “Series”, “Series”), codelist = c(“CL_OBS_STATUS”, “CL_OBS_CONF”, “CL_OBS_ROUND”, “CL_UNIT_MULT”, “CL_TIME_FORMAT”, “CL_UNIT”, NA), conceptref = c(“OBS_STATUS”, “OBS_CONF”, “OBS_ROUND”, “UNIT_MULTIPLIER”, “TIME_FORMAT”, “UNIT”, “TITLE_COMPL”))</td>
+<td align="left">list(codelist = c(“CL_5_1_GEOGRAPHY”, “CL_5_1_SEX”, “CL_5_1_ITEM”, “CL_5_1_MEASURES”, “CL_5_1_FREQ”), conceptref = c(“GEOGRAPHY”, “SEX”, “ITEM”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, “true”))</td>
+<td align="left">OBS_VALUE</td>
+<td align="left">CL_5_1_TIME</td>
+<td align="left">TIME</td>
+<td align="left">A midyear estimate of the workforce (the denominator) which was used for calculating claimant count rates prior to January 2003. The estimates are broken down by sex but not age.</td>
+<td align="left">en</td>
+<td align="left">claimant count denominators - historical workforce series</td>
+<td align="left">en</td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_6_1</td>
+<td align="left">Nm-6d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Claimants,JSA,Occupation”, “Persons”, “jsa”, “usocw91”, “usoc”), annotationtitle = c(“Status”, “Keywords”, “Units”, “contenttype/sources”, “SubDescription”, “Mnemonic”))</td>
+<td align="left">list(assignmentstatus = c(“Mandatory”, “Conditional”, “Conditional”, “Conditional”, “Mandatory”, “Mandatory”, “Mandatory”), attachmentlevel = c(“Observation”, “Observation”, “Observation”, “Series”, “Series”, “Series”, “Series”), codelist = c(“CL_OBS_STATUS”, “CL_OBS_CONF”, “CL_OBS_ROUND”, “CL_UNIT_MULT”, “CL_TIME_FORMAT”, “CL_UNIT”, NA), conceptref = c(“OBS_STATUS”, “OBS_CONF”, “OBS_ROUND”, “UNIT_MULTIPLIER”, “TIME_FORMAT”, “UNIT”, “TITLE_COMPL”))</td>
+<td align="left">list(codelist = c(“CL_6_1_GEOGRAPHY”, “CL_6_1_SEX”, “CL_6_1_ITEM”, “CL_6_1_OCCUPATION”, “CL_6_1_MEASURES”, “CL_6_1_FREQ”), conceptref = c(“GEOGRAPHY”, “SEX”, “ITEM”, “OCCUPATION”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, NA, “true”))</td>
+<td align="left">OBS_VALUE</td>
+<td align="left">CL_6_1_TIME</td>
+<td align="left">TIME</td>
+<td align="left">A quarterly count of Jobseeker’s Allowance claimants analysed by their sought and usual occupation.</td>
+<td align="left">en</td>
+<td align="left">claimant count - occupation</td>
+<td align="left">en</td>
+</tr>
+</tbody>
+</table>
+<p>That gives a list of 1242 tables.</p>
+</div>
+<div id="tables-on-heating" class="section level1">
+<h1><span class="header-section-number">3</span> Tables on heating</h1>
+<p>The following are the tables that have ‘heating’ in the name…</p>
+<pre class="r"><code>knitr::kable(caption = &quot;List of NOMIS tables with &#39;heating&#39; in the name&quot;, nomisTablesDT[name.value %like% &quot;heat&quot;])</code></pre>
+<table>
+<caption>List of NOMIS tables with ‘heating’ in the name</caption>
+<thead>
+<tr class="header">
+<th align="left">agencyid</th>
+<th align="left">id</th>
+<th align="left">uri</th>
+<th align="right">version</th>
+<th align="left">annotations.annotation</th>
+<th align="left">components.attribute</th>
+<th align="left">components.dimension</th>
+<th align="left">components.primarymeasure.conceptref</th>
+<th align="left">components.timedimension.codelist</th>
+<th align="left">components.timedimension.conceptref</th>
+<th align="left">description.value</th>
+<th align="left">description.lang</th>
+<th align="left">name.value</th>
+<th align="left">name.lang</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_146_1</td>
+<td align="left">Nm-146d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Average bedrooms per household,Average rooms per household,Bedrooms,Central Heating,Household,Household size,Occupancy rating,Rooms”, “Households”, “census_2011_ks”, “oa,ps”, “2.2”, “All households”, “c2011ks403ew”, “2013-02-08 09:30:00”, “2014-01-17 12:00:00”, “2014-01-17 12:00:00”, “Rooms, bedrooms and central heating”, “This table provides information about the rooms, bedrooms and central heating in households, for England and Wales as at census day, 27 March 2011. It includes information about the average size of households, whether they have central heating, the number of rooms and bedrooms, and the occupancy rating of the household (based on both rooms and bedrooms).”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”LastRevised“,”MetadataTitle0“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_146_1_GEOGRAPHY“,”CL_146_1_RURAL_URBAN“,”CL_146_1_CELL“,”CL_146_1_MEASURES“,”CL_146_1_FREQ“), conceptref = c(”GEOGRAPHY“,”RURAL_URBAN“,”CELL“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_146_1_TIME TIME NA NA KS403EW - Rooms, bedrooms and central heating en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_547_1</td>
+<td align="left">Nm-547d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Household,Household space,Occupied household space”, “Household spaces”, “census_2011_qs”, “oa,ps”, “2.2”, “All household spaces with at least one usual resident”, “c2011qs415ew”, “2013-01-30 09:30:00”, “2013-01-30 09:30:00”, “This dataset provides 2011 estimates that classify occupied household spaces in England and Wales by the types of central heating present. The estimates are as at census day, 27 March 2011. central heating classifications used in this dataset follow the single tick box options on the questionnaire with an additional category for multiple tick options. Although similar to the estimates provided from the 2001 Census in table UV60, central heating was grouped with other household amenities and did not provide this level of detail.information will support work on housing deprivation where access to central heating is used as a measure of deprivation. It will also contribute to work being undertaken by both central and local government; to meet the thermal comfort criteria of the decent homes standard; related work on assessing housing fitness; development of policies to improve housing quality; and to direct resources to the areas of greatest need.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_547_1_GEOGRAPHY“,”CL_547_1_RURAL_URBAN“,”CL_547_1_CELL“,”CL_547_1_MEASURES“,”CL_547_1_FREQ“), conceptref = c(”GEOGRAPHY“,”RURAL_URBAN“,”CELL“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_547_1_TIME TIME NA NA QS415EW - Central heating en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_714_1</td>
+<td align="left">Nm-714d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Dwelling,Ethnic Group,HRP (Household reference person),Occupancy rating,Rooms”, “Households”, “census_2011_dc”, “msoa,ward”, “3.2a”, “All households”, “c2011dc4205ew”, “2013-06-28 09:30:00”, “2013-06-28 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by dwelling type, by type of central heating in household, by occupancy rating (rooms) and by ethnic group of Household Reference Person. The estimates are as at census day, 27 March 2011.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_714_1_GEOGRAPHY“,”CL_714_1_C_HHSDUK11“,”CL_714_1_C_CENHEATHUK11“,”CL_714_1_OCCRATROOM“,”CL_714_1_C_ETHHUK11“,”CL_714_1_MEASURES“,”CL_714_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_HHSDUK11“,”C_CENHEATHUK11“,”OCCRATROOM“,”C_ETHHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_714_1_TIME TIME NA NA DC4205EW - Dwelling type by type of central heating in household by occupancy rating (rooms) by ethnic group of Household Reference Person (HRP) en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_715_1</td>
+<td align="left">Nm-715d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Dwelling,Ethnic Group,HRP (Household reference person),Occupancy rating,Bedrooms”, “Households”, “census_2011_dc”, “msoa,ward”, “3.2a”, “All households”, “c2011dc4206ew”, “2013-06-28 09:30:00”, “2014-01-17 12:00:00”, “2014-01-17 12:00:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by dwelling type, by type of central heating in household, by occupancy rating (bedrooms) and by ethnic group of Household Reference Person. The estimates are as at census day, 27 March 2011.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”LastRevised“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_715_1_GEOGRAPHY“,”CL_715_1_C_HHSDUK11“,”CL_715_1_C_CENHEATHUK11“,”CL_715_1_OCCRATBROOM“,”CL_715_1_C_ETHHUK11“,”CL_715_1_MEASURES“,”CL_715_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_HHSDUK11“,”C_CENHEATHUK11“,”OCCRATBROOM“,”C_ETHHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_715_1_TIME TIME NA NA DC4206EW - Dwelling type by type of central heating in household by occupancy rating (bedrooms) by ethnic group of Household Reference Person (HRP) en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_716_1</td>
+<td align="left">Nm-716d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Dwelling,Religion,HRP (Household reference person),Occupancy rating,Rooms”, “Households”, “census_2011_dc”, “msoa,ward”, “3.2a”, “All households”, “c2011dc4207ew”, “2013-06-28 09:30:00”, “2013-06-28 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by dwelling type, by type of central heating in household, by occupancy rating (rooms) and by religion of Household Reference Person. The estimates are as at census day, 27 March 2011.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_716_1_GEOGRAPHY“,”CL_716_1_C_HHSDUK11“,”CL_716_1_C_CENHEATHUK11“,”CL_716_1_OCCRATROOM“,”CL_716_1_RELPUK11_HRPPUK11“,”CL_716_1_MEASURES“,”CL_716_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_HHSDUK11“,”C_CENHEATHUK11“,”OCCRATROOM“,”RELPUK11_HRPPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_716_1_TIME TIME NA NA DC4207EW - Dwelling type by type of central heating in household by occupancy rating (rooms) by religion of Household Reference Person (HRP) en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_717_1</td>
+<td align="left">Nm-717d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Dwelling,Religion,HRP (Household reference person),Occupancy rating,Bedrooms”, “Households”, “census_2011_dc”, “msoa,ward”, “3.2a”, “All households”, “c2011dc4208ew”, “2013-06-28 09:30:00”, “2014-01-17 12:00:00”, “2014-01-17 12:00:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by dwelling type, by type of central heating in household, by occupancy rating (bedrooms) and by religion of Household Reference Person. The estimates are as at census day, 27 March 2011.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”LastRevised“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_717_1_GEOGRAPHY“,”CL_717_1_C_HHSDUK11“,”CL_717_1_C_CENHEATHUK11“,”CL_717_1_OCCRATBROOM“,”CL_717_1_RELPUK11_HRPPUK11“,”CL_717_1_MEASURES“,”CL_717_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_HHSDUK11“,”C_CENHEATHUK11“,”OCCRATBROOM“,”RELPUK11_HRPPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_717_1_TIME TIME NA NA DC4208EW - Dwelling type by type of central heating in household by occupancy rating (bedrooms) by religion of Household Reference Person (HRP) en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_719_1</td>
+<td align="left">Nm-719d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Accommodation type,Central Heating,Tenure”, “Households”, “census_2011_dc”, “msoa,ward”, “3.2a”, “All households”, “c2011dc4402ew”, “2013-06-28 09:30:00”, “2013-06-28 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by accommodation type, by type of central heating in household and by tenure. The estimates are as at census day, 27 March 2011.”, “Statistical Disclosure Control”, “In order to protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_719_1_GEOGRAPHY“,”CL_719_1_C_TYPACCOM“,”CL_719_1_C_CENHEATHUK11“,”CL_719_1_C_TENHUK11“,”CL_719_1_MEASURES“,”CL_719_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_TYPACCOM“,”C_CENHEATHUK11“,”C_TENHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_719_1_TIME TIME NA NA DC4402EW - Accommodation type by type of central heating in household by tenure en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_887_1</td>
+<td align="left">Nm-887d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Accommodation type,Central Heating,Tenure”, “Households”, “census_2011_lc”, “oa,ps”, “4.4b”, “All Households”, “c2011lc4402ew”, “2014-01-23 09:30:00”, “2014-01-23 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by accommodation type, by type of central heating in household and by tenure. The estimates are as at census day, 27 March 2011.”, “Statistical Disclosure Control”, “In order to protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_887_1_GEOGRAPHY“,”CL_887_1_C_TYPACCOM“,”CL_887_1_C_CENHEATHUK11“,”CL_887_1_C_TENHUK11“,”CL_887_1_MEASURES“,”CL_887_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_TYPACCOM“,”C_CENHEATHUK11“,”C_TENHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_887_1_TIME TIME NA NA LC4402EW - Accommodation type by type of central heating in household by tenure en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_894_1</td>
+<td align="left">Nm-894d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Occupancy rating,Rooms,Age”, “Persons”, “census_2011_lc”, “oa,ps”, “4.4b”, “All usual residents in households”, “c2011lc4410ew”, “2014-01-23 09:30:00”, “2014-01-23 09:30:00”, “This dataset provides 2011 Census estimates that classify usual residents in households in England and Wales by type of central heating in household, by occupancy rating (rooms) and by age. The estimates are as at census day, 27 March 2011.”, “Statistical Disclosure Control”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“In order t</td>
+<td align="left">o protect ag</td>
+<td align="left">ainst disclo</td>
+<td align="right">sure of pe</td>
+<td align="left">rsonal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_894_1_GEOGRAPHY“,”CL_894_1_C_CENHEATHUK11“,”CL_894_1_OCCRATROOM“,”CL_894_1_C_AGE“,”CL_894_1_MEASURES“,”CL_894_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_CENHEATHUK11“,”OCCRATROOM“,”C_AGE“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_894_1_TIME TIME NA NA LC4410EW - Type of central heating in household by occupancy rating (rooms) by age en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_897_1</td>
+<td align="left">Nm-897d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Occupancy rating,Rooms,Central Heating”, “Households”, “census_2011_lc”, “oa,ps”, “4.4b”, “All Households”, “c2011lc4413ew”, “2014-01-23 09:30:00”, “2014-01-23 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by occupancy rating (rooms) and by type of central heating in household. The estimates are as at census day, 27 March 2011.”, “Statistical Disclosure Control”, “In order to protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_897_1_GEOGRAPHY“,”CL_897_1_OCCRATROOM“,”CL_897_1_C_CENHEATHUK11“,”CL_897_1_MEASURES“,”CL_897_1_FREQ“), conceptref = c(”GEOGRAPHY“,”OCCRATROOM“,”C_CENHEATHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_897_1_TIME TIME NA NA LC4413EW - Occupancy rating (rooms) by type of central heating in household en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_898_1</td>
+<td align="left">Nm-898d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Occupancy rating,Bedrooms,Central Heating”, “Households”, “census_2011_lc”, “oa,ps”, “4.4b”, “All Households”, “c2011lc4414ew”, “2014-01-23 09:30:00”, “2014-01-23 09:30:00”, “This dataset provides 2011 Census estimates that classify households in England and Wales by occupancy rating (bedrooms) and by type of central heating in household. The estimates are as at census day, 27 March 2011.”, “Statistical Disclosure Control”, “In order to protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_898_1_GEOGRAPHY“,”CL_898_1_OCCRATBROOM“,”CL_898_1_C_CENHEATHUK11“,”CL_898_1_MEASURES“,”CL_898_1_FREQ“), conceptref = c(”GEOGRAPHY“,”OCCRATBROOM“,”C_CENHEATHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_898_1_TIME TIME NA NA LC4414EW - Occupancy rating (bedrooms) by type of central heating in household en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">NOMIS</td>
+<td align="left">NM_1558_1</td>
+<td align="left">Nm-1558d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Current (being actively updated)”, “Central Heating,Household,Household space,Occupied household space”, “Household spaces”, “census_2011_qsuk”, “oa”, “UK.2”, “All household spaces with at least one usual resident”, “c2011qs415uk”, “2014-06-13 09:30:00”, “2014-06-13 09:30:00”, “This dataset provides 2011 estimates that classify occupied household spaces in England and Wales by the types of central heating present. The estimates are as at census day, 27 March 2011. central heating classifications used in this dataset follow the single tick box options on the questionnaire with an additional category for multiple tick options. Although similar to the estimates provided from the 2001 Census in table UV60, central heating was grouped with other household amenities and did not provide this level of detail.information will support work on housing deprivation where access to central heating is used as a measure of deprivation. It will also contribute to work being undertaken by both central and local government; to meet the thermal comfort criteria of the decent homes standard; related work on assessing housing fitness; development of policies to improve housing quality; and to direct resources to the areas of greatest need.for Northern Ireland comes from table KS404NI.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">In order t</td>
+<td align="left">o protect against disclosure of personal information from the 2011 Census, there has been swapping of records in the Census database between different geographic areas, and so some counts will be affected. In the main, the greatest effects will be at the lowest geographies, since the record swapping is targeted towards those households with unusual characteristics in small areas.details on the ONS Census disclosure control strategy may be found on the <a href="http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html%5BStatistical" class="uri">http://www.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-prospectus/new-developments-for-2011-census-results/statistical-disclosure-control/index.html[Statistical</a> Disclosure Control] page on the ONS web site.“,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“2”), annot</td>
+<td align="left">ationtitle =</td>
+<td align="left">c(“Status”,</td>
+<td align="right">“Keywords</td>
+<td align="left">“,”Units“,”contenttype/sources“,”contenttype/geoglevel“,”contenttype/censusrelease“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1558_1_GEOGRAPHY“,”CL_1558_1_CELL“,”CL_1558_1_MEASURES“,”CL_1558_1_FREQ“), conceptref = c(”GEOGRAPHY“,”CELL“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA,”true“)) OBS_VALUE CL_1558_1_TIME TIME NA NA QS415UK - Central heating en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1627_1</td>
+<td align="left">Nm-1627d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Amenities,Rooms,Central Heating”, “Households”, “oa,msoa,ward,la,region”, “KS”, “census_2001_ks”, “All households”, “ks019”, “2003-06-30 09:30:00”, “2003-06-30 09:30:00”, “This dataset is about Rooms, Amenities, Central Heating and Lowest Floor Level. It shows a range of information including average household size, the average number of rooms per household, amenities available to the household and the lowest floor level of the accommodation occupied by the household.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1627_1_GEOGRAPHY“,”CL_1627_1_C_HHCHUK11“,”CL_1627_1_MEASURES“,”CL_1627_1_FREQ“), conceptref = c(”GEOGRAPHY“,</td>
+<td align="left">“C_HHCHUK11”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, “true”)) OBS_VALUE CL_1627_1_TIME TIME NA NA KS019 - Rooms, amenities, central heating and lowest floor level</td>
+<td align="left">en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1718_1</td>
+<td align="left">Nm-1718d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Sex,Shower,Limiting long-term illness,Central Heating,Bath,Amenities,Health”, “Persons”, “oa,msoa,ward,la,region”, “CS”, “census_2001_cs”, “All people in households”, “cs018”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by sex and amenities and central heating by general health and limiting long-term illness. The estimates are as at census day, 29 April 2001.health refers to health over the 12 months prior to Census day (29 April 2001).”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1718_1_GEOGRAPHY“,”CL_1718_1_C_SEX“,”CL_1718_1_C_AMEN“,”CL_1718_1_C_HEAT“,”CL_1718_1_C_HEALTH“,”CL_1718_1_C_ILLHUK11“,”CL_1718_1_MEASURES“,”CL_1718_1_FREQ“), conceptref = c(”GEOGRAPHY“,”C_SEX“,”C</td>
+<td align="left">_AMEN“,”C_HEAT“,”C_HEALTH“,”C_ILLHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1718_1_TIME TIME NA NA CS018 - Sex and amenities and central heating by general health and limiting long-term illness en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1754_1</td>
+<td align="left">Nm-1754d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Occupancy rating,Dwelling,Age”, “Persons”, “oa,msoa,ward,la,region”, “CS”, “census_2001_cs”, “All people in households”, “cs054”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by shared/unshared dwelling and central heating and occupancy rating by age. The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1754_1_GEOGRAPHY“,”CL_1754_1_SHARED“,”CL_1754_1_C_HEAT“,”CL_1754_1_OCCRAT“,”CL_1754_1_C_AGE“,”CL_1754_1_MEASURES“,”CL_1754_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRAT“,”C_AGE“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“))</td>
+<td align="left">OBS_VALUE CL_1754_1_TIME TIME NA NA CS054 - Shared/unshared dwelling and central heating and occupancy rating by age en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1755_1</td>
+<td align="left">Nm-1755d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Bath,Accommodation Type,Amenities,Dwelling,Rented,Owned,Central Heating,Tenure,Shower”, “Households”, “oa,msoa,ward,la,region”, “CS”, “census_2001_cs”, “All households”, “cs055”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify households in England and Wales by dwelling type and accommodation type and central heating by tenure. The estimates are as at census day, 29 April 2001.terms used to describe tenure are defined as: Owned: either owned outright, owned with a mortgage or loan, or paying part rent and part mortgage (shared ownership).Other social rented includes rented from Registered Social Landlord, Housing association, Housing Co-operative and Charitable Trust.Private rented: renting from a private landlord or letting agency, employer of a household member, or relative or friend of a household member or other person.‘Living rent free’ could include households that are living in accommodation other than private rented.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1755_1_GEOGRAPHY“,”CL_1755_1_DWELL“,”CL_1755_1_C_TENHUK11“,”CL_1755_1_MEASURES“,”CL_1755_1_FREQ“), conceptref = c(”GEOGRAPHY“,”DWELL“,”C_TENHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_1755_1_TIME TIME NA NA CS055 - Dwelling type and accommodation type and central heating by tenure en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1818_1</td>
+<td align="left">Nm-1818d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Sex,Central Heating,Health,Amenities,Bath”, “Persons”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All people in households”, “st018”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by sex and amenities and central heating by general health and limiting long-term illness. The estimates are as at census day, 29 April 2001.health refers to health over the 12 months prior to Census day (29 April 2001).”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1818_1_GEOGRAPHY“,”CL_1818_1_C_SEX“,”CL_1818_1_C_AMEN“,”CL_1818_1_C_HEAT“,”CL_1818_1_C_HEALTH“,”CL_1818_1_C_ILLHUK11“,”CL_1818_1_MEASURES“,”CL_1818_1_FREQ“), co</td>
+<td align="left">nceptref = c(“GEOGRAPHY”, “C_SEX”, “C_AMEN”, “C_HEAT”, “C_HEALTH”, “C_ILLHUK11”, “MEASURES”, “FREQ”), isfrequencydimension = c(NA, NA, NA, NA, NA, NA, NA, “true”)) OBS_VALUE CL_1818_1_TIME TIME NA NA ST018 - Sex and amenities and central heating by general health and limiting long-term illness</td>
+<td align="left">en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1854_1</td>
+<td align="left">Nm-1854d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Occupancy rating,Central Heating,Amenities,Age,Dwelling”, “Persons”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All people in households”, “st054”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by shared/unshared dwelling and central heating and occupancy rating by age. The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households, requires a minimum of two common rooms (excluding bathrooms).general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1854_1_GEOGRAPHY“,”CL_1854_1_SHARED“,”CL_1854_1_C_HEAT“,”CL_1854_1_OCCRATROOM“,”CL_1854_1_C_AGE“,”CL_1854_1_MEASURES“,”CL_1854_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRATROOM“,”C_AGE“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1854_1_TIME TIME NA NA ST054 - Shared/unshared dwelling and central heating and occupancy rating</td>
+<td align="left">by age en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1855_1</td>
+<td align="left">Nm-1855d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Bath,Accommodation Type,Amenities,Dwelling,Rented,Owned,Central Heating,Tenure,Shower”, “Households”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All households”, “st055”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify households in England and Wales by dwelling type and accommodation type and central heating by tenure. The estimates are as at census day, 29 April 2001.terms used to describe tenure are defined as: Owned: either owned outright, owned with a mortgage or loan, or paying part rent and part mortgage (shared ownership).Other social rented includes rented from Registered Social Landlord, Housing association, Housing Co-operative and Charitable Trust.Private rented: renting from a private landlord or letting agency, employer of a household member, or relative or friend of a household member or other person.‘Living rent free’ could include households that are living in accommodation other than private rented.general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1855_1_GEOGRAPHY“,”CL_1855_1_DWELL“,”CL_1855_1_C_TENHUK11“,”CL_1855_1_MEASURES“,”CL_1855_1_FREQ“), conceptref = c(”GEOGRAPHY“,”DWELL“,”C_TENHUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA,”true“)) OBS_VALUE CL_1855_1_TIME TIME NA NA ST055 - Dwelling type and accommodation type and central heating by tenure en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1858_1</td>
+<td align="left">Nm-1858d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Rooms,Shower,Central Heating,Amenities,Bath,Dwelling”, “Households”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All households in a shared dwelling”, “st058”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify households in a shared dwelling in England and Wales by amenities and household size by central heating and number of rooms. The estimates are as at census day, 29 April 2001.number of rooms available to the household excludes bathrooms, toilets, halls or landings and rooms that can only be used for storage. It also does not include any rooms shared with another household such as a shared kitchen.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1858_1_GEOGRAPHY“,”CL_1858_1_AMENIT“,”CL_1858_1_CELL“,”CL_1858_1_C_HEAT“,”CL_1858_1_C_ROOMS“,”CL_1858_1_MEASURES“,”CL_1858_1_FREQ“), conceptref = c(”GEOGRAPHY“,”AMENIT“,”CELL“,”C_HEAT“,”C_ROOMS“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“))</td>
+<td align="left">OBS_VALUE CL_1858_1_TIME TIME NA NA ST058 - Households in a shared dwelling and amenities and household size by central heating and number of rooms en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1891_1</td>
+<td align="left">Nm-1891d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Amenities,Central Heating,Dwelling,Ethnic Group,Ethnic Group,Occupancy rating”, “Persons”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All people in households”, “st123”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by shared /unshared dwelling and central heating and occupancy rating by ethnic group. The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households, requires a minimum of two common rooms (excluding bathrooms).general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1891_1_GEOGRAPHY“,”CL_1891_1_SHARED“,”CL_1891_1_C_HEAT“,”CL_1891_1_OCCRATROOM“,”CL_1891_1_C_ETHPUK11“,”CL_1891_1_MEASURES“,”CL_1891_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRATROOM“,”C_ETHPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1891_1_TIME TIME NA NA ST123 - Shared /unshared dwelling and central heating and occupancy rating by ethnic group</td>
+<td align="left">en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1892_1</td>
+<td align="left">Nm-1892d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Occupancy rating,Ethnic Group,Dwelling,Household Reference Person,Central Heating,Amenities”, “Households”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All households”, “st124”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify households in England and Wales by shared/unshared dwelling and central heating and occupancy rating by ethnic group of Household Reference Person (HRP). The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households, requires a minimum of two common rooms (excluding bathrooms).general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1892_1_GEOGRAPHY“,”CL_1892_1_SHARED“,”CL_1892_1_C_HEAT“,”CL_1892_1_OCCRATROOM“,”CL_1892_1_C_ETHPUK11“,”CL_1892_1_MEASURES“,”CL_1892_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRATROOM“,”C_ETHPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1892_1_TIME TIME NA NA ST124 - Shared/unshared dwelling and central heating and occupancy rating by ethnic group of Household Reference Person (HRP)</td>
+<td align="left">en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1927_1</td>
+<td align="left">Nm-1927d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Occupancy rating,Central Heating,Amenities,Religion,Dwelling”, “Persons”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All people in households”, “st159”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify usual residents in households in England and Wales by shared/unshared dwelling and central heating and occupancy rating by religion. The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households, requires a minimum of two common rooms (excluding bathrooms).general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1927_1_GEOGRAPHY“,”CL_1927_1_SHARED“,”CL_1927_1_C_HEAT“,”CL_1927_1_OCCRATROOM“,”CL_1927_1_C_RELPUK11“,”CL_1927_1_MEASURES“,”CL_1927_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRATROOM“,”C_RELPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1927_1_TIME TIME NA NA ST159 - Shared/unshared dwelling and central heating and occupancy rating by religi</td>
+<td align="left">on en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">NOMIS</td>
+<td align="left">NM_1928_1</td>
+<td align="left">Nm-1928d1</td>
+<td align="right">1</td>
+<td align="left">list(annotationtext = c(“Historical (not actively being updated)”, “Occupancy rating,Central Heating,Amenities,Religion,Dwelling”, “Households”, “msoa,ward,la,region”, “ST”, “census_2001_st”, “All households”, “st160”, “2003-08-30 09:30:00”, “2003-08-30 09:30:00”, “This dataset provides 2001 Census estimates that classify households in England and Wales by shared/unshared dwelling and central heating and occupancy rating by religion of Household Reference Person. The estimates are as at census day, 29 April 2001.occupancy rating provides a measure of under-occupancy and overcrowding. For example a value of -1 implies that there is one room too few and that there is overcrowding in the household. The occupancy rating assumes that every household, including one person households, requires a minimum of two common rooms (excluding bathrooms).general, a household’s accommodation is defined as an unshared dwelling if all the rooms are behind a door that only that household can use.”,</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">“Statistica</td>
+<td align="left">l Disclosure</td>
+<td align="left">Control“,”</td>
+<td align="right">Figures ha</td>
+<td align="left">ve been randomly adjusted to avoid the release of confidential data“,”2“), annotationtitle = c(”Status“,”Keywords“,”Units“,”contenttype/geoglevel“,”contenttype/2001census“,”contenttype/sources“,”SubDescription“,”Mnemonic“,”FirstReleased“,”LastUpdated“,”MetadataText0“,”MetadataTitle1“,”MetadataText1“,”MetadataCount“)) list(assignmentstatus = c(”Mandatory“,”Conditional“,”Conditional“,”Conditional“,”Mandatory“,”Mandatory“,”Mandatory“), attachmentlevel = c(”Observation“,”Observation“,”Observation“,”Series“,”Series“,”Series“,”Series“), codelist = c(”CL_OBS_STATUS“,”CL_OBS_CONF“,”CL_OBS_ROUND“,”CL_UNIT_MULT“,”CL_TIME_FORMAT“,”CL_UNIT“, NA), conceptref = c(”OBS_STATUS“,”OBS_CONF“,”OBS_ROUND“,”UNIT_MULTIPLIER“,”TIME_FORMAT“,”UNIT“,”TITLE_COMPL“)) list(codelist = c(”CL_1928_1_GEOGRAPHY“,”CL_1928_1_SHARED“,”CL_1928_1_C_HEAT“,”CL_1928_1_OCCRATROOM“,”CL_1928_1_C_RELPUK11“,”CL_1928_1_MEASURES“,”CL_1928_1_FREQ“), conceptref = c(”GEOGRAPHY“,”SHARED“,”C_HEAT“,”OCCRATROOM“,”C_RELPUK11“,”MEASURES“,”FREQ“), isfrequencydimension = c(NA, NA, NA, NA, NA, NA,”true“)) OBS_VALUE CL_1928_1_TIME TIME NA NA ST160 - Shared/unshared dwelling and central heating and occupancy rating by religion o</td>
+<td align="left">f Household Reference Person en</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s see what geographies are available for ‘NM_146_1’.</p>
+<pre class="r"><code>knitr::kable(caption = &quot;NM_146_1 geography list&quot;, 
+             nomis_get_metadata(id = &quot;NM_146_1&quot;, concept = &quot;geography&quot;, type = &quot;type&quot;))</code></pre>
+<table>
+<caption>NM_146_1 geography list</caption>
+<thead>
+<tr class="header">
+<th align="left">description</th>
+<th align="left">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NHS area teams</td>
+<td align="left">TYPE265</td>
+</tr>
+<tr class="even">
+<td align="left">clinical commissioning groups</td>
+<td align="left">TYPE266</td>
+</tr>
+<tr class="odd">
+<td align="left">built-up areas including subdivisions</td>
+<td align="left">TYPE267</td>
+</tr>
+<tr class="even">
+<td align="left">built-up areas</td>
+<td align="left">TYPE269</td>
+</tr>
+<tr class="odd">
+<td align="left">national assembly for wales electoral regions 2010</td>
+<td align="left">TYPE273</td>
+</tr>
+<tr class="even">
+<td align="left">postcode areas</td>
+<td align="left">TYPE274</td>
+</tr>
+<tr class="odd">
+<td align="left">postcode districts</td>
+<td align="left">TYPE275</td>
+</tr>
+<tr class="even">
+<td align="left">postcode sectors</td>
+<td align="left">TYPE276</td>
+</tr>
+<tr class="odd">
+<td align="left">national assembly for wales constituencies 2010</td>
+<td align="left">TYPE277</td>
+</tr>
+<tr class="even">
+<td align="left">parishes 2011</td>
+<td align="left">TYPE279</td>
+</tr>
+<tr class="odd">
+<td align="left">2011 local health boards</td>
+<td align="left">TYPE282</td>
+</tr>
+<tr class="even">
+<td align="left">2011 primary care trusts</td>
+<td align="left">TYPE283</td>
+</tr>
+<tr class="odd">
+<td align="left">2011 strategic health authorities</td>
+<td align="left">TYPE284</td>
+</tr>
+<tr class="even">
+<td align="left">2011 wards</td>
+<td align="left">TYPE295</td>
+</tr>
+<tr class="odd">
+<td align="left">2011 super output areas - middle layer</td>
+<td align="left">TYPE297</td>
+</tr>
+<tr class="even">
+<td align="left">2011 super output areas - lower layer</td>
+<td align="left">TYPE298</td>
+</tr>
+<tr class="odd">
+<td align="left">2011 output areas</td>
+<td align="left">TYPE299</td>
+</tr>
+<tr class="even">
+<td align="left">local enterprise partnerships (as of April 2017)</td>
+<td align="left">TYPE459</td>
+</tr>
+<tr class="odd">
+<td align="left">parliamentary constituencies 2010</td>
+<td align="left">TYPE460</td>
+</tr>
+<tr class="even">
+<td align="left">local authorities: county / unitary (prior to April 2015)</td>
+<td align="left">TYPE463</td>
+</tr>
+<tr class="odd">
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">TYPE464</td>
+</tr>
+<tr class="even">
+<td align="left">regions</td>
+<td align="left">TYPE480</td>
+</tr>
+<tr class="odd">
+<td align="left">countries</td>
+<td align="left">TYPE499</td>
+</tr>
+</tbody>
+</table>
+<p>So we can get OAs &amp; LSOAs etc.</p>
+<p>Get the data at local authority level… lower levels of geography generate time-outs on the API if we do not have a key.</p>
+<pre class="r"><code>NM_146_1_DT &lt;- as.data.table(nomis_get_data(id = &quot;NM_146_1&quot;, time = &quot;latest&quot;, geography = &quot;TYPE464&quot;))</code></pre>
+<pre><code>## Retrieving additional pages 1 of 2</code></pre>
+<pre><code>## Retrieving additional pages 2 of 2</code></pre>
+<pre class="r"><code>knitr::kable(caption = paste0(&quot;NM_146_1 Local Authority level (first 5 rows of &quot;, nrow(NM_146_1_DT)),
+             head(NM_146_1_DT,5))</code></pre>
+<table>
+<caption>NM_146_1 Local Authority level (first 5 rows of 72384</caption>
+<thead>
+<tr class="header">
+<th align="left">DATE</th>
+<th align="left">DATE_NAME</th>
+<th align="left">DATE_CODE</th>
+<th align="left">DATE_TYPE</th>
+<th align="left">DATE_TYPECODE</th>
+<th align="left">DATE_SORTORDER</th>
+<th align="left">GEOGRAPHY</th>
+<th align="left">GEOGRAPHY_NAME</th>
+<th align="left">GEOGRAPHY_CODE</th>
+<th align="left">GEOGRAPHY_TYPE</th>
+<th align="left">GEOGRAPHY_TYPECODE</th>
+<th align="left">GEOGRAPHY_SORTORDER</th>
+<th align="left">RURAL_URBAN</th>
+<th align="left">RURAL_URBAN_NAME</th>
+<th align="left">RURAL_URBAN_CODE</th>
+<th align="left">RURAL_URBAN_TYPE</th>
+<th align="left">RURAL_URBAN_TYPECODE</th>
+<th align="left">RURAL_URBAN_SORTORDER</th>
+<th align="left">CELL</th>
+<th align="left">CELL_NAME</th>
+<th align="left">CELL_CODE</th>
+<th align="left">CELL_TYPE</th>
+<th align="left">CELL_TYPECODE</th>
+<th align="left">CELL_SORTORDER</th>
+<th align="left">MEASURES</th>
+<th align="left">MEASURES_NAME</th>
+<th align="left">OBS_VALUE</th>
+<th align="left">OBS_STATUS</th>
+<th align="left">OBS_STATUS_NAME</th>
+<th align="left">OBS_CONF</th>
+<th align="left">OBS_CONF_NAME</th>
+<th align="left">URN</th>
+<th align="left">RECORD_OFFSET</th>
+<th align="left">RECORD_COUNT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">date</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1946157057</td>
+<td align="left">Darlington</td>
+<td align="left">E06000005</td>
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">464</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">Total</td>
+<td align="left">0</td>
+<td align="left">2011 rural-urban classification</td>
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">All categories: Type of central heating in household</td>
+<td align="left">KS403EW0001</td>
+<td align="left">Central Heating</td>
+<td align="left">10000</td>
+<td align="left">0</td>
+<td align="left">20100</td>
+<td align="left">Value</td>
+<td align="left">46670</td>
+<td align="left">A</td>
+<td align="left">Normal Value</td>
+<td align="left">F</td>
+<td align="left">Free (free for publication)</td>
+<td align="left">Nm-146d1d32176e1d1946157057d0d0d20100</td>
+<td align="left">0</td>
+<td align="left">72384</td>
+</tr>
+<tr class="even">
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">date</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1946157057</td>
+<td align="left">Darlington</td>
+<td align="left">E06000005</td>
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">464</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">Total</td>
+<td align="left">0</td>
+<td align="left">2011 rural-urban classification</td>
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">All categories: Type of central heating in household</td>
+<td align="left">KS403EW0001</td>
+<td align="left">Central Heating</td>
+<td align="left">10000</td>
+<td align="left">0</td>
+<td align="left">20301</td>
+<td align="left">Percent</td>
+<td align="left">100.0</td>
+<td align="left">A</td>
+<td align="left">Normal Value</td>
+<td align="left">F</td>
+<td align="left">Free (free for publication)</td>
+<td align="left">Nm-146d1d32176e1d1946157057d0d0d20301</td>
+<td align="left">1</td>
+<td align="left">72384</td>
+</tr>
+<tr class="odd">
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">date</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1946157057</td>
+<td align="left">Darlington</td>
+<td align="left">E06000005</td>
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">464</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">Total</td>
+<td align="left">0</td>
+<td align="left">2011 rural-urban classification</td>
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">Does not have central heating</td>
+<td align="left">KS403EW0002</td>
+<td align="left">Central Heating</td>
+<td align="left">10000</td>
+<td align="left">1</td>
+<td align="left">20100</td>
+<td align="left">Value</td>
+<td align="left">814</td>
+<td align="left">A</td>
+<td align="left">Normal Value</td>
+<td align="left">F</td>
+<td align="left">Free (free for publication)</td>
+<td align="left">Nm-146d1d32176e1d1946157057d0d1d20100</td>
+<td align="left">2</td>
+<td align="left">72384</td>
+</tr>
+<tr class="even">
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">date</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1946157057</td>
+<td align="left">Darlington</td>
+<td align="left">E06000005</td>
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">464</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">Total</td>
+<td align="left">0</td>
+<td align="left">2011 rural-urban classification</td>
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">Does not have central heating</td>
+<td align="left">KS403EW0002</td>
+<td align="left">Central Heating</td>
+<td align="left">10000</td>
+<td align="left">1</td>
+<td align="left">20301</td>
+<td align="left">Percent</td>
+<td align="left">1.7</td>
+<td align="left">A</td>
+<td align="left">Normal Value</td>
+<td align="left">F</td>
+<td align="left">Free (free for publication)</td>
+<td align="left">Nm-146d1d32176e1d1946157057d0d1d20301</td>
+<td align="left">3</td>
+<td align="left">72384</td>
+</tr>
+<tr class="odd">
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">2011</td>
+<td align="left">date</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1946157057</td>
+<td align="left">Darlington</td>
+<td align="left">E06000005</td>
+<td align="left">local authorities: district / unitary (prior to April 2015)</td>
+<td align="left">464</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">Total</td>
+<td align="left">0</td>
+<td align="left">2011 rural-urban classification</td>
+<td align="left">2000</td>
+<td align="left">0</td>
+<td align="left">2</td>
+<td align="left">Does have central heating</td>
+<td align="left">KS403EW0003</td>
+<td align="left">Central Heating</td>
+<td align="left">10000</td>
+<td align="left">2</td>
+<td align="left">20100</td>
+<td align="left">Value</td>
+<td align="left">45856</td>
+<td align="left">A</td>
+<td align="left">Normal Value</td>
+<td align="left">F</td>
+<td align="left">Free (free for publication)</td>
+<td align="left">Nm-146d1d32176e1d1946157057d0d2d20100</td>
+<td align="left">4</td>
+<td align="left">72384</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-data.table">
+<p>Dowle, M, A Srinivasan, T Short, S Lianoglou with contributions from R Saporta, and E Antonyan. 2015. <em>Data.table: Extension of Data.frame</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+</div>
+<div id="ref-nomisr">
+<p>Odell, Evan. 2018. <em>nomisr: Access Nomis Uk Labour Market Data with R</em>. doi:<a href="https://doi.org/10.5281/zenodo.1157908">10.5281/zenodo.1157908</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
