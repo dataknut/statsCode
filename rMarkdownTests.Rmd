@@ -1,12 +1,18 @@
 ---
-title: "Lists tests"
+title: "Rmarkdown snippets"
 author: "Ben Anderson"
-date: "14/03/2018"
-output: html_document
+date: 'Last run at: `r Sys.time()`'
+output:
+  bookdown::html_document2:
+    code_folding: hide
+  bookdown::pdf_document2:
+    fig_caption: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
 ```
 
  * One:
@@ -17,3 +23,25 @@ knitr::opts_chunk$set(echo = TRUE)
     i) One.1;
     ii) One.2.
 2. Two
+
+# Introduction {#intro}
+
+This is Section \@ref(intro)
+
+# Plots {#plots}
+
+See Figure \@ref(fig:myPlot) in Section \@ref(plots)
+
+```{r myPlot, fig.cap="cars mpg plot"}
+plot(mtcars$mpg)
+```
+
+# Tables {#tables}
+
+See Table \@ref(tab:myTable) in Section \@ref(tables).
+
+```{r myTable}
+t <- summary(mtcars)
+
+kable(t, caption = "mtcars table")
+```
