@@ -1,7 +1,7 @@
 ---
 title: "Rmarkdown snippets"
 author: "Ben Anderson"
-date: 'Last run at: 2018-08-02 08:52:48'
+date: 'Last run at: 2018-08-02 08:55:05'
 output:
   bookdown::html_document2:
     fig_caption: yes
