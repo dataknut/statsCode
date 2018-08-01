@@ -4,10 +4,12 @@ author: "Ben Anderson"
 date: 'Last run at: `r Sys.time()`'
 output:
   bookdown::html_document2:
+    fig_caption: yes
     code_folding: hide
+    number_sections: yes
   bookdown::pdf_document2:
     fig_caption: yes
-
+    number_sections: yes
 ---
 
 ```{r setup, include=FALSE}

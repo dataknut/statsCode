@@ -1,21 +1,15 @@
 ---
 title: "Rmarkdown snippets"
 author: "Ben Anderson"
-<<<<<<< HEAD
-date: 'Last run at: 2018-08-01 15:31:11'
+date: 'Last run at: 2018-08-02 08:52:48'
 output:
   bookdown::html_document2:
+    fig_caption: yes
     code_folding: hide
+    number_sections: yes
   bookdown::pdf_document2:
     fig_caption: yes
-=======
-date: 'Last run at: 2018-08-01 15:30:27'
-output:
-  bookdown::pdf_document2:
-    fig_caption: yes
-  bookdown::html_document2:
-    code_folding: hide
->>>>>>> d8362c5b53b735c78b5b52497a65d80278ade49b
+    number_sections: yes
 ---
 
 
