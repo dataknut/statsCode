@@ -5,12 +5,12 @@ title: '`r params$title`'
 author: "Ben Anderson"
 date: 'Last run at: `r Sys.time()`'
 output:
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
   bookdown::html_document2:
     fig_caption: yes
     code_folding: hide
-    number_sections: yes
-  bookdown::pdf_document2:
-    fig_caption: yes
     number_sections: yes
 bibliography: '`r path.expand("~/bibliography.bib")`'
 ---
@@ -19,6 +19,8 @@ bibliography: '`r path.expand("~/bibliography.bib")`'
 knitr::opts_chunk$set(echo = TRUE)
 
 library(knitr)
+library(kableExtra)
+
 ```
 
  * One:
@@ -44,17 +46,34 @@ plot(mtcars$mpg)
 
 # Tables {#tables}
 
-See Table \@ref(tab:myTable) in Section \@ref(tables).
+See Table \@ref(tab:myKable) in Section \@ref(tables).
 
-```{r myTable}
-t <- summary(mtcars)
-
-kable(t, caption = "mtcars table")
+```{r myKable}
+df <- mtcars[1:5, 1:6]
+knitr::kable(df, caption = "mtcars table (knitr::kable)")
 ```
+
+See Table \@ref(tab:myKableExtra) in Section \@ref(tables).
+
+```{r myKableExtra}
+kableExtra::kable(df, caption = "mtcars table (kableExtra::kable)")
+```
+
+See Table \@ref(tab:myKableExtraPretty) in Section \@ref(tables).
+
+```{r myKableExtraPretty}
+# https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+# fails on knit to pdf
+kableExtra::kable(df, caption = "mtcars table (kableExtra::kable with kable_styling())") %>%
+  kable_styling()
+```
+
+# R packages
 
 Uses:
 
  * knitr [@knitr] 
+ * kableExtra [@kableExtra] 
  * rmarkdown [@rmarkdown]
  * bookdown [@bookdown]
  
