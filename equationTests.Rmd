@@ -1,0 +1,20 @@
+---
+title: "Equation tests"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Variance:
+
+$\sigma^{2} = \frac{\sum\limits_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}} {n-1}$
+
+Standard deviation:
+
+$\sigma = \sqrt{\frac{\sum\limits_{i=1}^{n} \left(x_{i} - \bar{x}\right)^{2}} {n-1}}$
+
+Margins of error (proportions)
+
+$$me = +/- z * \sqrt{\frac{p(1-p)} {n-1}}$$
