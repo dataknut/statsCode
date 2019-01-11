@@ -1,0 +1,72 @@
+---
+title: "Ben Anderson"
+author: 'Colour Blind Palettes for Plots (Contact: b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+output:
+  bookdown::html_document2:
+    code_folding: hide
+    fig_caption: yes
+    number_sections: yes
+    self_contained: no
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '2'
+bibliography: '`r path.expand("~/bibliography.bib")`'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+# colour blind palettes for charts
+# http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
+# with grey
+cbgPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+# with black
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+# Colour Blind palettes
+
+Obviously these aid interpretation of plots by those who are colour blind but the palettes are also useful clear defaults. Note that there are `r length(cbbPalette)` colours in each palette:
+
+ * palette with grey: `r cbgPalette` 
+ * palette with black: `r cbbPalette` 
+ 
+This means that a plot with more than this number of factors will run out of colours.
+
+
+This is a cross-reference to Figure \@ref(fig:plot1) which uses the grey palette.
+
+```{r plot1, fig.cap="Scatter plot of mpg by displacement (grey palette)"}
+df <- mtcars
+
+df$auto <- ifelse(df$am == 0, "Automatic", "Manual") # set labels
+p <- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = as.factor(carb))) +
+  guides(colour = guide_legend(title = "Number of carburetors:")) +
+  theme(legend.position="bottom") +
+  scale_colour_manual(values=cbgPalette) + # use colour-blind friendly grey palette
+  geom_point() # <- make the plot in an object first
+p + labs(x = "Miles/(US) gallon", y = "Displacement (cu.in.)") + facet_grid(auto ~ .) # <- draw the plot and add more features
+```
+
+This is a cross-reference to Figure \@ref(fig:plot2) which uses the black palette.
+
+```{r plot2, fig.cap="Scatter plot of mpg by displacement (black palette)"}
+
+
+p <- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = as.factor(carb))) +
+  guides(colour = guide_legend(title = "Number of carburetors:")) +
+  theme(legend.position="bottom") +
+  scale_colour_manual(values=cbbPalette) + # use colour-blind friendly grey palette
+  geom_point() # <- make the plot in an object first
+p + labs(x = "Miles/(US) gallon", y = "Displacement (cu.in.)") + facet_grid(auto ~ .) # <- draw the plot and add more features
+```
+
+# Ackowledgement
+Uses ggplot2 [@ggplot2] and associated mtcars dataset to draw plots. Palettes available from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
+
+# References
