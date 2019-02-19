@@ -16,7 +16,7 @@
 
 <script src="olsRegressionExample_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="olsRegressionExample_files/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<link href="olsRegressionExample_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="olsRegressionExample_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="olsRegressionExample_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="olsRegressionExample_files/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -24,8 +24,8 @@
 <link href="olsRegressionExample_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="olsRegressionExample_files/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="olsRegressionExample_files/navigation-1.1/tabsets.js"></script>
-<link href="olsRegressionExample_files/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="olsRegressionExample_files/highlightjs-1.1/highlight.js"></script>
+<link href="olsRegressionExample_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="olsRegressionExample_files/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -34,10 +34,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -92,8 +94,14 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -102,14 +110,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -216,68 +284,31 @@ div.tocify {
 
 <h1 class="title toc-ignore">OLS Regression modeling in R</h1>
 <h4 class="author"><em>Ben Anderson (<a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
-<h4 class="date"><em>Last run at: 2017-07-06 21:06:06</em></h4>
+<h4 class="date"><em>Last run at: 2019-02-19 17:45:53</em></h4>
 
 </div>
 
 
 <div id="why-are-we-here" class="section level1">
-<h1><span class="header-section-number">1</span>  Why are we here?</h1>
+<h1><span class="header-section-number">1</span> Why are we here?</h1>
 <p>To learn how to do ols regression modelling in R (markdown) and specifically how to use broom <span class="citation">(Robinson 2016)</span> and car <span class="citation">(Fox and Weisberg 2011)</span> for diagnostics, stargazer <span class="citation">(Hlavac 2015)</span> for model tables, data.table <span class="citation">(Dowle et al. 2015)</span> for data manipulation and ggplot <span class="citation">(Wickham 2009)</span> for results visualisation.</p>
 <p>For more on regression try: <a href="http://socserv.socsci.mcmaster.ca/jfox/Courses/Brazil-2009/index.html" class="uri">http://socserv.socsci.mcmaster.ca/jfox/Courses/Brazil-2009/index.html</a></p>
 <p>So many birds and just one stone…</p>
 <pre class="r"><code># R has a very useful built-in dataset called mtcars
 # http://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
 
-# A data frame with 32 observations on 11 variables.
-# [, 1]     mpg     Miles/(US) gallon
-# [, 2]     cyl     Number of cylinders
-# [, 3]     disp    Displacement (cu.in.)
-# [, 4]     hp  Gross horsepower
-# [, 5]     drat    Rear axle ratio
-# [, 6]     wt  Weight (1000 lbs)
-# [, 7]     qsec    1/4 mile time
-# [, 8]     vs  V/S
-# [, 9]     am  Transmission (0 = automatic, 1 = manual)
-# [,10]     gear    Number of forward gears
-# [,11]     carb    Number of carburetors 
+# A data frame with 32 observations on 11 variables.  [, 1] mpg Miles/(US)
+# gallon [, 2] cyl Number of cylinders [, 3] disp Displacement (cu.in.)  [,
+# 4] hp Gross horsepower [, 5] drat Rear axle ratio [, 6] wt Weight (1000
+# lbs) [, 7] qsec 1/4 mile time [, 8] vs V/S [, 9] am Transmission (0 =
+# automatic, 1 = manual) [,10] gear Number of forward gears [,11] carb
+# Number of carburetors
 
-# Load required packages ----
-x &lt;- c(&quot;rms&quot;, #  regression tools
-       &quot;stargazer&quot;, # nice reporting of regressions
-       &quot;car&quot;, # regression tools
-       &quot;broom&quot;, # for tidying regression results
-       &quot;ggplot2&quot;, # for displaying regression results
-       &quot;data.table&quot; # for fast data manipulation
-       )
-       
-# do this to install them first if needed
-#install.packages(x)
-print(&quot;Loading required packages&quot;)</code></pre>
-<pre><code>## [1] &quot;Loading required packages&quot;</code></pre>
-<pre class="r"><code># be careful - this will return a FALSE if a package doesn&#39;t load but the script will NOT stop!
-lapply(x, require, character.only = T)</code></pre>
-<pre><code>## [[1]]
-## [1] TRUE
-## 
-## [[2]]
-## [1] TRUE
-## 
-## [[3]]
-## [1] TRUE
-## 
-## [[4]]
-## [1] TRUE
-## 
-## [[5]]
-## [1] TRUE
-## 
-## [[6]]
-## [1] TRUE</code></pre>
-<pre class="r"><code># Load mtcars ----
+
+# Load mtcars ----
 mtcars &lt;- mtcars
 
-summary(mtcars) # base method</code></pre>
+summary(mtcars)  # base method</code></pre>
 <pre><code>##       mpg             cyl             disp             hp       
 ##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
 ##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
@@ -308,7 +339,7 @@ summary(mtcars) # base method</code></pre>
 <pre class="r"><code>pairs(~mpg + disp + hp + drat + wt, labels = c(&quot;Mpg&quot;, &quot;Displacement&quot;, &quot;Horse power&quot;, 
     &quot;Rear axle rotation&quot;, &quot;Weight&quot;), data = mtcars, main = &quot;Simple Scatterplot Matrix&quot;)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/examine%20data-1.png" /><!-- --></p>
-<p>Establish normality of mpg (outcome variable of interest).</p>
+<p>Test normality of mpg (outcome variable of interest).</p>
 <pre class="r"><code>hist(mtcars$mpg)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/normality-1.png" /><!-- --></p>
 <pre class="r"><code>qqnorm(mtcars$mpg)
@@ -326,6 +357,7 @@ qqline(mtcars$mpg, col = 2)</code></pre>
 </div>
 <div id="model-with-1-term-predicting-mpg" class="section level1">
 <h1><span class="header-section-number">3</span> Model with 1 term predicting mpg</h1>
+<p>Run a model trying to see if qsec predicts mpg.</p>
 <pre class="r"><code># qsec = time to go 1/4 mile from stationary
 mpgModel1 &lt;- lm(mpg ~ qsec, mtcars)
 
@@ -349,29 +381,33 @@ summary(mpgModel1)</code></pre>
 ## Residual standard error: 5.564 on 30 degrees of freedom
 ## Multiple R-squared:  0.1753, Adjusted R-squared:  0.1478 
 ## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708</code></pre>
+<p>Now run the standard diagnostics.</p>
 <pre class="r"><code># Diagnostics ----
 
 plot(mpgModel1)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-1.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model%201-2.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model%201-3.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model%201-4.png" /><!-- --></p>
-<pre class="r"><code># normality of residuals
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag-1.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-2.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-3.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-4.png" /><!-- --></p>
+<pre class="r"><code>message(&quot;# Normality of residuals&quot;)
+
 hist(mpgModel1$residuals)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-5.png" /><!-- --></p>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag-5.png" /><!-- --></p>
 <pre class="r"><code>qqnorm(mpgModel1$residuals)
 qqline(mpgModel1$residuals, col = 2)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-6.png" /><!-- --></p>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag-6.png" /><!-- --></p>
 <pre class="r"><code>shapiro.test(mpgModel1$residuals)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  mpgModel1$residuals
 ## W = 0.94193, p-value = 0.08494</code></pre>
-<pre class="r"><code># it is usual to do these checks for standardised residuals - but the
+<pre class="r"><code>message(&quot;# Normality of standardised residuals&quot;)
+
+# it is usual to do these checks for standardised residuals - but the
 # results are the same add casewise diagnostics back into dataframe
 mtcars$studentised.residuals &lt;- rstudent(mpgModel1)
 
 qqnorm(mtcars$studentised.residuals)
 qqline(mtcars$studentised.residuals, col = 2)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-7.png" /><!-- --></p>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag-7.png" /><!-- --></p>
 <pre class="r"><code>shapiro.test(mtcars$studentised.residuals)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
@@ -379,35 +415,37 @@ qqline(mtcars$studentised.residuals, col = 2)</code></pre>
 ## data:  mtcars$studentised.residuals
 ## W = 0.93996, p-value = 0.07469</code></pre>
 <pre class="r"><code># if p &gt; 0.05 =&gt; normal is it?  But don&#39;t rely on the test espcially with
-# large n
-
-# The &#39;car&#39; package has some nice graphs to help here
-qqPlot(mpgModel1)  # shows default 95% CI</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-8.png" /><!-- --></p>
-<pre class="r"><code>spreadLevelPlot(mpgModel1)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-9.png" /><!-- --></p>
+# large n</code></pre>
+<p>Now try using the car package <span class="citation">(Fox and Weisberg 2011)</span> to do the same things.</p>
+<pre class="r"><code># The &#39;car&#39; package has some nice graphs to help here
+car::qqPlot(mpgModel1)  # shows default 95% CI</code></pre>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag.car-1.png" /><!-- --></p>
+<pre><code>## Toyota Corolla   Lotus Europa 
+##             20             28</code></pre>
+<pre class="r"><code>car::spreadLevelPlot(mpgModel1)</code></pre>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag.car-2.png" /><!-- --></p>
 <pre><code>## 
 ## Suggested power transformation:  -1.490415</code></pre>
-<pre class="r"><code># Do we think the variance of the residuals is constant?  Did the plot
-# suggest a transformation? If so, why?
+<pre class="r"><code>message(&quot;# Do we think the variance of the residuals is constant?&quot;)
+message(&quot;# Did the plot suggest a transformation? If so, why?&quot;)
 
-# autocorrelation/independence of errors
-durbinWatsonTest(mpgModel1)</code></pre>
+message(&quot;# autocorrelation/independence of errors&quot;)
+car::durbinWatsonTest(mpgModel1)</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
 ##    1       0.5922771     0.8065068   0.002
 ##  Alternative hypothesis: rho != 0</code></pre>
 <pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation what should we
 # conclude? Why? Could you have spotted that in the model summary?
 
-# homoskedasticity
+message(&quot;# homoskedasticity&quot;)
 plot(mtcars$mpg, mpgModel1$residuals)
 abline(h = mean(mpgModel1$residuals), col = &quot;red&quot;)  # add the mean of the residuals (yay, it&#39;s zero!)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/model%201-10.png" /><!-- --></p>
-<pre class="r"><code># formal test
-ncvTest(mpgModel1)</code></pre>
+<p><img src="olsRegressionExample_files/figure-html/model.1.diag.car-3.png" /><!-- --></p>
+<pre class="r"><code>message(&quot;# homoskedasticity: formal test&quot;)
+car::ncvTest(mpgModel1)</code></pre>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
-## Chisquare = 0.956535    Df = 1     p = 0.3280614</code></pre>
+## Chisquare = 0.956535, Df = 1, p = 0.32806</code></pre>
 <pre class="r"><code># if p &gt; 0.05 then there is heteroskedasticity what do we conclude from the
 # tests?</code></pre>
 <p>go back to the model - what can we conclude from it?</p>
@@ -459,76 +497,50 @@ summary(mpgModel2)</code></pre>
 ## Residual standard error: 2.596 on 29 degrees of freedom
 ## Multiple R-squared:  0.8264, Adjusted R-squared:  0.8144 
 ## F-statistic: 69.03 on 2 and 29 DF,  p-value: 9.395e-12</code></pre>
+<p>Run diagnostics.</p>
 <pre class="r"><code># Diagnostics ---- we whould run the same checks e.g.:
 qqPlot(mpgModel2)  # shows default 95% CI</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/add%20wt-1.png" /><!-- --></p>
+<p><img src="olsRegressionExample_files/figure-html/model.2.diag-1.png" /><!-- --></p>
+<pre><code>## Chrysler Imperial          Fiat 128 
+##                17                18</code></pre>
 <pre class="r"><code>spreadLevelPlot(mpgModel2)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/add%20wt-2.png" /><!-- --></p>
+<p><img src="olsRegressionExample_files/figure-html/model.2.diag-2.png" /><!-- --></p>
 <pre><code>## 
 ## Suggested power transformation:  0.4388755</code></pre>
-<pre class="r"><code># but also additional assumption checks (now there are 2 predictors)
+<pre class="r"><code># but also
+message(&quot;# additional assumption checks (now there are 2 predictors)&quot;)
 
-# collinearity
+message(&quot;# -&gt; collinearity&quot;)
 vif(mpgModel2)</code></pre>
 <pre><code>##     qsec       wt 
 ## 1.031487 1.031487</code></pre>
 <pre class="r"><code># if any values &gt; 10 -&gt; problem
 
-# tolerance
+message(&quot;# -&gt; tolerance&quot;)
 1/vif(mpgModel2)</code></pre>
 <pre><code>##      qsec        wt 
 ## 0.9694744 0.9694744</code></pre>
 <pre class="r"><code># if any values &lt; 0.2 -&gt; possible problem if any values &lt; 0.1 -&gt; definitely
 # a problem
 
-# autocorrelation/independence of errors
+message(&quot;# autocorrelation/independence of errors&quot;)
 durbinWatsonTest(mpgModel2)</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1       0.2438102       1.49595   0.088
+##    1       0.2438102       1.49595   0.122
 ##  Alternative hypothesis: rho != 0</code></pre>
-<pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation
+<pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation</code></pre>
+<p>Whilst we’re here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa" class="uri">https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa</a> for this.</p>
+<pre class="r"><code># save the residuals via broom
+resids &lt;- augment(mpgModel2)
 
-# comparing models as a reminder:
-summary(mpgModel1)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = mpg ~ qsec, data = mtcars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -9.8760 -3.4539 -0.7203  2.2774 11.6491 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept)  -5.1140    10.0295  -0.510   0.6139  
-## qsec          1.4121     0.5592   2.525   0.0171 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 5.564 on 30 degrees of freedom
-## Multiple R-squared:  0.1753, Adjusted R-squared:  0.1478 
-## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708</code></pre>
-<pre class="r"><code>summary(mpgModel2)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = mpg ~ qsec + wt, data = mtcars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -4.3962 -2.1431 -0.2129  1.4915  5.7486 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  19.7462     5.2521   3.760 0.000765 ***
-## qsec          0.9292     0.2650   3.506 0.001500 ** 
-## wt           -5.0480     0.4840 -10.430 2.52e-11 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 2.596 on 29 degrees of freedom
-## Multiple R-squared:  0.8264, Adjusted R-squared:  0.8144 
-## F-statistic: 69.03 on 2 and 29 DF,  p-value: 9.395e-12</code></pre>
-<pre class="r"><code># test significant difference between models
+# plot fitted vs residuals
+ggplot(resids, aes(x = .fitted, y = .resid)) + geom_point(size = 1)</code></pre>
+<p><img src="olsRegressionExample_files/figure-html/model.2.plot.residuals-1.png" /><!-- --></p>
+<p>As with a plot of residuals against observed values, hopefully we didn’t see any obviously strange patterns (unlike that <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa">gist</a>).</p>
+<p>Now compare the models</p>
+<pre class="r"><code># comparing models
+
+message(&quot;# test significant difference between models&quot;)
 anova(mpgModel1, mpgModel2)</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
@@ -540,19 +552,12 @@ anova(mpgModel1, mpgModel2)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code># what should we conclude from that?</code></pre>
-<p>Whilst we’re here we should also plot the residuals. h/t to <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa" class="uri">https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa</a> for this.</p>
-<pre class="r"><code># save the residuals via broom
-resids &lt;- augment(mpgModel2)
-
-# plot fitted vs residuals
-ggplot(resids, aes(x = .fitted, y = .resid)) + geom_point(size = 1)</code></pre>
-<p><img src="olsRegressionExample_files/figure-html/plot%20residuals-1.png" /><!-- --></p>
-<p>Hopefully we didn’t see any obviously strange patterns (unlike that <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa">gist</a>).</p>
 </div>
 <div id="reporting-ols-results-with-confidence-intervals" class="section level1">
 <h1><span class="header-section-number">5</span> Reporting OLS results with confidence intervals</h1>
-<p>The p values tell you whether the ‘effect’ (co-efficient) is statistically significant. But only <em>you</em> can decide if it is IMPORTANT!</p>
-<p>It is usually better to calculate and inspect confidence intervals for your estimates.</p>
+<p>The p values tell you whether the ‘effect’ (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p &lt; 0.05 (5%), p &lt; 0.01 (1%), or p &lt; 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p &lt; 0.1 (10%) for example. The choice of which to use is normative and driven by your <a href="https://github.com/dataknut/weGotThePower">appetite for Type 1 &amp; Type 2 error risks</a> and the uses to which you will put the results.</p>
+<p>But only <em>you</em> can decide if it is IMPORTANT!</p>
+<p>It is usually best to calculate and inspect confidence intervals for your estimates alongside the p values.</p>
 <p>This indicates:</p>
 <ul>
 <li>statistical significance (if the CIs do not include 0) - just like the p value</li>
@@ -565,36 +570,55 @@ ggplot(resids, aes(x = .fitted, y = .resid)) + geom_point(size = 1)</code></pre>
 <li>just like for t tests etc (in fact this <em>is</em> a t test!!)</li>
 </ul>
 <p>Or use <code>confint()</code> which is more precise.</p>
-<p>Print out the summaries again and calculate 95% confidence intervals each time.</p>
+<p>Print out the summaries again and calculate 95% confidence intervals and p values each time.</p>
 <pre class="r"><code># Model 1
-# use confint to report confidence intervals with bonferroni corrected level
+
+
+# save results as log odds the cbind function simply &#39;glues&#39; the columns
+# together side by side
+mpgModel1Results_CI &lt;- cbind(Coef = coef(mpgModel1), confint(mpgModel1), p = round(summary(mpgModel1)$coefficients[, 
+    4], 3))
+mpgModel1Results_CI</code></pre>
+<pre><code>##                  Coef       2.5 %    97.5 %     p
+## (Intercept) -5.114038 -25.5970982 15.369022 0.614
+## qsec         1.412125   0.2700654  2.554184 0.017</code></pre>
+<p>Notice that where p &lt; 0.05 our 95% CI does not include 0. These tell you the same thing: that with a 95% threshold, the coefficient’s differnece from 0 is statistically significant. Notice this is not the case for the constant (Intercept).</p>
+<p>Now we do that again but for extra practice we use a bonferroni correction to take into account the number of predictors we used. As with most things in statistics, there is active debate about the use of this…</p>
+<pre class="r"><code># Model 1 use confint to report confidence intervals with bonferroni
+# corrected level
 bc_p1 &lt;- 0.05/length(mpgModel1$coefficients)
 
-# save results as log odds
-# the cbind function simply &#39;glues&#39; the columns together side by side
-mpgModel1Results_bf &lt;- cbind(Coef = coef(mpgModel1), # coefficients
-                              confint(mpgModel1, level = 1 - bc_p1), # 95% CI
-                             Pr = round(summary(mpgModel1)$coefficients[,4], 3) # p value if required
-                             )
+# save results as log odds the cbind function simply &#39;glues&#39; the columns
+# together side by side
+mpgModel1Results_bf &lt;- cbind(Coef = coef(mpgModel1), confint(mpgModel1, level = 1 - 
+    bc_p1), p = round(summary(mpgModel1)$coefficients[, 4], 3))
 mpgModel1Results_bf</code></pre>
-<pre><code>##                  Coef       1.25 %   98.75 %    Pr
+<pre><code>##                  Coef       1.25 %   98.75 %     p
 ## (Intercept) -5.114038 -28.77937200 18.551296 0.614
 ## qsec         1.412125   0.09263361  2.731616 0.017</code></pre>
-<pre class="r"><code># Model 2
-# use confint to report confidence intervals with bonferroni corrected level
+<p>The coefficient has not change (of course) and nor has the default p value produced by the original lm model but our confidence intervals have been adjusted. You can see that we are now using the more stringent 2.5% and the intervals are wider. We would still conclude there is a statistically significant effect at this threshold but we are a bit less certain.</p>
+<blockquote>
+<p>Is that the right interpretation?</p>
+</blockquote>
+<p>Now do the same for model 2.</p>
+<pre class="r"><code># Model 2 use confint to report confidence intervals with bonferroni
+# corrected level
 bc_p2 &lt;- 0.05/length(mpgModel2$coefficients)
 
-# save results as log odds
-# the cbind function simply &#39;glues&#39; the columns together side by side
-mpgModel2Results_bf &lt;- cbind(Coef = coef(mpgModel2), 
-                            confint(mpgModel2, level = 1 - bc_p2))
+# save results as log odds the cbind function simply &#39;glues&#39; the columns
+# together side by side
+mpgModel2Results_bf &lt;- cbind(Coef = coef(mpgModel2), confint(mpgModel2, level = 1 - 
+    bc_p2), p = round(summary(mpgModel2)$coefficients[, 4], 3))
 
 mpgModel2Results_bf</code></pre>
-<pre><code>##                  Coef    0.833 %  99.167 %
-## (Intercept) 19.746223  6.4012162 33.091229
-## qsec         0.929198  0.2558134  1.602583
-## wt          -5.047982 -6.2777749 -3.818189</code></pre>
-<p>Now we’ll try reporting the two model using the stargazer package to get pretty tables. Note we use options to automatically create the 95% CI and to report the results on just one line per predictor. This is especially helpful for models with a lot of variables.</p>
+<pre><code>##                  Coef    0.833 %  99.167 %     p
+## (Intercept) 19.746223  6.4012162 33.091229 0.001
+## qsec         0.929198  0.2558134  1.602583 0.001
+## wt          -5.047982 -6.2777749 -3.818189 0.000</code></pre>
+</div>
+<div id="reporting-with-stargazer" class="section level1">
+<h1><span class="header-section-number">6</span> Reporting with Stargazer</h1>
+<p>Now we’ll try reporting the two model using the stargazer package <span class="citation">(Hlavac 2015)</span> to get pretty tables. Note we use options to automatically create the 95% CI and to report the results on just one line per predictor. This is especially helpful for models with a lot of variables. However you will see that the default is to report p values as *.</p>
 <pre class="r"><code>stargazer(mpgModel1, mpgModel2, title = &quot;Model results&quot;, ci = TRUE, single.row = TRUE, 
     type = &quot;html&quot;)</code></pre>
 <table style="text-align:center">
@@ -743,39 +767,715 @@ F Statistic
 </td>
 </tr>
 </table>
+<p>We can add the p values using stargazer options. Note that this puts them under the 95% CI - we may want them in a new column.</p>
+<pre class="r"><code>stargazer(mpgModel1, mpgModel2, title = &quot;Model results&quot;, ci = TRUE, report = c(&quot;vcsp*&quot;), 
+    single.row = TRUE, type = &quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Model results</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+mpg
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+qsec
+</td>
+<td>
+1.412 (0.316, 2.508)
+</td>
+<td>
+0.929 (0.410, 1.449)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+p = 0.018<sup>**</sup>
+</td>
+<td>
+p = 0.002<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wt
+</td>
+<td>
+</td>
+<td>
+-5.048 (-5.997, -4.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+p = 0.000<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-5.114 (-24.772, 14.544)
+</td>
+<td>
+19.746 (9.452, 30.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+p = 0.614
+</td>
+<td>
+p = 0.001<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+32
+</td>
+<td>
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.175
+</td>
+<td>
+0.826
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.148
+</td>
+<td>
+0.814
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+5.564 (df = 30)
+</td>
+<td>
+2.596 (df = 29)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6.377<sup>**</sup> (df = 1; 30)
+</td>
+<td>
+69.033<sup>***</sup> (df = 2; 29)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div id="stargazer-style-options" class="section level2">
+<h2><span class="header-section-number">6.1</span> Stargazer style options</h2>
+<p>Stargazer can simulate a range of journal output formats.</p>
+<p>Let’s start with ‘all’ which prints everything. This is quite good for your first model report but probably wouldn’t go in an article.</p>
+<pre class="r"><code>stargazer(mpgModel1, mpgModel2, title = &quot;Model results&quot;, ci = TRUE, style = &quot;all&quot;, 
+    single.row = TRUE, type = &quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Model results</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+mpg
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+qsec
+</td>
+<td>
+1.412<sup>**</sup> (0.316, 2.508)
+</td>
+<td>
+0.929<sup>***</sup> (0.410, 1.449)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = 2.525
+</td>
+<td>
+t = 3.506
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+p = 0.018
+</td>
+<td>
+p = 0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wt
+</td>
+<td>
+</td>
+<td>
+-5.048<sup>***</sup> (-5.997, -4.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+t = -10.430
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+p = 0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-5.114 (-24.772, 14.544)
+</td>
+<td>
+19.746<sup>***</sup> (9.452, 30.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+t = -0.510
+</td>
+<td>
+t = 3.760
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+p = 0.614
+</td>
+<td>
+p = 0.001
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+32
+</td>
+<td>
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.175
+</td>
+<td>
+0.826
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.148
+</td>
+<td>
+0.814
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+5.564 (df = 30)
+</td>
+<td>
+2.596 (df = 29)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6.377<sup>**</sup> (df = 1; 30) (p = 0.018)
+</td>
+<td>
+69.033<sup>***</sup> (df = 2; 29) (p = 0.000)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div id="american-economic-review" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> American Economic Review</h3>
+<p>Now let’s try American Economic Review.</p>
+<pre class="r"><code>stargazer(mpgModel1, mpgModel2, title = &quot;Model results&quot;, ci = TRUE, style = &quot;aer&quot;, 
+    single.row = TRUE, type = &quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Model results</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+mpg
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+qsec
+</td>
+<td>
+1.412<sup>**</sup> (0.316, 2.508)
+</td>
+<td>
+0.929<sup>***</sup> (0.410, 1.449)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wt
+</td>
+<td>
+</td>
+<td>
+-5.048<sup>***</sup> (-5.997, -4.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-5.114 (-24.772, 14.544)
+</td>
+<td>
+19.746<sup>***</sup> (9.452, 30.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+32
+</td>
+<td>
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.175
+</td>
+<td>
+0.826
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.148
+</td>
+<td>
+0.814
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+5.564 (df = 30)
+</td>
+<td>
+2.596 (df = 29)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6.377<sup>**</sup> (df = 1; 30)
+</td>
+<td>
+69.033<sup>***</sup> (df = 2; 29)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Notes:</em>
+</td>
+<td colspan="2" style="text-align:left">
+<sup>***</sup>Significant at the 1 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2" style="text-align:left">
+<sup>**</sup>Significant at the 5 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2" style="text-align:left">
+<sup>*</sup>Significant at the 10 percent level.
+</td>
+</tr>
+</table>
+</div>
+<div id="demography" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Demography</h3>
+<p>Or perhaps Demography.</p>
+<pre class="r"><code>stargazer(mpgModel1, mpgModel2, title = &quot;Model results&quot;, ci = TRUE, style = &quot;demography&quot;, 
+    single.row = TRUE, type = &quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Model results</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+mpg
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model 1
+</td>
+<td>
+Model 2
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+qsec
+</td>
+<td>
+1.412<sup>*</sup> (0.316, 2.508)
+</td>
+<td>
+0.929<sup>**</sup> (0.410, 1.449)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+wt
+</td>
+<td>
+</td>
+<td>
+-5.048<sup>***</sup> (-5.997, -4.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-5.114 (-24.772, 14.544)
+</td>
+<td>
+19.746<sup>***</sup> (9.452, 30.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>N</em>
+</td>
+<td>
+32
+</td>
+<td>
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.175
+</td>
+<td>
+0.826
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.148
+</td>
+<td>
+0.814
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+5.564 (df = 30)
+</td>
+<td>
+2.596 (df = 29)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6.377<sup>*</sup> (df = 1; 30)
+</td>
+<td>
+69.033<sup>***</sup> (df = 2; 29)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="3" style="text-align:left">
+<sup><em></sup>p &lt; .05; <sup><strong></sup>p &lt; .01; <sup></strong></em></sup>p &lt; .001
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 <div id="visualise-results-using-ggplot" class="section level1">
-<h1><span class="header-section-number">6</span> Visualise results using ggplot</h1>
-<p>Now we’ll visualise them using broom and ggplot. Just to confuse you we’re going to convert the data frames to data.tables. It makes little difference here but data.table is good to get to know for <code>data science</code>.</p>
+<h1><span class="header-section-number">7</span> Visualise results using ggplot</h1>
+<p>Now we’ll visualise them using broom and ggplot as we’ve found that non-statisticians can interpret plots more easily. This is especially useful for showing what the 95% confidence intervals ‘mean’.</p>
+<p>Just to confuse you we’re going to convert the data frames to data.tables <span class="citation">(Dowle et al. 2015)</span>. It makes little difference here but data.table is good to get to know for <code>data science</code>.</p>
+<p>We use the data table (you could use a data frame)</p>
 <pre class="r"><code># Broom converts the model results into a data frame (very useful!)
 mpgModel1DT &lt;- as.data.table(tidy(mpgModel1))
-mpgModel1DT$ci_lower &lt;- mpgModel1DT$estimate - qnorm(0.975) * mpgModel1DT$std.error 
-mpgModel1DT$ci_upper &lt;- mpgModel1DT$estimate + qnorm(0.975) * mpgModel1DT$std.error
-mpgModel1DT &lt;- mpgModel1DT[, model := &quot;Model 1&quot;] # add model label for ggplot to pick up
-mpgModel2DT &lt;- as.data.table(tidy(mpgModel2))
-mpgModel2DT$ci_lower &lt;- mpgModel2DT$estimate - qnorm(0.975) * mpgModel2DT$std.error 
-mpgModel2DT$ci_upper &lt;- mpgModel2DT$estimate + qnorm(0.975) * mpgModel2DT$std.error
-mpgModel2DT &lt;- mpgModel2DT[, model := &quot;Model 2&quot;] # add model label for ggplot to pick up
 
+# add the 95% CI
+mpgModel1DT$ci_lower &lt;- mpgModel1DT$estimate - qnorm(0.975) * mpgModel1DT$std.error
+mpgModel1DT$ci_upper &lt;- mpgModel1DT$estimate + qnorm(0.975) * mpgModel1DT$std.error
+mpgModel1DT &lt;- mpgModel1DT[, `:=`(model, &quot;Model 1&quot;)]  # add model label for ggplot to pick up
+
+# repeat for model 2
+mpgModel2DT &lt;- as.data.table(tidy(mpgModel2))
+mpgModel2DT$ci_lower &lt;- mpgModel2DT$estimate - qnorm(0.975) * mpgModel2DT$std.error
+mpgModel2DT$ci_upper &lt;- mpgModel2DT$estimate + qnorm(0.975) * mpgModel2DT$std.error
+mpgModel2DT &lt;- mpgModel2DT[, `:=`(model, &quot;Model 2&quot;)]  # add model label for ggplot to pick up
+
+# rbind the data tables so you have long form data
 modelsDT &lt;- rbind(mpgModel1DT, mpgModel2DT)
-  
-ggplot(modelsDT, aes(x=term, y=estimate, fill = model)) + 
-  geom_bar(position=position_dodge(), stat=&quot;identity&quot;) + 
-  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), width=.2, # Width of the error bars 
-                position=position_dodge(.9)) +
-  labs(title = &quot;Model results&quot;,
-       x = &#39;Variable&#39;,
-       y = &#39;Coefficient&#39;,
-       caption = &quot;Model results, 95% CI&quot;) +
-  coord_flip() # rotate for legibility</code></pre>
+
+# plot the coefficients using colour to distinguish the models and plot the
+# 95% CIs
+ggplot(modelsDT, aes(x = term, y = estimate, fill = model)) + geom_bar(position = position_dodge(), 
+    stat = &quot;identity&quot;) + geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), 
+    width = 0.2, position = position_dodge(0.9)) + labs(title = &quot;Model results&quot;, 
+    x = &quot;Variable&quot;, y = &quot;Coefficient&quot;, caption = paste0(&quot;Model 1 &amp; 2 results, Error bars = 95% CI&quot;, 
+        &quot;\n Data: mtcars&quot;)) + coord_flip()  # rotate for legibility</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/visualise%20models-1.png" /><!-- --></p>
+<p>So now we can easily ‘see’ and interpret our results.</p>
 </div>
 <div id="about" class="section level1">
-<h1><span class="header-section-number">7</span> About</h1>
+<h1><span class="header-section-number">8</span> About</h1>
 <div id="runtime" class="section level2">
-<h2><span class="header-section-number">7.1</span> Runtime</h2>
-<p>Analysis completed in: 6.52 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.4.0 (2017-04-21) running on x86_64-apple-darwin15.6.0.</p>
-<p>R packages used:</p>
+<h2><span class="header-section-number">8.1</span> Runtime</h2>
+<p>Analysis completed in: 5.94 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.</p>
+<p>R packages used (rms, stargazer, car, broom, ggplot2, data.table):</p>
 <ul>
 <li>base R - for the basics <span class="citation">(R Core Team 2016)</span></li>
 <li>ggplot2 - for slick graphics <span class="citation">(Wickham 2009)</span></li>

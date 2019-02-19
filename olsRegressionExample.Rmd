@@ -19,7 +19,7 @@ output:
     fig_caption: yes
     toc: yes
     toc_depth: 4
-bibliography: ~/bibliography.bib
+bibliography: '`r path.expand("~/bibliography.bib")`'
 ---
 ```{r knitrSetUp, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) # echo code so reader can see what is happening
@@ -32,14 +32,27 @@ knitr::opts_chunk$set(tidy = TRUE) # tidy up code in case echo = TRUE
 ```
 
 ```{r codeSetup, include=FALSE}
-# Housekeeping ----
-rm(list=ls(all=TRUE)) # remove all objects from workspace
-
 # Set start time ----
 startTime <- Sys.time()
+
+# Load required packages ----
+reqLibs <- c("rms",
+       "stargazer",
+       "car",
+       "broom",
+       "ggplot2",
+       "data.table"
+       )
+       
+# do this to install them first if needed
+#install.packages(x)
+print("Loading required packages")
+
+# be careful - this will return a FALSE if a package doesn't load but the script will NOT stop!
+lapply(reqLibs, require, character.only = T)
 ```
 
-# Why are we here?
+# Why are we here?
 
 To learn how to do ols regression modelling in R (markdown) and specifically how to use broom [@broom] and car [@car] for diagnostics, stargazer [@stargazer] for model tables, data.table [@data.table] for data manipulation and ggplot [@ggplot2] for results visualisation. 
 
@@ -64,22 +77,6 @@ So many birds and just one stone...
 # [,10] 	gear 	Number of forward gears
 # [,11] 	carb 	Number of carburetors 
 
-# Load required packages ----
-x <- c("rms", #  regression tools
-       "stargazer", # nice reporting of regressions
-       "car", # regression tools
-       "broom", # for tidying regression results
-       "ggplot2", # for displaying regression results
-       "data.table" # for fast data manipulation
-       )
-       
-# do this to install them first if needed
-#install.packages(x)
-print("Loading required packages")
-
-# be careful - this will return a FALSE if a package doesn't load but the script will NOT stop!
-lapply(x, require, character.only = T)
-
 
 # Load mtcars ----
 mtcars <- mtcars
@@ -96,7 +93,7 @@ pairs(~mpg+disp+hp+drat+wt,labels=c(
   "Rear axle rotation","Weight"), data=mtcars, main="Simple Scatterplot Matrix")
 ```
 
-Establish normality of mpg (outcome variable of interest).
+Test normality of mpg (outcome variable of interest).
 
 ```{r normality}
 hist(mtcars$mpg)
@@ -110,23 +107,32 @@ shapiro.test(mtcars$mpg)
 
 # Model with 1 term predicting mpg
 
-```{r model 1}
+Run a model trying to see if qsec predicts mpg.
+
+```{r model.1}
 # qsec = time to go 1/4 mile from stationary
 mpgModel1 <- lm(mpg ~ qsec, mtcars)
 
 # results?
 summary(mpgModel1)
+```
 
+Now run the standard diagnostics.
+
+```{r model.1.diag}
 # Diagnostics ----
 
 plot(mpgModel1)
 
-# normality of residuals
+message("# Normality of residuals")
+
 hist(mpgModel1$residuals)
 
 qqnorm(mpgModel1$residuals); qqline(mpgModel1$residuals, col = 2)
 
 shapiro.test(mpgModel1$residuals)
+
+message("# Normality of standardised residuals")
 
 # it is usual to do these checks for standardised residuals - but the results are the same
 # add casewise diagnostics back into dataframe
@@ -139,24 +145,28 @@ shapiro.test(mtcars$studentised.residuals)
 # if p > 0.05 => normal 
 # is it?
 # But don't rely on the test espcially with large n
+```
 
+Now try using the car package [@car] to do the same things.
+
+```{r model.1.diag.car}
 # The 'car' package has some nice graphs to help here
-qqPlot(mpgModel1) # shows default 95% CI
-spreadLevelPlot(mpgModel1)
-# Do we think the variance of the residuals is constant?
-# Did the plot suggest a transformation? If so, why?
+car::qqPlot(mpgModel1) # shows default 95% CI
+car::spreadLevelPlot(mpgModel1)
+message("# Do we think the variance of the residuals is constant?")
+message("# Did the plot suggest a transformation? If so, why?")
 
-# autocorrelation/independence of errors
-durbinWatsonTest(mpgModel1)
+message("# autocorrelation/independence of errors")
+car::durbinWatsonTest(mpgModel1)
 # if p < 0.05 then a problem as implies autocorrelation
 # what should we conclude? Why? Could you have spotted that in the model summary?
 
-# homoskedasticity
+message("# homoskedasticity")
 plot(mtcars$mpg,mpgModel1$residuals)
 abline(h = mean(mpgModel1$residuals), col = "red") # add the mean of the residuals (yay, it's zero!)
 
-# formal test
-ncvTest(mpgModel1)
+message("# homoskedasticity: formal test")
+car::ncvTest(mpgModel1)
 # if p > 0.05 then there is heteroskedasticity
 # what do we conclude from the tests?
 ```
@@ -173,47 +183,42 @@ So our model was mostly OK (one violated assumption?) but the r sq was quite low
 
 Maybe we should add the car's weight?
 
-```{r add wt}
+```{r model.2}
 # wt = weight of car
 mpgModel2 <- lm(mpg ~ qsec + wt, mtcars)
 
 # results?
 summary(mpgModel2)
+```
 
+Run diagnostics.
+
+```{r model.2.diag}
 # Diagnostics ----
 # we whould run the same checks e.g.:
 qqPlot(mpgModel2) # shows default 95% CI
 spreadLevelPlot(mpgModel2)
 
 # but also
-# additional assumption checks (now there are 2 predictors)
+message("# additional assumption checks (now there are 2 predictors)")
 
-# collinearity
+message("# -> collinearity")
 vif(mpgModel2)
 # if any values > 10 -> problem
 
-# tolerance
+message("# -> tolerance")
 1/vif(mpgModel2)
 # if any values < 0.2 -> possible problem
 # if any values < 0.1 -> definitely a problem
 
-# autocorrelation/independence of errors
+message("# autocorrelation/independence of errors")
 durbinWatsonTest(mpgModel2)
 # if p < 0.05 then a problem as implies autocorrelation
-
-# comparing models
-# as a reminder:
-summary(mpgModel1)
-summary(mpgModel2)
-
-# test significant difference between models
-anova(mpgModel1, mpgModel2)
-# what should we conclude from that?
 ```
 
-Whilst we're here we should also plot the residuals. h/t to https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa for this.
+Whilst we're here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa for this.
 
-```{r plot residuals}
+```{r model.2.plot.residuals}
 # save the residuals via broom
 resids <- augment(mpgModel2)
 
@@ -222,13 +227,26 @@ ggplot(resids, aes(x = .fitted, y = .resid)) +
     geom_point(size = 1)
 ```
 
-Hopefully we didn't see any obviously strange patterns (unlike that [gist](https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa)).
+As with a plot of residuals against observed values, hopefully we didn't see any obviously strange patterns (unlike that [gist](https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa)).
+
+Now compare the models
+
+```{r models.compare}
+# comparing models
+
+message("# test significant difference between models")
+anova(mpgModel1, mpgModel2)
+# what should we conclude from that?
+```
+
 
 # Reporting OLS results with confidence intervals
 
-The p values tell you whether the 'effect' (co-efficient) is statistically significant. But only _you_ can decide if it is IMPORTANT!
+The p values tell you whether the 'effect' (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p < 0.05 (5%), p < 0.01 (1%), or p < 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p < 0.1 (10%) for example. The choice of which to use is normative and driven by your [appetite for Type 1 & Type 2 error risks](https://github.com/dataknut/weGotThePower) and the uses to which you will put the results.
 
-It is usually better to calculate and inspect confidence intervals for your estimates.
+But only _you_ can decide if it is IMPORTANT!
+
+It is usually best to calculate and inspect confidence intervals for your estimates alongside the p values.
 
 This indicates:
 
@@ -243,9 +261,27 @@ You can calculate them using the standard error (s.e.) from the summary:
 
 Or use `confint()` which is more precise.
 
-Print out the summaries again and calculate 95% confidence intervals each time.
+Print out the summaries again and calculate 95% confidence intervals and p values each time. 
 
-```{r add CI to model 1}
+```{r model.1.add.CI}
+
+# Model 1
+
+
+# save results as log odds
+# the cbind function simply 'glues' the columns together side by side
+mpgModel1Results_CI <- cbind(Coef = coef(mpgModel1),
+                              confint(mpgModel1),
+                             p = round(summary(mpgModel1)$coefficients[,4], 3)
+                             )
+mpgModel1Results_CI
+```
+
+Notice that where p < 0.05 our 95% CI does not include 0. These tell you the same thing: that with a 95% threshold, the coefficient's differnece from 0 is statistically significant. Notice this is not the case for the constant (Intercept).
+
+Now we do that again but for extra practice we use a bonferroni correction to take into account the number of predictors we used. As with most things in statistics, there is active debate about the use of this...
+
+```{r model.1.add.CI.bonf}
 
 # Model 1
 # use confint to report confidence intervals with bonferroni corrected level
@@ -253,12 +289,20 @@ bc_p1 <- 0.05/length(mpgModel1$coefficients)
 
 # save results as log odds
 # the cbind function simply 'glues' the columns together side by side
-mpgModel1Results_bf <- cbind(Coef = coef(mpgModel1), # coefficients
-                              confint(mpgModel1, level = 1 - bc_p1), # 95% CI
-                             Pr = round(summary(mpgModel1)$coefficients[,4], 3) # p value if required
+mpgModel1Results_bf <- cbind(Coef = coef(mpgModel1),
+                              confint(mpgModel1, level = 1 - bc_p1),
+                             p = round(summary(mpgModel1)$coefficients[,4], 3)
                              )
 mpgModel1Results_bf
+```
 
+The coefficient has not change (of course) and nor has the default p value produced by the original lm model but our confidence intervals have been adjusted. You can see that we are now using the more stringent 2.5% and the intervals are wider. We would still conclude there is a statistically significant effect at this threshold but we are a bit less certain.
+
+> Is that the right interpretation?
+
+Now do the same for model 2.
+
+```{r model.2.add.CI}
 # Model 2
 # use confint to report confidence intervals with bonferroni corrected level
 bc_p2 <- 0.05/length(mpgModel2$coefficients)
@@ -266,13 +310,16 @@ bc_p2 <- 0.05/length(mpgModel2$coefficients)
 # save results as log odds
 # the cbind function simply 'glues' the columns together side by side
 mpgModel2Results_bf <- cbind(Coef = coef(mpgModel2),
-                             confint(mpgModel2,level = 1 - bc_p2)
+                             confint(mpgModel2,level = 1 - bc_p2),
+                             p = round(summary(mpgModel2)$coefficients[,4], 3)
                              )
 
 mpgModel2Results_bf
 ```
 
-Now we'll try reporting the two model using the stargazer package to get pretty tables. Note we use options to automatically create the 95% CI and to report the results on just one line per predictor. This is especially helpful for models with a lot of variables.
+# Reporting with Stargazer
+
+Now we'll try reporting the two model using the stargazer package [@stargazer] to get pretty tables. Note we use options to automatically create the 95% CI and to report the results on just one line per predictor. This is especially helpful for models with a lot of variables. However you will see that the default is to report p values as *.
 
 ```{r use stargazer, results='asis'}
 stargazer(mpgModel1, mpgModel2, 
@@ -281,24 +328,83 @@ stargazer(mpgModel1, mpgModel2,
           single.row = TRUE,type = "html")
 ```
 
+
+We can add the p values using stargazer options. Note that this puts them under the 95% CI - we may want them in a new column.
+
+
+```{r use.stargazer.add.P, results='asis'}
+stargazer(mpgModel1, mpgModel2, 
+          title = "Model results",
+          ci = TRUE, 
+          report = c("vcsp*"),
+          single.row = TRUE,type = "html")
+```
+
+## Stargazer style options
+
+Stargazer can simulate a range of journal output formats.
+
+Let's start with 'all' which prints everything. This is quite good for your first model report but probably wouldn't go in an article.
+
+```{r use.stargazer.all, results='asis'}
+stargazer(mpgModel1, mpgModel2, 
+          title = "Model results",
+          ci = TRUE, 
+          style = "all",
+          single.row = TRUE,type = "html")
+```
+
+### American Economic Review
+
+Now let's try American Economic Review.
+
+```{r use.stargazer.aer, results='asis'}
+stargazer(mpgModel1, mpgModel2, 
+          title = "Model results",
+          ci = TRUE, 
+          style = "aer",
+          single.row = TRUE,type = "html")
+```
+
+### Demography
+
+Or perhaps Demography.
+
+```{r use.stargazer.demography, results='asis'}
+stargazer(mpgModel1, mpgModel2, 
+          title = "Model results",
+          ci = TRUE, 
+          style = "demography",
+          single.row = TRUE,type = "html")
+```
+
 # Visualise results using ggplot
 
-Now we'll visualise them using broom and ggplot. Just to confuse you we're going to convert the data frames to data.tables. It makes little difference here but data.table is good to get to know for `data science`.
+Now we'll visualise them using broom and ggplot as we've found that non-statisticians can interpret plots more easily. This is especially useful for showing what the 95% confidence intervals 'mean'.
 
+Just to confuse you we're going to convert the data frames to data.tables [@data.table]. It makes little difference here but data.table is good to get to know for `data science`.
+
+We use the data table (you could use a data frame)
 
 ```{r visualise models}
 # Broom converts the model results into a data frame (very useful!)
 mpgModel1DT <- as.data.table(tidy(mpgModel1))
+
+# add the 95% CI
 mpgModel1DT$ci_lower <- mpgModel1DT$estimate - qnorm(0.975) * mpgModel1DT$std.error 
 mpgModel1DT$ci_upper <- mpgModel1DT$estimate + qnorm(0.975) * mpgModel1DT$std.error
 mpgModel1DT <- mpgModel1DT[, model := "Model 1"] # add model label for ggplot to pick up
+
+# repeat for model 2
 mpgModel2DT <- as.data.table(tidy(mpgModel2))
 mpgModel2DT$ci_lower <- mpgModel2DT$estimate - qnorm(0.975) * mpgModel2DT$std.error 
 mpgModel2DT$ci_upper <- mpgModel2DT$estimate + qnorm(0.975) * mpgModel2DT$std.error
 mpgModel2DT <- mpgModel2DT[, model := "Model 2"] # add model label for ggplot to pick up
 
+# rbind the data tables so you have long form data
 modelsDT <- rbind(mpgModel1DT, mpgModel2DT)
-  
+
+# plot the coefficients using colour to distinguish the models and plot the 95% CIs
 ggplot(modelsDT, aes(x=term, y=estimate, fill = model)) + 
   geom_bar(position=position_dodge(), stat="identity") + 
   geom_errorbar(aes(ymin=ci_lower, 
@@ -309,10 +415,14 @@ ggplot(modelsDT, aes(x=term, y=estimate, fill = model)) +
   labs(title = "Model results",
        x = 'Variable',
        y = 'Coefficient',
-       caption = "Model results, 95% CI") +
+       caption = paste0("Model 1 & 2 results, Error bars = 95% CI",
+                        "\n Data: mtcars")
+       ) +
   coord_flip() # rotate for legibility
                 
 ```
+
+So now we can easily 'see' and interpret our results.
 
 # About
 
@@ -320,7 +430,7 @@ ggplot(modelsDT, aes(x=term, y=estimate, fill = model)) +
 
 Analysis completed in: `r round(Sys.time() - startTime, 2)` seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with `r R.version.string` running on `r R.version$platform`.
 
-R packages used:
+R packages used (`r reqLibs`):
 
  * base R - for the basics [@baseR]
  * ggplot2 - for slick graphics [@ggplot2]
