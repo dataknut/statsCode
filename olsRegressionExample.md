@@ -1,7 +1,7 @@
 ---
 title: "OLS Regression modeling in R"
 author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
-date: 'Last run at: 2019-02-19 17:45:53'
+date: 'Last run at: 2019-02-19 17:54:27'
 output:
   html_document:
     keep_md: yes
@@ -267,7 +267,7 @@ car::durbinWatsonTest(mpgModel1)
 
 ```
 ##  lag Autocorrelation D-W Statistic p-value
-##    1       0.5922771     0.8065068   0.002
+##    1       0.5922771     0.8065068       0
 ##  Alternative hypothesis: rho != 0
 ```
 
@@ -424,7 +424,7 @@ durbinWatsonTest(mpgModel2)
 
 ```
 ##  lag Autocorrelation D-W Statistic p-value
-##    1       0.2438102       1.49595   0.122
+##    1       0.2438102       1.49595   0.094
 ##  Alternative hypothesis: rho != 0
 ```
 
@@ -476,7 +476,9 @@ anova(mpgModel1, mpgModel2)
 
 # Reporting OLS results with confidence intervals
 
-The p values tell you whether the 'effect' (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p < 0.05 (5%), p < 0.01 (1%), or p < 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p < 0.1 (10%) for example. The choice of which to use is normative and driven by your [appetite for Type 1 & Type 2 error risks](https://github.com/dataknut/weGotThePower) and the uses to which you will put the results.
+Reporting should include coefficients, p values and confidence intervals for factors in each model as well as regression diagnostics so that readers can judge the goodness of fit and uncertainty for themselves (see https://amstat.tandfonline.com/doi/full/10.1080/00031305.2016.1154108 for guidance and also https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf – with the addition of e.g. 95% confidence intervals to the tables).
+
+The p values tell you whether the 'effect' (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p < 0.05 (5%), p < 0.01 (1%), or p < 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p < 0.1 (10%) for example. The choice of which to use is normative and driven by your [appetite for Type 1 & Type 2 error risks](https://git.soton.ac.uk/ba1e12/weGotThePower) and the uses to which you will put the results.
 
 But only _you_ can decide if it is IMPORTANT!
 
@@ -753,7 +755,7 @@ So now we can easily 'see' and interpret our results.
 
 ## Runtime
 
-Analysis completed in: 5.94 seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.
+Analysis completed in: 5.9 seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.
 
 R packages used (rms, stargazer, car, broom, ggplot2, data.table):
 

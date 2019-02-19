@@ -284,7 +284,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">OLS Regression modeling in R</h1>
 <h4 class="author"><em>Ben Anderson (<a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
-<h4 class="date"><em>Last run at: 2019-02-19 17:45:53</em></h4>
+<h4 class="date"><em>Last run at: 2019-02-19 17:54:27</em></h4>
 
 </div>
 
@@ -432,7 +432,7 @@ message(&quot;# Did the plot suggest a transformation? If so, why?&quot;)
 message(&quot;# autocorrelation/independence of errors&quot;)
 car::durbinWatsonTest(mpgModel1)</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1       0.5922771     0.8065068   0.002
+##    1       0.5922771     0.8065068       0
 ##  Alternative hypothesis: rho != 0</code></pre>
 <pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation what should we
 # conclude? Why? Could you have spotted that in the model summary?
@@ -526,7 +526,7 @@ message(&quot;# -&gt; tolerance&quot;)
 message(&quot;# autocorrelation/independence of errors&quot;)
 durbinWatsonTest(mpgModel2)</code></pre>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1       0.2438102       1.49595   0.122
+##    1       0.2438102       1.49595   0.094
 ##  Alternative hypothesis: rho != 0</code></pre>
 <pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation</code></pre>
 <p>Whilst we’re here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa" class="uri">https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa</a> for this.</p>
@@ -555,7 +555,8 @@ anova(mpgModel1, mpgModel2)</code></pre>
 </div>
 <div id="reporting-ols-results-with-confidence-intervals" class="section level1">
 <h1><span class="header-section-number">5</span> Reporting OLS results with confidence intervals</h1>
-<p>The p values tell you whether the ‘effect’ (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p &lt; 0.05 (5%), p &lt; 0.01 (1%), or p &lt; 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p &lt; 0.1 (10%) for example. The choice of which to use is normative and driven by your <a href="https://github.com/dataknut/weGotThePower">appetite for Type 1 &amp; Type 2 error risks</a> and the uses to which you will put the results.</p>
+<p>Reporting should include coefficients, p values and confidence intervals for factors in each model as well as regression diagnostics so that readers can judge the goodness of fit and uncertainty for themselves (see <a href="https://amstat.tandfonline.com/doi/full/10.1080/00031305.2016.1154108" class="uri">https://amstat.tandfonline.com/doi/full/10.1080/00031305.2016.1154108</a> for guidance and also <a href="https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf" class="uri">https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf</a> – with the addition of e.g. 95% confidence intervals to the tables).</p>
+<p>The p values tell you whether the ‘effect’ (co-efficient) is statistically significant at a given confidence threshold. By convention this is usually one of p &lt; 0.05 (5%), p &lt; 0.01 (1%), or p &lt; 0.001 (0.1%). Sometimes, this is (justifiably) relaxed to p &lt; 0.1 (10%) for example. The choice of which to use is normative and driven by your <a href="https://git.soton.ac.uk/ba1e12/weGotThePower">appetite for Type 1 &amp; Type 2 error risks</a> and the uses to which you will put the results.</p>
 <p>But only <em>you</em> can decide if it is IMPORTANT!</p>
 <p>It is usually best to calculate and inspect confidence intervals for your estimates alongside the p values.</p>
 <p>This indicates:</p>
@@ -1474,7 +1475,7 @@ ggplot(modelsDT, aes(x = term, y = estimate, fill = model)) + geom_bar(position 
 <h1><span class="header-section-number">8</span> About</h1>
 <div id="runtime" class="section level2">
 <h2><span class="header-section-number">8.1</span> Runtime</h2>
-<p>Analysis completed in: 5.94 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.</p>
+<p>Analysis completed in: 5.9 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.</p>
 <p>R packages used (rms, stargazer, car, broom, ggplot2, data.table):</p>
 <ul>
 <li>base R - for the basics <span class="citation">(R Core Team 2016)</span></li>
