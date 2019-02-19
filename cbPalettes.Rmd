@@ -31,13 +31,16 @@ cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2"
 
 # Colour Blind palettes
 
-Obviously these aid interpretation of plots by those who are colour blind but the palettes are also useful clear defaults. Note that there are `r length(cbbPalette)` colours in each palette:
+Obviously these aid interpretation of plots by those who are colour blind but the [palettes](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) are also useful clear defaults. Note that there are `r length(cbbPalette)` colours in each palette:
 
  * palette with grey: `r cbgPalette` 
  * palette with black: `r cbbPalette` 
- 
-This means that a plot with more than this number of factors will run out of colours.
 
+Source: http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
+
+This means that a plot with more than this number of factors will run out of colours (see below).
+
+## Grey palette
 
 This is a cross-reference to Figure \@ref(fig:plot1) which uses the grey palette.
 
@@ -53,6 +56,8 @@ p <- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = as.factor(carb))) +
 p + labs(x = "Miles/(US) gallon", y = "Displacement (cu.in.)") + facet_grid(auto ~ .) # <- draw the plot and add more features
 ```
 
+## Black palette
+
 This is a cross-reference to Figure \@ref(fig:plot2) which uses the black palette.
 
 ```{r plot2, fig.cap="Scatter plot of mpg by displacement (black palette)"}
@@ -65,6 +70,24 @@ p <- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = as.factor(carb))) +
   geom_point() # <- make the plot in an object first
 p + labs(x = "Miles/(US) gallon", y = "Displacement (cu.in.)") + facet_grid(auto ~ .) # <- draw the plot and add more features
 ```
+
+# Using viridis
+
+An alternative to the palettes is the [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) package [@viridis]. This has the benefit of not having a small number of colours although Figure \@ref(fig:plot3) doesn't really demonstrate this!
+
+```{r plot3, fig.cap="Scatter plot of mpg by displacement (viridis palette)"}
+library(viridis)
+p <- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = carb)) +
+  guides(colour = guide_legend(title = "Number of carburetors:")) +
+  theme(legend.position="bottom") +
+  scale_colour_viridis() + # use viridis
+  geom_point() # <- make the plot in an object first
+p + labs(x = "Miles/(US) gallon", y = "Displacement (cu.in.)") + facet_grid(auto ~ .) # <- draw the plot and add more features
+```
+
+# Summary
+
+Personally I prefer the [colour blind palettes](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) if I have a small number of categories (less than `r length(cbbPalette)`) but usually use [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) if I have more than that and if I have continuous data.
 
 # Ackowledgement
 Uses ggplot2 [@ggplot2] and associated mtcars dataset to draw plots. Palettes available from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette

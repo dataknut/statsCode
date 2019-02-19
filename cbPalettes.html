@@ -101,6 +101,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -108,9 +111,70 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
@@ -123,7 +187,6 @@ $(document).ready(function () {
   window.initializeCodeFolding("hide" === "show");
 });
 </script>
-
 
 
 
@@ -238,19 +301,22 @@ div.tocify {
 
 <h1 class="title toc-ignore">Ben Anderson</h1>
 <h4 class="author"><em>Colour Blind Palettes for Plots (Contact: <a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
-<h4 class="date"><em>Last run at: 2019-01-11 14:40:30</em></h4>
+<h4 class="date"><em>Last run at: 2019-02-19 16:21:17</em></h4>
 
 </div>
 
 
 <div id="colour-blind-palettes" class="section level1">
 <h1><span class="header-section-number">1</span> Colour Blind palettes</h1>
-<p>Obviously these aid interpretation of plots by those who are colour blind but the palettes are also useful clear defaults. Note that there are 8 colours in each palette:</p>
+<p>Obviously these aid interpretation of plots by those who are colour blind but the <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette">palettes</a> are also useful clear defaults. Note that there are 8 colours in each palette:</p>
 <ul>
 <li>palette with grey: #999999, #E69F00, #56B4E9, #009E73, #F0E442, #0072B2, #D55E00, #CC79A7</li>
 <li>palette with black: #000000, #E69F00, #56B4E9, #009E73, #F0E442, #0072B2, #D55E00, #CC79A7</li>
 </ul>
-<p>This means that a plot with more than this number of factors will run out of colours.</p>
+<p>Source: <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette" class="uri">http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette</a></p>
+<p>This means that a plot with more than this number of factors will run out of colours (see below).</p>
+<div id="grey-palette" class="section level2">
+<h2><span class="header-section-number">1.1</span> Grey palette</h2>
 <p>This is a cross-reference to Figure <a href="#fig:plot1">1.1</a> which uses the grey palette.</p>
 <pre class="r"><code>df &lt;- mtcars
 
@@ -267,6 +333,9 @@ p + labs(x = &quot;Miles/(US) gallon&quot;, y = &quot;Displacement (cu.in.)&quot
 Figure 1.1: Scatter plot of mpg by displacement (grey palette)
 </p>
 </div>
+</div>
+<div id="black-palette" class="section level2">
+<h2><span class="header-section-number">1.2</span> Black palette</h2>
 <p>This is a cross-reference to Figure <a href="#fig:plot2">1.2</a> which uses the black palette.</p>
 <pre class="r"><code>p &lt;- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = as.factor(carb))) +
   guides(colour = guide_legend(title = &quot;Number of carburetors:&quot;)) +
@@ -281,13 +350,39 @@ Figure 1.2: Scatter plot of mpg by displacement (black palette)
 </p>
 </div>
 </div>
+</div>
+<div id="using-viridis" class="section level1">
+<h1><span class="header-section-number">2</span> Using viridis</h1>
+<p>An alternative to the palettes is the <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">viridis</a> package <span class="citation">(Garnier 2018)</span>. This has the benefit of not having a small number of colours although Figure <a href="#fig:plot3">2.1</a> doesn’t really demonstrate this!</p>
+<pre class="r"><code>library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>p &lt;- ggplot2::ggplot(df, aes(x = mpg, y = disp, colour = carb)) +
+  guides(colour = guide_legend(title = &quot;Number of carburetors:&quot;)) +
+  theme(legend.position=&quot;bottom&quot;) +
+  scale_colour_viridis() + # use viridis
+  geom_point() # &lt;- make the plot in an object first
+p + labs(x = &quot;Miles/(US) gallon&quot;, y = &quot;Displacement (cu.in.)&quot;) + facet_grid(auto ~ .) # &lt;- draw the plot and add more features</code></pre>
+<div class="figure"><span id="fig:plot3"></span>
+<img src="cbPalettes_files/figure-html/plot3-1.png" alt="Scatter plot of mpg by displacement (viridis palette)" width="672" />
+<p class="caption">
+Figure 2.1: Scatter plot of mpg by displacement (viridis palette)
+</p>
+</div>
+</div>
+<div id="summary" class="section level1">
+<h1><span class="header-section-number">3</span> Summary</h1>
+<p>Personally I prefer the <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette">colour blind palettes</a> if I have a small number of categories (less than 8) but usually use <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">viridis</a> if I have more than that and if I have continuous data.</p>
+</div>
 <div id="ackowledgement" class="section level1">
-<h1><span class="header-section-number">2</span> Ackowledgement</h1>
+<h1><span class="header-section-number">4</span> Ackowledgement</h1>
 <p>Uses ggplot2 <span class="citation">(Wickham 2009)</span> and associated mtcars dataset to draw plots. Palettes available from <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette" class="uri">http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette</a></p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 <div id="refs" class="references">
+<div id="ref-viridis">
+<p>Garnier, Simon. 2018. <em>Viridis: Default Color Maps from ’Matplotlib’</em>. <a href="https://CRAN.R-project.org/package=viridis" class="uri">https://CRAN.R-project.org/package=viridis</a>.</p>
+</div>
 <div id="ref-ggplot2">
 <p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
 </div>
