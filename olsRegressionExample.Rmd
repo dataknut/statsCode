@@ -93,10 +93,13 @@ pairs(~mpg+disp+hp+drat+wt,labels=c(
   "Rear axle rotation","Weight"), data=mtcars, main="Simple Scatterplot Matrix")
 ```
 
-Test normality of mpg (outcome variable of interest).
+Test normality of mpg (outcome variable of interest) as linear models rest on this assumption (and quite a few others...).
 
 ```{r normality}
+# test with a histogram
 hist(mtcars$mpg)
+
+# test with a qq plot
 qqnorm(mtcars$mpg); qqline(mtcars$mpg, col = 2)
 
 shapiro.test(mtcars$mpg)
@@ -105,9 +108,11 @@ shapiro.test(mtcars$mpg)
 # is it? Beware: shapiro-wilks is less robust as N -> 
 ```
 
+Mpg seems to approximate normality but with a slightly worrying tail effect at the right hand extreme.
+
 # Model with 1 term predicting mpg
 
-Run a model trying to see if qsec predicts mpg.
+Run a model trying to see if qsec predicts mpg. This will print out a basic table of results.
 
 ```{r model.1}
 # qsec = time to go 1/4 mile from stationary
@@ -117,10 +122,12 @@ mpgModel1 <- lm(mpg ~ qsec, mtcars)
 summary(mpgModel1)
 ```
 
-Now run the standard diagnostics.
+Now run the standard diagnostics over the model results.
 
 ```{r model.1.diag}
 # Diagnostics ----
+
+message("# Diagnostic plots")
 
 plot(mpgModel1)
 
@@ -177,6 +184,8 @@ go back to the model - what can we conclude from it?
 summary(mpgModel1)
 ```
 
+There are an infinite number of ways to report regression model results and every journal has it's own. We look at this in detail below using stargazer [@stargazer] but the [guidance here](https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf) is also quite useful.
+
 # Model with more than 1 term
 
 So our model was mostly OK (one violated assumption?) but the r sq was quite low. 
@@ -195,25 +204,38 @@ Run diagnostics.
 
 ```{r model.2.diag}
 # Diagnostics ----
-# we whould run the same checks e.g.:
-qqPlot(mpgModel2) # shows default 95% CI
-spreadLevelPlot(mpgModel2)
+
+car::qqPlot(mpgModel2) # shows default 95% CI
+car::spreadLevelPlot(mpgModel2)
+message("# Do we think the variance of the residuals is constant?")
+message("# Did the plot suggest a transformation? If so, why?")
+
+message("# autocorrelation/independence of errors")
+car::durbinWatsonTest(mpgModel2)
+# if p < 0.05 then a problem as implies autocorrelation
+# what should we conclude? Why? Could you have spotted that in the model summary?
+
+message("# homoskedasticity")
+plot(mtcars$mpg,mpgModel2$residuals)
+abline(h = mean(mpgModel2$residuals), col = "red") # add the mean of the residuals (yay, it's zero!)
+
+message("# homoskedasticity: formal test")
+car::ncvTest(mpgModel2)
+# if p > 0.05 then there is heteroskedasticity
 
 # but also
 message("# additional assumption checks (now there are 2 predictors)")
 
 message("# -> collinearity")
-vif(mpgModel2)
+car::vif(mpgModel2)
 # if any values > 10 -> problem
 
 message("# -> tolerance")
-1/vif(mpgModel2)
+1/car::vif(mpgModel2)
 # if any values < 0.2 -> possible problem
 # if any values < 0.1 -> definitely a problem
 
-message("# autocorrelation/independence of errors")
-durbinWatsonTest(mpgModel2)
-# if p < 0.05 then a problem as implies autocorrelation
+# what do we conclude from the tests?
 ```
 
 Whilst we're here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa for this.
@@ -266,10 +288,7 @@ Or use `confint()` which is more precise.
 Print out the summaries again and calculate 95% confidence intervals and p values each time. 
 
 ```{r model.1.add.CI}
-
 # Model 1
-
-
 # save results as log odds
 # the cbind function simply 'glues' the columns together side by side
 mpgModel1Results_CI <- cbind(Coef = coef(mpgModel1),
@@ -284,8 +303,7 @@ Notice that where p < 0.05 our 95% CI does not include 0. These tell you the sam
 Now we do that again but for extra practice we use a bonferroni correction to take into account the number of predictors we used. As with most things in statistics, there is active debate about the use of this...
 
 ```{r model.1.add.CI.bonf}
-
-# Model 1
+# Model 1 bf
 # use confint to report confidence intervals with bonferroni corrected level
 bc_p1 <- 0.05/length(mpgModel1$coefficients)
 
@@ -305,7 +323,7 @@ The coefficient has not change (of course) and nor has the default p value produ
 Now do the same for model 2.
 
 ```{r model.2.add.CI}
-# Model 2
+# Model 2 bf
 # use confint to report confidence intervals with bonferroni corrected level
 bc_p2 <- 0.05/length(mpgModel2$coefficients)
 

@@ -1,7 +1,7 @@
 ---
 title: "OLS Regression modeling in R"
 author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
-date: 'Last run at: 2019-02-19 17:54:27'
+date: 'Last run at: 2019-02-22 12:40:49'
 output:
   html_document:
     keep_md: yes
@@ -95,16 +95,18 @@ pairs(~mpg + disp + hp + drat + wt, labels = c("Mpg", "Displacement", "Horse pow
 
 ![](olsRegressionExample_files/figure-html/examine data-1.png)<!-- -->
 
-Test normality of mpg (outcome variable of interest).
+Test normality of mpg (outcome variable of interest) as linear models rest on this assumption (and quite a few others...).
 
 
 ```r
+# test with a histogram
 hist(mtcars$mpg)
 ```
 
 ![](olsRegressionExample_files/figure-html/normality-1.png)<!-- -->
 
 ```r
+# test with a qq plot
 qqnorm(mtcars$mpg)
 qqline(mtcars$mpg, col = 2)
 ```
@@ -129,9 +131,11 @@ shapiro.test(mtcars$mpg)
 # is it? Beware: shapiro-wilks is less robust as N ->
 ```
 
+Mpg seems to approximate normality but with a slightly worrying tail effect at the right hand extreme.
+
 # Model with 1 term predicting mpg
 
-Run a model trying to see if qsec predicts mpg.
+Run a model trying to see if qsec predicts mpg. This will print out a basic table of results.
 
 
 ```r
@@ -163,11 +167,13 @@ summary(mpgModel1)
 ## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708
 ```
 
-Now run the standard diagnostics.
+Now run the standard diagnostics over the model results.
 
 
 ```r
 # Diagnostics ----
+
+message("# Diagnostic plots")
 
 plot(mpgModel1)
 ```
@@ -326,6 +332,8 @@ summary(mpgModel1)
 ## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708
 ```
 
+There are an infinite number of ways to report regression model results and every journal has it's own. We look at this in detail below using stargazer [@stargazer] but the [guidance here](https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf) is also quite useful.
+
 # Model with more than 1 term
 
 So our model was mostly OK (one violated assumption?) but the r sq was quite low. 
@@ -367,8 +375,9 @@ Run diagnostics.
 
 
 ```r
-# Diagnostics ---- we whould run the same checks e.g.:
-qqPlot(mpgModel2)  # shows default 95% CI
+# Diagnostics ----
+
+car::qqPlot(mpgModel2)  # shows default 95% CI
 ```
 
 ![](olsRegressionExample_files/figure-html/model.2.diag-1.png)<!-- -->
@@ -379,7 +388,7 @@ qqPlot(mpgModel2)  # shows default 95% CI
 ```
 
 ```r
-spreadLevelPlot(mpgModel2)
+car::spreadLevelPlot(mpgModel2)
 ```
 
 ![](olsRegressionExample_files/figure-html/model.2.diag-2.png)<!-- -->
@@ -390,11 +399,49 @@ spreadLevelPlot(mpgModel2)
 ```
 
 ```r
+message("# Do we think the variance of the residuals is constant?")
+message("# Did the plot suggest a transformation? If so, why?")
+
+message("# autocorrelation/independence of errors")
+car::durbinWatsonTest(mpgModel2)
+```
+
+```
+##  lag Autocorrelation D-W Statistic p-value
+##    1       0.2438102       1.49595   0.114
+##  Alternative hypothesis: rho != 0
+```
+
+```r
+# if p < 0.05 then a problem as implies autocorrelation what should we
+# conclude? Why? Could you have spotted that in the model summary?
+
+message("# homoskedasticity")
+plot(mtcars$mpg, mpgModel2$residuals)
+abline(h = mean(mpgModel2$residuals), col = "red")  # add the mean of the residuals (yay, it's zero!)
+```
+
+![](olsRegressionExample_files/figure-html/model.2.diag-3.png)<!-- -->
+
+```r
+message("# homoskedasticity: formal test")
+car::ncvTest(mpgModel2)
+```
+
+```
+## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.590986, Df = 1, p = 0.44204
+```
+
+```r
+# if p > 0.05 then there is heteroskedasticity
+
 # but also
 message("# additional assumption checks (now there are 2 predictors)")
 
 message("# -> collinearity")
-vif(mpgModel2)
+car::vif(mpgModel2)
 ```
 
 ```
@@ -406,7 +453,7 @@ vif(mpgModel2)
 # if any values > 10 -> problem
 
 message("# -> tolerance")
-1/vif(mpgModel2)
+1/car::vif(mpgModel2)
 ```
 
 ```
@@ -418,18 +465,7 @@ message("# -> tolerance")
 # if any values < 0.2 -> possible problem if any values < 0.1 -> definitely
 # a problem
 
-message("# autocorrelation/independence of errors")
-durbinWatsonTest(mpgModel2)
-```
-
-```
-##  lag Autocorrelation D-W Statistic p-value
-##    1       0.2438102       1.49595   0.094
-##  Alternative hypothesis: rho != 0
-```
-
-```r
-# if p < 0.05 then a problem as implies autocorrelation
+# what do we conclude from the tests?
 ```
 
 Whilst we're here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa for this.
@@ -501,11 +537,8 @@ Print out the summaries again and calculate 95% confidence intervals and p value
 
 
 ```r
-# Model 1
-
-
-# save results as log odds the cbind function simply 'glues' the columns
-# together side by side
+# Model 1 save results as log odds the cbind function simply 'glues' the
+# columns together side by side
 mpgModel1Results_CI <- cbind(Coef = coef(mpgModel1), confint(mpgModel1), p = round(summary(mpgModel1)$coefficients[, 
     4], 3))
 mpgModel1Results_CI
@@ -523,7 +556,7 @@ Now we do that again but for extra practice we use a bonferroni correction to ta
 
 
 ```r
-# Model 1 use confint to report confidence intervals with bonferroni
+# Model 1 bf use confint to report confidence intervals with bonferroni
 # corrected level
 bc_p1 <- 0.05/length(mpgModel1$coefficients)
 
@@ -548,7 +581,7 @@ Now do the same for model 2.
 
 
 ```r
-# Model 2 use confint to report confidence intervals with bonferroni
+# Model 2 bf use confint to report confidence intervals with bonferroni
 # corrected level
 bc_p2 <- 0.05/length(mpgModel2$coefficients)
 
@@ -755,7 +788,7 @@ So now we can easily 'see' and interpret our results.
 
 ## Runtime
 
-Analysis completed in: 5.9 seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.
+Analysis completed in: 5.59 seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.
 
 R packages used (rms, stargazer, car, broom, ggplot2, data.table):
 

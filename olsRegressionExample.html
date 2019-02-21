@@ -284,7 +284,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">OLS Regression modeling in R</h1>
 <h4 class="author"><em>Ben Anderson (<a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
-<h4 class="date"><em>Last run at: 2019-02-19 17:54:27</em></h4>
+<h4 class="date"><em>Last run at: 2019-02-22 12:40:49</em></h4>
 
 </div>
 
@@ -339,10 +339,12 @@ summary(mtcars)  # base method</code></pre>
 <pre class="r"><code>pairs(~mpg + disp + hp + drat + wt, labels = c(&quot;Mpg&quot;, &quot;Displacement&quot;, &quot;Horse power&quot;, 
     &quot;Rear axle rotation&quot;, &quot;Weight&quot;), data = mtcars, main = &quot;Simple Scatterplot Matrix&quot;)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/examine%20data-1.png" /><!-- --></p>
-<p>Test normality of mpg (outcome variable of interest).</p>
-<pre class="r"><code>hist(mtcars$mpg)</code></pre>
+<p>Test normality of mpg (outcome variable of interest) as linear models rest on this assumption (and quite a few others…).</p>
+<pre class="r"><code># test with a histogram
+hist(mtcars$mpg)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/normality-1.png" /><!-- --></p>
-<pre class="r"><code>qqnorm(mtcars$mpg)
+<pre class="r"><code># test with a qq plot
+qqnorm(mtcars$mpg)
 qqline(mtcars$mpg, col = 2)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/normality-2.png" /><!-- --></p>
 <pre class="r"><code>shapiro.test(mtcars$mpg)</code></pre>
@@ -354,10 +356,11 @@ qqline(mtcars$mpg, col = 2)</code></pre>
 <pre class="r"><code># if p &gt; 0.05 =&gt; normal
 
 # is it? Beware: shapiro-wilks is less robust as N -&gt;</code></pre>
+<p>Mpg seems to approximate normality but with a slightly worrying tail effect at the right hand extreme.</p>
 </div>
 <div id="model-with-1-term-predicting-mpg" class="section level1">
 <h1><span class="header-section-number">3</span> Model with 1 term predicting mpg</h1>
-<p>Run a model trying to see if qsec predicts mpg.</p>
+<p>Run a model trying to see if qsec predicts mpg. This will print out a basic table of results.</p>
 <pre class="r"><code># qsec = time to go 1/4 mile from stationary
 mpgModel1 &lt;- lm(mpg ~ qsec, mtcars)
 
@@ -381,8 +384,10 @@ summary(mpgModel1)</code></pre>
 ## Residual standard error: 5.564 on 30 degrees of freedom
 ## Multiple R-squared:  0.1753, Adjusted R-squared:  0.1478 
 ## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708</code></pre>
-<p>Now run the standard diagnostics.</p>
+<p>Now run the standard diagnostics over the model results.</p>
 <pre class="r"><code># Diagnostics ----
+
+message(&quot;# Diagnostic plots&quot;)
 
 plot(mpgModel1)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/model.1.diag-1.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-2.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-3.png" /><!-- --><img src="olsRegressionExample_files/figure-html/model.1.diag-4.png" /><!-- --></p>
@@ -468,6 +473,7 @@ car::ncvTest(mpgModel1)</code></pre>
 ## Residual standard error: 5.564 on 30 degrees of freedom
 ## Multiple R-squared:  0.1753, Adjusted R-squared:  0.1478 
 ## F-statistic: 6.377 on 1 and 30 DF,  p-value: 0.01708</code></pre>
+<p>There are an infinite number of ways to report regression model results and every journal has it’s own. We look at this in detail below using stargazer <span class="citation">(Hlavac 2015)</span> but the <a href="https://www.csus.edu/indiv/v/vangaasbeckk/courses/200a/sup/regressionresults.pdf">guidance here</a> is also quite useful.</p>
 </div>
 <div id="model-with-more-than-1-term" class="section level1">
 <h1><span class="header-section-number">4</span> Model with more than 1 term</h1>
@@ -498,37 +504,55 @@ summary(mpgModel2)</code></pre>
 ## Multiple R-squared:  0.8264, Adjusted R-squared:  0.8144 
 ## F-statistic: 69.03 on 2 and 29 DF,  p-value: 9.395e-12</code></pre>
 <p>Run diagnostics.</p>
-<pre class="r"><code># Diagnostics ---- we whould run the same checks e.g.:
-qqPlot(mpgModel2)  # shows default 95% CI</code></pre>
+<pre class="r"><code># Diagnostics ----
+
+car::qqPlot(mpgModel2)  # shows default 95% CI</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/model.2.diag-1.png" /><!-- --></p>
 <pre><code>## Chrysler Imperial          Fiat 128 
 ##                17                18</code></pre>
-<pre class="r"><code>spreadLevelPlot(mpgModel2)</code></pre>
+<pre class="r"><code>car::spreadLevelPlot(mpgModel2)</code></pre>
 <p><img src="olsRegressionExample_files/figure-html/model.2.diag-2.png" /><!-- --></p>
 <pre><code>## 
 ## Suggested power transformation:  0.4388755</code></pre>
-<pre class="r"><code># but also
+<pre class="r"><code>message(&quot;# Do we think the variance of the residuals is constant?&quot;)
+message(&quot;# Did the plot suggest a transformation? If so, why?&quot;)
+
+message(&quot;# autocorrelation/independence of errors&quot;)
+car::durbinWatsonTest(mpgModel2)</code></pre>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1       0.2438102       1.49595   0.114
+##  Alternative hypothesis: rho != 0</code></pre>
+<pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation what should we
+# conclude? Why? Could you have spotted that in the model summary?
+
+message(&quot;# homoskedasticity&quot;)
+plot(mtcars$mpg, mpgModel2$residuals)
+abline(h = mean(mpgModel2$residuals), col = &quot;red&quot;)  # add the mean of the residuals (yay, it&#39;s zero!)</code></pre>
+<p><img src="olsRegressionExample_files/figure-html/model.2.diag-3.png" /><!-- --></p>
+<pre class="r"><code>message(&quot;# homoskedasticity: formal test&quot;)
+car::ncvTest(mpgModel2)</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.590986, Df = 1, p = 0.44204</code></pre>
+<pre class="r"><code># if p &gt; 0.05 then there is heteroskedasticity
+
+# but also
 message(&quot;# additional assumption checks (now there are 2 predictors)&quot;)
 
 message(&quot;# -&gt; collinearity&quot;)
-vif(mpgModel2)</code></pre>
+car::vif(mpgModel2)</code></pre>
 <pre><code>##     qsec       wt 
 ## 1.031487 1.031487</code></pre>
 <pre class="r"><code># if any values &gt; 10 -&gt; problem
 
 message(&quot;# -&gt; tolerance&quot;)
-1/vif(mpgModel2)</code></pre>
+1/car::vif(mpgModel2)</code></pre>
 <pre><code>##      qsec        wt 
 ## 0.9694744 0.9694744</code></pre>
 <pre class="r"><code># if any values &lt; 0.2 -&gt; possible problem if any values &lt; 0.1 -&gt; definitely
 # a problem
 
-message(&quot;# autocorrelation/independence of errors&quot;)
-durbinWatsonTest(mpgModel2)</code></pre>
-<pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1       0.2438102       1.49595   0.094
-##  Alternative hypothesis: rho != 0</code></pre>
-<pre class="r"><code># if p &lt; 0.05 then a problem as implies autocorrelation</code></pre>
+# what do we conclude from the tests?</code></pre>
 <p>Whilst we’re here we should also plot the residuals for model 2 against the fitted values (as opposed to the observed values which we did earlier). h/t to <a href="https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa" class="uri">https://gist.github.com/apreshill/9d33891b5f9be4669ada20f76f101baa</a> for this.</p>
 <pre class="r"><code># save the residuals via broom
 resids &lt;- augment(mpgModel2)
@@ -572,11 +596,8 @@ anova(mpgModel1, mpgModel2)</code></pre>
 </ul>
 <p>Or use <code>confint()</code> which is more precise.</p>
 <p>Print out the summaries again and calculate 95% confidence intervals and p values each time.</p>
-<pre class="r"><code># Model 1
-
-
-# save results as log odds the cbind function simply &#39;glues&#39; the columns
-# together side by side
+<pre class="r"><code># Model 1 save results as log odds the cbind function simply &#39;glues&#39; the
+# columns together side by side
 mpgModel1Results_CI &lt;- cbind(Coef = coef(mpgModel1), confint(mpgModel1), p = round(summary(mpgModel1)$coefficients[, 
     4], 3))
 mpgModel1Results_CI</code></pre>
@@ -585,7 +606,7 @@ mpgModel1Results_CI</code></pre>
 ## qsec         1.412125   0.2700654  2.554184 0.017</code></pre>
 <p>Notice that where p &lt; 0.05 our 95% CI does not include 0. These tell you the same thing: that with a 95% threshold, the coefficient’s differnece from 0 is statistically significant. Notice this is not the case for the constant (Intercept).</p>
 <p>Now we do that again but for extra practice we use a bonferroni correction to take into account the number of predictors we used. As with most things in statistics, there is active debate about the use of this…</p>
-<pre class="r"><code># Model 1 use confint to report confidence intervals with bonferroni
+<pre class="r"><code># Model 1 bf use confint to report confidence intervals with bonferroni
 # corrected level
 bc_p1 &lt;- 0.05/length(mpgModel1$coefficients)
 
@@ -602,7 +623,7 @@ mpgModel1Results_bf</code></pre>
 <p>Is that the right interpretation?</p>
 </blockquote>
 <p>Now do the same for model 2.</p>
-<pre class="r"><code># Model 2 use confint to report confidence intervals with bonferroni
+<pre class="r"><code># Model 2 bf use confint to report confidence intervals with bonferroni
 # corrected level
 bc_p2 &lt;- 0.05/length(mpgModel2$coefficients)
 
@@ -1475,7 +1496,7 @@ ggplot(modelsDT, aes(x = term, y = estimate, fill = model)) + geom_bar(position 
 <h1><span class="header-section-number">8</span> About</h1>
 <div id="runtime" class="section level2">
 <h2><span class="header-section-number">8.1</span> Runtime</h2>
-<p>Analysis completed in: 5.9 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.</p>
+<p>Analysis completed in: 5.59 seconds using <a href="https://cran.r-project.org/package=knitr">knitr</a> in <a href="http://www.rstudio.com">RStudio</a> with R version 3.5.1 (2018-07-02) running on x86_64-apple-darwin15.6.0.</p>
 <p>R packages used (rms, stargazer, car, broom, ggplot2, data.table):</p>
 <ul>
 <li>base R - for the basics <span class="citation">(R Core Team 2016)</span></li>
