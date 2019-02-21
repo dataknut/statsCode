@@ -4,9 +4,9 @@ author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
 date: 'Last run at: `r Sys.time()`'
 output:
   html_document:
-    keep_md: yes
+    keep_md: no
     number_sections: yes
-    self_contained: no
+    self_contained: yes
     toc: yes
     toc_depth: 4
     toc_float: yes
