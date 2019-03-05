@@ -3,12 +3,6 @@ title: "References in Rmd"
 author: "Ben Anderson"
 date: 'Last run at: `r Sys.time()`'
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-    number_sections: yes
-    toc: yes
-    toc_depth: 2
   html_document:
     code_folding: hide
     fig_caption: true
@@ -18,12 +12,18 @@ output:
     toc: true
     toc_float: true
     toc_depth: 2
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
 bibliography: '`r path.expand("~/bibliography.bib")`'
 subtitle: "Notes"
 #csl: specify bib style file here
 ---
 
-[-@broom] drops author name compared to [@broom]
+This form `[-@broom]` [-@broom] drops author name compared to `[@broom]` [@broom] which doesn't.
 
 Get citation styles from [githb](https://github.com/citation-style-language/styles) & install locally?
 

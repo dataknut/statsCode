@@ -1,14 +1,8 @@
 ---
 title: "References in Rmd"
 author: "Ben Anderson"
-date: 'Last run at: 2018-06-07 11:34:49'
+date: 'Last run at: 2019-03-05 17:52:26'
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-    number_sections: yes
-    toc: yes
-    toc_depth: 2
   html_document:
     code_folding: hide
     fig_caption: true
@@ -18,13 +12,21 @@ output:
     toc: true
     toc_float: true
     toc_depth: 2
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
 bibliography: '/Users/ben/bibliography.bib'
 subtitle: "Notes"
 #csl: specify bib style file here
 ---
 
-[-@broom] drops author name compared to [@broom]
+This form `[-@broom]` [-@broom] drops author name compared to `[@broom]` [@broom] which doesn't.
 
-/Users/ben/bibliography.bib
+Get citation styles from [githb](https://github.com/citation-style-language/styles) & install locally?
+
+See also http://citationstyles.org/ 
 
 # References
