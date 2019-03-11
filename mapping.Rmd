@@ -1,0 +1,157 @@
+---
+title: "Mapping tools"
+author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
+date: 'Last run at: `r Sys.time()`'
+output:
+  html_document:
+    keep_md: no
+    number_sections: yes
+    self_contained: yes
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  word_document:
+    fig_caption: yes
+    toc: yes
+    toc_depth: 4
+bibliography: 'statsCodeRefs.bib'
+---
+```{r knitrSetUp, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # echo code so reader can see what is happening
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
+knitr::opts_chunk$set(fig_caption = TRUE)
+knitr::opts_chunk$set(fig_height = 6) # default, make it bigger to stretch vertical axis
+knitr::opts_chunk$set(fig_width = 8) # full width
+knitr::opts_chunk$set(tidy = TRUE) # tidy up code in case echo = TRUE
+```
+
+```{r codeSetup, include=FALSE}
+# Set start time ----
+startTime <- Sys.time()
+
+# Load required packages ----
+reqLibs <- c("data.table",
+             "ggplot2"
+       )
+       
+# do this to install them first if needed
+#install.packages(x)
+print("Loading required packages")
+
+# be careful - this will return a FALSE if a package doesn't load but the script will NOT stop!
+lapply(reqLibs, require, character.only = T)
+
+# local params
+myParams <- list()
+myParams$dunnersFile <- path.expand("~/Data/NZ_Census/gis/2006/Otago_L2_2006_NZMG_ArcShp/AU_TA_Dunedin_CC.shp") # .shp file for testing boundaries
+myParams$imdFile <- path.expand("~/Data/Data/NZ_IMD/gis/Datazones.shp") # Index of Multiple Deprivation File for testing mapping
+```
+
+# Why are we here?
+
+To learn how to do mapping in R (markdown). Also uses data.table [@data.table] for data manipulation and ggplot [@ggplot2]. 
+
+Files we're going to use:
+
+ * a .shp file defining the boundaries and data of the NZ [New Zealand Index of Multiple Deprivation (IMD)](https://www.fmhs.auckland.ac.nz/en/soph/about/our-departments/epidemiology-and-biostatistics/research/hgd/research-themes/imd.html) - see [@exeter_new_2017]
+ *
+
+# Mapping packages
+
+## ggmap - see [@ggmap]
+
+Skipped due to google maps API requirement
+
+## sf [@sf]
+
+See https://r-spatial.github.io/sf/ for documentation
+
+Let's draw a map of the Dunedin district. For those who don't know this is _way_ [bigger](https://en.wikipedia.org/wiki/Dunedin) than the urban area itself - it includes a lot of forests for example!
+
+\@ref(fig:sf.basic) shows two very basic sf-based maps. The first shows just boundaries, the second calculates a test value and applies a colour aesthetic to map it.
+
+```{r sf.basic, fig.cap="Basic sf map of area unit boundaries for Dunedin, New Zealand"}
+library(sf)
+myParams$dunners.shp <- sf::st_read(myParams$dunnersFile)
+m <- ggplot2::ggplot() +
+  geom_sf(data = myParams$dunners.shp)
+
+m
+
+myParams$dunners.shp$testNumeric <- rnorm(n = nrow(myParams$dunners.shp)) # generate some numbers
+
+m <- ggplot2::ggplot() +
+  geom_sf(data = myParams$dunners.shp, 
+          aes(fill = myParams$dunners.shp$testNumeric)) + # aes works as you'd expect in ggplot
+  scale_fill_continuous(low = "red", high = "green")
+
+m
+```
+
+Next in \@ref(fig:sf.maptile) we try adding a map background using `ggspatial`[@ggspatial]. By default `ggspatial`seems to use Open Street Map. The first one just shows the area unit boundaries. The second shows the test numeric value we calculated before. In each case we use the alpha aesthetic to make the data layer translucent so that we can see the background tile.
+
+```{r sf.maptile}
+library(ggspatial)
+myZoom = 10
+myAlpha <- 0.3
+# will fail if no internet
+m <- ggplot2::ggplot() +
+  annotation_map_tile(zoom = myZoom) + # do this first otherwise it masks the data layers
+  geom_sf(data = myParams$dunners.shp, aes(alpha = myAlpha)) +
+  scale_fill_continuous(low = "red", high = "green")
+
+m
+
+m <- ggplot2::ggplot() +
+  annotation_map_tile(zoom = myZoom) + # do this first otherwise it masks the data layers
+  geom_sf(data = myParams$dunners.shp, aes(fill = myParams$dunners.shp$testNumeric,
+                                           alpha = myAlpha)) +
+  scale_fill_continuous(low = "red", high = "green")
+
+m
+```
+
+## leaflet
+
+\@ref(fig:leaflet.basic) shows where R started :-)
+
+```{r leaflet.basic, fig.cap="Basic leaflet plot showing the birthplace of R!"}
+library(leaflet)
+
+# will fail if no internet
+# uses pipes (doesn't have to)
+
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+m  # Print the map
+
+```
+
+How do we do .shp files in leaflet?
+
+## mapview
+
+# About
+
+## Runtime
+
+Analysis completed in: `r round(Sys.time() - startTime, 2)` seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with `r R.version.string` running on `r R.version$platform`.
+
+R packages used (`r reqLibs`):
+
+ * base R - for the basics [@baseR]
+ * ggplot2 - for slick graphics [@ggplot2]
+ * ggmap - maps on ggploy [@ggmap]
+ * sf - maps on ggplot [@sf]
+ * ggspatial - to add tile features to ggplot-based maps [@ggspatial]
+ * leaflet - leaflet based maps [@leaflet]
+ * knitr - to create this document [@knitr]
+                     
+# References
