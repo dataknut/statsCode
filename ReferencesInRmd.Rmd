@@ -2,31 +2,45 @@
 title: "References in Rmd"
 author: "Ben Anderson"
 date: 'Last run at: `r Sys.time()`'
-output:
-  html_document:
+output: 
+  bookdown::html_document2:
+    keep_md: no
     code_folding: hide
-    fig_caption: true
-    keep_md: true
-    number_sections: true
-    self_contained: no
-    toc: true
-    toc_float: true
-    toc_depth: 2
-  pdf_document:
+    collapsed: no
     fig_caption: yes
-    keep_tex: yes
     number_sections: yes
     toc: yes
-    toc_depth: 2
-bibliography: '`r path.expand("~/bibliography.bib")`'
-subtitle: "Notes"
-#csl: specify bib style file here
+    toc_float: yes
+subtitle: Notes
+bibliography: statsCodeRefs.bib
 ---
+
+# Citations {#citations}
 
 This form `[-@broom]` [-@broom] drops author name compared to `[@broom]` [@broom] which doesn't.
 
 Get citation styles from [githb](https://github.com/citation-style-language/styles) & install locally?
 
 See also http://citationstyles.org/ 
+
+# Cross-references
+
+If we use the `bookdown`  package [@bookdown] then we can do references to tables, figures and sections.
+
+Table \@ref(tab:tableKnitr) shows something interesting.
+
+```{r tableKnitr}
+knitr::kable(summary(mtcars), caption = "Table rendered using knitr::kable")
+```
+
+Table \@ref(tab:tableKableExtra) shows something interesting with fomratting applied.
+
+```{r tableKableExtra}
+library(kableExtra)
+kableExtra::kable(summary(mtcars), caption = "Table rendered using kableExtra::kable") %>%
+  kable_styling()
+```
+
+If we want to hop back to a section we need a cross-refence to it e.g. to Section \@ref(citations).
 
 # References
