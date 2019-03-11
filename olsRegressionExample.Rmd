@@ -10,6 +10,7 @@ output:
     toc: yes
     toc_depth: 4
     toc_float: yes
+    code_folding: hide # hide code until reader wants it
   pdf_document:
     number_sections: yes
     toc: yes
@@ -23,8 +24,8 @@ bibliography: '`r path.expand("~/bibliography.bib")`'
 ---
 ```{r knitrSetUp, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) # echo code so reader can see what is happening
-knitr::opts_chunk$set(warning = FALSE)
-knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
 knitr::opts_chunk$set(fig_caption = TRUE)
 knitr::opts_chunk$set(fig_height = 6) # default, make it bigger to stretch vertical axis
 knitr::opts_chunk$set(fig_width = 8) # full width
