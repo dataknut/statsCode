@@ -404,7 +404,7 @@ Now we'll visualise them using broom and ggplot as we've found that non-statisti
 
 Just to confuse you we're going to convert the data frames produced by broom in to [data.tables](https://github.com/Rdatatable/data.table/wiki) [@data.table]. It makes little difference here (you can use data frames where we use data.tables) but `data.table::` is good to get to know for _data science_ because it does a lot of data wrangling tasks [very fast](https://h2oai.github.io/db-benchmark/).
 
-```{r visualise models}
+```{r visualise.models}
 # Broom converts the model results into a data frame (very useful!)
 # We then convert it to a data.table. We like to use the DT suffix to remind us this is a data.table
 mpgModel1DT <- as.data.table(tidy(mpgModel1))
