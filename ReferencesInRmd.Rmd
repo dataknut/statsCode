@@ -25,15 +25,19 @@ See also http://citationstyles.org/
 
 # Cross-references
 
-If we use the `bookdown`  package [@bookdown] then we can do references to tables, figures and sections.
+If we use the `bookdown`  package [@bookdown] then we can do [cross-references]() to tables, figures and sections.
 
-Table \@ref(tab:tableKnitr) shows something interesting.
+Table \@ref(tab:tableKnitr) shows something interesting. 
+
+> NB: This breaks if you have a range of [non-alphanumeric characters](https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing) in your chunk labels. 
+
+This means we can't use our preferred '.' to seperate chunk label words but there we go...
 
 ```{r tableKnitr}
 knitr::kable(summary(mtcars), caption = "Table rendered using knitr::kable")
 ```
 
-Table \@ref(tab:tableKableExtra) shows something interesting with fomratting applied.
+Table \@ref(tab:tableKableExtra) shows something interesting with fomrating applied.
 
 ```{r tableKableExtra}
 library(kableExtra)

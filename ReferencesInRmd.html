@@ -303,7 +303,7 @@ div.tocify {
 <h1 class="title toc-ignore">References in Rmd</h1>
 <h3 class="subtitle"><em>Notes</em></h3>
 <h4 class="author"><em>Ben Anderson</em></h4>
-<h4 class="date"><em>Last run at: 2019-03-11 15:38:08</em></h4>
+<h4 class="date"><em>Last run at: 2019-03-11 15:44:24</em></h4>
 
 </div>
 
@@ -316,8 +316,12 @@ div.tocify {
 </div>
 <div id="cross-references" class="section level1">
 <h1><span class="header-section-number">2</span> Cross-references</h1>
-<p>If we use the <code>bookdown</code> package <span class="citation">(Xie 2016)</span> then we can do references to tables, figures and sections.</p>
+<p>If we use the <code>bookdown</code> package <span class="citation">(Xie 2016)</span> then we can do <a href>cross-references</a> to tables, figures and sections.</p>
 <p>Table <a href="#tab:tableKnitr">2.1</a> shows something interesting.</p>
+<blockquote>
+<p>NB: This breaks if you have a range of <a href="https://bookdown.org/yihui/rmarkdown/bookdown-markdown.html#cross-referencing">non-alphanumeric characters</a> in your chunk labels.</p>
+</blockquote>
+<p>This means we can’t use our preferred ‘.’ to seperate chunk label words but there we go…</p>
 <pre class="r"><code>knitr::kable(summary(mtcars), caption = &quot;Table rendered using knitr::kable&quot;)</code></pre>
 <table>
 <caption><span id="tab:tableKnitr">Table 2.1: </span>Table rendered using knitr::kable</caption>
@@ -424,7 +428,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<p>Table <a href="#tab:tableKableExtra">2.2</a> shows something interesting with fomratting applied.</p>
+<p>Table <a href="#tab:tableKableExtra">2.2</a> shows something interesting with fomrating applied.</p>
 <pre class="r"><code>library(kableExtra)
 kableExtra::kable(summary(mtcars), caption = &quot;Table rendered using kableExtra::kable&quot;) %&gt;%
   kable_styling()</code></pre>
