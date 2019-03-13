@@ -8,10 +8,11 @@ Highlights:
 
  * OLS [regression reporting](olsRegressionExample.html)
  * [References](ReferencesInRmd.html) in Rmd
+ * [Mapping things](mapping.html) in Rmd
  
 ## Contributing
 
-Please do - just [fork](https://docs.gitlab.com/ee/gitlab-basics/fork-project.html) & go. If something's broken, raise an [issue](https://git.soton.ac.uk/help/user/project/issues/index.md) or fix it yourself - all [merge](https://git.soton.ac.uk/help/user/project/merge_requests/index.md) requests will be politely considered :-)
+Please do - just [fork](https://help.github.com/en/articles/fork-a-repo) & go. If something's broken, raise an [issue](https://github.com/dataknut/statsCode/issues) or fix it yourself - all [pull](https://github.com/dataknut/statsCode/pulls) requests will be politely considered :-)
 
 ## Terms of Use
 GPL: V2 - http://choosealicense.com/licenses/gpl-2.0/
