@@ -9,7 +9,9 @@ Highlights:
  * OLS [regression reporting](olsRegressionExample.html)
  * [References](ReferencesInRmd.html) in Rmd
  * [Mapping things](mapping.html) in Rmd
- 
+
+Also available as [pages](https://dataknut.github.io/statsCode/).
+
 ## Contributing
 
 Please do - just [fork](https://help.github.com/en/articles/fork-a-repo) & go. If something's broken, raise an [issue](https://github.com/dataknut/statsCode/issues) or fix it yourself - all [pull](https://github.com/dataknut/statsCode/pulls) requests will be politely considered :-)
