@@ -10,6 +10,7 @@ output:
     toc: yes
     toc_depth: 4
     toc_float: yes
+    code_folding: hide # hide code until reader wants it
   pdf_document:
     number_sections: yes
     toc: yes
@@ -64,9 +65,9 @@ Files we're going to use:
 
 # Mapping packages
 
-## ggmap [@ggmap]
+## ggmap [@ggmap] {.tabset}
 
-Skipped due to google maps API requirement
+Skipped due to google maps API requirement.
 
 ## sf [@sf]
 
