@@ -1,26 +1,18 @@
 ---
 title: "Mapping tools"
-author: Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)
+author: "Ben Anderson (b.anderson@soton.ac.uk, `@dataknut`)"
 date: 'Last run at: `r Sys.time()`'
-output:
-  html_document:
+output: 
+  bookdown::html_document2:
     keep_md: no
-    number_sections: yes
-    self_contained: yes
-    toc: yes
-    toc_depth: 4
-    toc_float: yes
-    code_folding: hide # hide code until reader wants it
-  pdf_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 4
-    toc_float: yes
-  word_document:
+    code_folding: hide
+    collapsed: no
     fig_caption: yes
+    number_sections: yes
     toc: yes
-    toc_depth: 4
-bibliography: 'statsCodeRefs.bib'
+    toc_float: yes
+subtitle: "Package tests"
+bibliography: "statsCodeRefs.bib"
 ---
 ```{r knitrSetUp, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) # echo code so reader can see what is happening
@@ -61,7 +53,6 @@ To learn how to do mapping in R (markdown). Also uses data.table [@data.table] f
 Files we're going to use:
 
  * a .shp file defining the boundaries and data of the NZ [New Zealand Index of Multiple Deprivation (IMD)](https://www.fmhs.auckland.ac.nz/en/soph/about/our-departments/epidemiology-and-biostatistics/research/hgd/research-themes/imd.html) - see [@exeter_new_2017]
- *
 
 # Mapping packages
 
@@ -75,11 +66,13 @@ See https://r-spatial.github.io/sf/ for documentation
 
 Let's draw a map of the Dunedin district. For those who don't know this is _way_ [bigger](https://en.wikipedia.org/wiki/Dunedin) than the urban area itself - it includes a lot of forests for example!
 
-\@ref(fig:sf.basic) shows two very basic sf-based maps. The first shows just boundaries, the second calculates a test value and applies a colour aesthetic to map it.
+Figure \@ref(fig:sfBasic) shows two very basic sf-based maps of Dunedin, New Zealand. The first shows just boundaries, the second calculates a test value using qnorm and applies a colour aesthetic to map it.
 
-```{r sf.basic, fig.cap="Basic sf map of area unit boundaries for Dunedin, New Zealand"}
+```{r sfBasic, fig.cap="sf - basic map examples"}
 library(sf)
+
 myParams$dunners.shp <- sf::st_read(myParams$dunnersFile)
+
 m <- ggplot2::ggplot() +
   geom_sf(data = myParams$dunners.shp)
 
@@ -95,9 +88,9 @@ m <- ggplot2::ggplot() +
 m
 ```
 
-Next in \@ref(fig:sf.maptile) we try adding a map background using `ggspatial`[@ggspatial]. By default `ggspatial`seems to use Open Street Map. The first one just shows the area unit boundaries. The second shows the test numeric value we calculated before. In each case we use the alpha aesthetic to make the data layer translucent so that we can see the background tile.
+Next in \@ref(fig:sfMaptile) we try adding a map background using `ggspatial` [@ggspatial]. By default `ggspatial` seems to use Open Street Map. The first one just shows the area unit boundaries. The second shows the test numeric value we calculated before. In each case we use the alpha aesthetic to make the data layer translucent so that we can see the background tile.
 
-```{r sf.maptile}
+```{r sfMaptile, fig.cap="sf - map tile examples"}
 library(ggspatial)
 myZoom = 10
 myAlpha <- 0.3
@@ -118,11 +111,11 @@ m <- ggplot2::ggplot() +
 m
 ```
 
-## leaflet
+## leaflet [@leaflet]
 
-\@ref(fig:leaflet.basic) shows where R started :-)
+Figure \@ref(fig:leafletBasic) shows where R started :-)
 
-```{r leaflet.basic, fig.cap="Basic leaflet plot showing the birthplace of R!"}
+```{r leafletBasic, fig.cap="leaflet - basic plot showing the birthplace of R!"}
 library(leaflet)
 
 # will fail if no internet
@@ -137,7 +130,9 @@ m  # Print the map
 
 How do we do .shp files in leaflet?
 
-## mapview
+## mapview [@mapview]
+
+To do
 
 # About
 
@@ -145,14 +140,15 @@ How do we do .shp files in leaflet?
 
 Analysis completed in: `r round(Sys.time() - startTime, 2)` seconds using [knitr](https://cran.r-project.org/package=knitr) in [RStudio](http://www.rstudio.com) with `r R.version.string` running on `r R.version$platform`.
 
-R packages used (`r reqLibs`):
+R packages used (`r reqLibs` plus others loaded where relevant):
 
  * base R - for the basics [@baseR]
+ * ggmap - maps on ggplot [@ggmap]
  * ggplot2 - for slick graphics [@ggplot2]
- * ggmap - maps on ggploy [@ggmap]
- * sf - maps on ggplot [@sf]
  * ggspatial - to add tile features to ggplot-based maps [@ggspatial]
- * leaflet - leaflet based maps [@leaflet]
  * knitr - to create this document [@knitr]
+ * leaflet - leaflet based maps [@leaflet]
+ * mapview - mapview maps [@mapview]
+ * sf - maps on ggplot [@sf]
                      
 # References
