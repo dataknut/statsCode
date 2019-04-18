@@ -1,0 +1,39 @@
+---
+title: "Testing drake"
+author: '@dataknut'
+date: "4/18/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# libraries needed in the .Rmd
+library(kableExtra)
+```
+
+# Drake
+
+Use the [drake](https://ropenscilabs.github.io/drake-manual/) R package to make data flow, analysis and reporting pipelines. Drake looks after which bits of the pipeline need refreshing every time you re-run the drake _plan_. So when you run the report as part of your plan (see [drake.R](drake.R)), you can `readd` the objects you created in the R script to report them in this .Rmd file. For example, here we `readd` NZ Electricity Authority generation data for 1/1/2018 which we downloaded in drake.R:
+
+```{r cars}
+# readd the data object
+
+dt <- readd(data)
+
+t <- summary(dt)
+
+kableExtra::kable(t, caption = "Data summary")
+```
+
+Now re `readd` a plot we made using the data. Note that we don't build the plot in the .Rmd file (via knitr) we just bring back the object from wherever drake stored it.
+
+```{r pressure}
+p <- readd(profilePlot) # we don't need to create the p but this would let us add stuff
+
+p
+```
+
+This is all really rather cool...
+
+But the very cool bit is that if we make some changes to the code that makes the plot, when we re-make our drake plan, drake will only re-build the plot and the report. It will not go and get the data again - it knows nothing changed.
