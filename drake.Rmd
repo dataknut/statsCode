@@ -1,8 +1,23 @@
 ---
-title: "Testing drake"
-author: '@dataknut'
-date: "4/18/2019"
-output: html_document
+params:
+  authors: 'Ben Anderson'
+  title: 'Testing drake'
+  subtitle: 'Using NZ Electricity Authority grid level generation data'
+title: '`r paste0(params$title)`'
+subtitle: '`r paste0(params$subtitle)`'
+author: '`r paste0(params$authors)` (Contact: b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+always_allow_html: yes
+output:
+  bookdown::html_document2:
+    code_folding: hide
+    fig_caption: yes
+    number_sections: yes
+    self_contained: no
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+bibliography: statsCodeRefs.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -12,28 +27,52 @@ knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 ```
 
-# Drake
+# Introduction
 
-Use the [drake](https://ropenscilabs.github.io/drake-manual/) R package to make data flow, analysis and reporting pipelines. Drake looks after which bits of the pipeline need refreshing every time you re-run the drake _plan_. So when you run the report as part of your plan (see [drake.R](drake.R)), you can `readd` the objects you created in the R script to report them in this .Rmd file. For example, here we `readd` NZ Electricity Authority generation data for 1/1/2018 which we downloaded in drake.R:
+Use the [drake](https://ropenscilabs.github.io/drake-manual/) [@drake] R package to make data flow, analysis and reporting pipelines. Drake looks after which bits of the pipeline need refreshing every time you re-run the drake _plan_. So when you run the report as part of your plan (see [drake.R](drake.R)), you can `readd` the objects you created in the R script to report them in this .Rmd file. 
 
-```{r cars}
+# Data
+
+For example, in Table \@ref(tab:desc) we `drake::readd` NZ Electricity Authority generation data for June 2018 which we downloaded in [drake.R](drake.R) from `r rDataLoc` and present a summary.
+
+```{r desc}
 # readd the data object
 
-dt <- readd(data)
+dt <- drake::readd(data)
 
 t <- summary(dt)
 
-kableExtra::kable(t, caption = "Data summary")
+kableExtra::kable(t, caption = "Data summary") %>%
+  kable_styling()
 ```
 
-Now re `readd` a plot we made using the data. Note that we don't build the plot in the .Rmd file (via knitr) we just bring back the object from wherever drake stored it.
+# Plot
 
-```{r pressure}
-p <- readd(profilePlot) # we don't need to create the p but this would let us add stuff
+Now we `drake::readd` a plot we made using the data. Note that we don't build the plot in the .Rmd file (via knitr) we just bring back the object from wherever drake stored it and present it as Figure \@ref(fig:plot).
+
+```{r plot, fig.cap = "Mean electricity generation in GWh per half hour for New Zealand in June (winter) 2018"}
+p <- drake::readd(profilePlot) # we don't need to create the p but this would let us add stuff to the plot
 
 p
 ```
 
+As you can see NZ generally uses hydro electricity to meet it's winter peaks with infrequent coal & gas peaking where needed.
+
+# Why does it matter?
+
 This is all really rather cool...
 
-But the very cool bit is that if we make some changes to the code that makes the plot, when we re-make our drake plan, drake will only re-build the plot and the report. It will not go and get the data again - it knows nothing changed.
+But the very cool bit is that if we make some changes to the code that makes the plot, when we re-make our drake plan, drake will only re-build the plot and the report. It will not go and get the data again - it knows we didn't change the code that got the data so it leaves it alone. This means you can run the data loading process _once_ and never have to repeat it no matter how many times you edit the subsequent R code or the .Rmd. This makes a huge difference to [overall runtime for repeat report knits](https://twitter.com/dataknut/status/1122687379989417985) (for example)...
+
+# R environment
+
+Packages used:
+
+ * curl [@curl]
+ * data.table [@data.table]
+ * drake [@drake]
+ * ggplot2 [@ggplot2]
+ * kableExtra [@kableExtra]
+ * lubridate [@lubridate]
+ 
+# References
