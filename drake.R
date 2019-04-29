@@ -6,11 +6,13 @@ library(curl)
 
 # functions ----
 stackedDemandProfilePlot <- function(dt) {
+  #nHalfHours <- uniqueN(dt$rDate) * 48
   plotDT <- dt[, .(GWh = sum(kWh)/1000000), keyby = .(rTime, Fuel_Code)]
-  p <- ggplot(plotDT, aes(x = rTime, y = GWh, fill = Fuel_Code)) +
+  
+  p <- ggplot(plotDT, aes(x = rTime, y = GWh/nHalfHours, fill = Fuel_Code)) +
     geom_area(position = "stack") +
     labs(x = "Time of Day",
-         y = "Sum of GWh",
+         y = "Mean MWh per half hour",
          caption = "Source: NZ Electricity Authority generation data for 1/1/2018")
   return(p)
 }

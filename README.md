@@ -6,9 +6,14 @@ I'm currently working through many of the packages listed [here](http://www.comp
 
 Highlights:
 
- * OLS [regression reporting](olsRegressionExample.html)
+ * OLS [regression reporting](olsRegressionExample.html) my way
  * [References](ReferencesInRmd.html) in Rmd
- * [Mapping things](mapping.html) in Rmd
+ * [Mapping stuff](mapping.html) in Rmd
+ * [Colour blind pallettes](cbPalettes.html) in Rmd
+ * The incredibly useful [drake](https://ropenscilabs.github.io/drake-manual/):
+  * [R code](drake.R) with drake calls
+  * [Rmd](drake.Rmd) code called by drake (in R)
+  * [result](drake.html) (invisible drake)
 
 Also available as [pages](https://dataknut.github.io/statsCode/).
 
