@@ -4,16 +4,21 @@ library(data.table)
 library(ggplot2)
 library(curl)
 
+# parameters ----
+# NZ Electricity Authority generation data for June 2018. Well, why not?
+rDataLoc <- "https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201806_Generation_MD.csv"
+nDays <- 30
+
 # functions ----
 stackedDemandProfilePlot <- function(dt) {
   #nHalfHours <- uniqueN(dt$rDate) * 48
-  plotDT <- dt[, .(GWh = sum(kWh)/1000000), keyby = .(rTime, Fuel_Code)]
+  plotDT <- dt[, .(meanDailyKWh = sum(kWh)/nDays), keyby = .(rTime, Fuel_Code)]
   
-  p <- ggplot(plotDT, aes(x = rTime, y = GWh/nHalfHours, fill = Fuel_Code)) +
+  p <- ggplot(plotDT, aes(x = rTime, y = meanDailyKWh/1000000, fill = Fuel_Code)) +
     geom_area(position = "stack") +
     labs(x = "Time of Day",
-         y = "Mean MWh per half hour",
-         caption = "Source: NZ Electricity Authority generation data for 1/1/2018")
+         y = "Mean GWh per half hour",
+         caption = "Source: NZ Electricity Authority generation data for June (winter) 2018")
   return(p)
 }
 
@@ -60,10 +65,6 @@ getData <- function(f){
     print(paste0("File download failed (Error = ", req$status_code, ") - does it exist at that location?"))
   }
 }
-
-# parameters ----
-# NZ Electricity Authority generation data for January 2018. Well, why not?
-rDataLoc <- "https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201801_Generation_MD.csv"
 
 # check local files ----
 file.exists("drake.Rmd")
