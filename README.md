@@ -11,9 +11,9 @@ Highlights:
  * [Mapping stuff](mapping.html) in Rmd
  * [Colour blind pallettes](cbPalettes.html) in Rmd
  * The incredibly useful [drake](https://ropenscilabs.github.io/drake-manual/):
-   * [R code](drake.R) with drake calls
-   * [Rmd](drake.Rmd) code called by drake (in R)
-   * [result](drake.html) (invisible drake)
+   * [drake.R](drake.R) - R script with drake function calls
+   * [drake.Rmd](drake.Rmd) - Rmd code called by drake (in R) to create report
+   * [drake.html](drake.html) - the report
 
 Also available as [pages](https://dataknut.github.io/statsCode/).
 
