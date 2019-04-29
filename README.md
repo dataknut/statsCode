@@ -4,7 +4,7 @@ A place to keep code snippets and examples of analysis methods so I don't have t
 
 I'm currently working through many of the packages listed [here](http://www.computerworld.com/article/2921176/business-intelligence/great-r-packages-for-data-import-wrangling-visualization.html). So should you.
 
-Highlights:
+_Highlights_ (best viewed via [pages](https://dataknut.github.io/statsCode/)):
 
  * OLS [regression reporting](olsRegressionExample.html) my way
  * [References](ReferencesInRmd.html) in Rmd
@@ -14,8 +14,6 @@ Highlights:
    * [drake.R](drake.R) - R script with drake function calls
    * [drake.Rmd](drake.Rmd) - Rmd code called by drake (in R) to create report
    * [drake.html](drake.html) - the report
-
-Also available as [pages](https://dataknut.github.io/statsCode/).
 
 The [full monty](https://github.com/dataknut/statsCode).
 
