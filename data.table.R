@@ -35,4 +35,11 @@ testDT[, grep(c("ba_"), names(testDT)), with = FALSE] # ones with ba_* as prefix
 
 testDT[, !grep(c("ba_"), names(testDT)), with = FALSE] # not the ones with ba_* as prefix
 
-
+# you can do this another way...
+myfun <- function(x){
+  return(mean(x))
+}
+testDT[, .SDcols = patterns('^ba_'), # names of cols
+       keyby = gear, # sorts the group
+       lapply(.SD, myfun) # what to do
+       ] 
