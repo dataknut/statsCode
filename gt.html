@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Ben Anderson (Contact: b.anderson@soton.ac.uk, @dataknut)" />
+
+
+<title>Testing gt for tables</title>
+
+<script src="gt_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="gt_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="gt_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="gt_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="gt_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="gt_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="gt_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="gt_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="gt_files/navigation-1.1/tabsets.js"></script>
+<script src="gt_files/navigation-1.1/codefolding.js"></script>
+<link href="gt_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="gt_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Testing gt for tables</h1>
+<h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
+<h4 class="date">Last run at: 2019-05-10 16:35:11</h4>
+
+</div>
+
+
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p><code>kableExtra</code> makes great tables in html &amp; pdf but not so good in MS Word. Sadly many of our co-authors still like to use MS Word. So we need a Word-friendly way to make nice tables…</p>
+</div>
+<div id="gt" class="section level1">
+<h1><span class="header-section-number">2</span> gt</h1>
+<p>The <a href="https://github.com/rstudio/gt">gt package</a> might help.</p>
+<pre class="r"><code>df &lt;- gtcars
+dt &lt;- as.data.table(df) # cos we like data.tables
+
+t &lt;- table(dt$mfr, dt$bdy_style)
+
+gt(t)</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gqgutzdary .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000000;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+}
+
+#gqgutzdary .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+}
+
+#gqgutzdary .gt_title {
+  color: #000000;
+  font-size: 125%;
+  /* heading.title.font.size */
+  padding-top: 4px;
+  /* heading.top.padding */
+  padding-bottom: 1px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gqgutzdary .gt_subtitle {
+  color: #000000;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  padding-top: 1px;
+  padding-bottom: 4px;
+  /* heading.bottom.padding */
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gqgutzdary .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* heading.border.bottom.color */
+}
+
+#gqgutzdary .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gqgutzdary .gt_col_heading {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 16px;
+  /* column_labels.font.size */
+  font-weight: initial;
+  /* column_labels.font.weight */
+  vertical-align: middle;
+  padding: 10px;
+  margin: 10px;
+}
+
+#gqgutzdary .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#gqgutzdary .gt_group_heading {
+  padding: 8px;
+  color: #000000;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 16px;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #A8A8A8;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#gqgutzdary .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #000000;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 16px;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #A8A8A8;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#gqgutzdary .gt_striped {
+  background-color: #f2f2f2;
+}
+
+#gqgutzdary .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gqgutzdary .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gqgutzdary .gt_row {
+  padding: 8px;
+  /* row.padding */
+  margin: 10px;
+  vertical-align: middle;
+}
+
+#gqgutzdary .gt_stub {
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #A8A8A8;
+  padding-left: 12px;
+}
+
+#gqgutzdary .gt_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  padding: 8px;
+  /* summary_row.padding */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+}
+
+#gqgutzdary .gt_grand_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  padding: 8px;
+  /* grand_summary_row.padding */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+}
+
+#gqgutzdary .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+}
+
+#gqgutzdary .gt_first_grand_summary_row {
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #A8A8A8;
+}
+
+#gqgutzdary .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table_body.border.bottom.color */
+}
+
+#gqgutzdary .gt_footnote {
+  font-size: 90%;
+  /* footnote.font.size */
+  padding: 4px;
+  /* footnote.padding */
+}
+
+#gqgutzdary .gt_sourcenote {
+  font-size: 90%;
+  /* sourcenote.font.size */
+  padding: 4px;
+  /* sourcenote.padding */
+}
+
+#gqgutzdary .gt_center {
+  text-align: center;
+}
+
+#gqgutzdary .gt_left {
+  text-align: left;
+}
+
+#gqgutzdary .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gqgutzdary .gt_font_normal {
+  font-weight: normal;
+}
+
+#gqgutzdary .gt_font_bold {
+  font-weight: bold;
+}
+
+#gqgutzdary .gt_font_italic {
+  font-style: italic;
+}
+
+#gqgutzdary .gt_super {
+  font-size: 65%;
+}
+
+#gqgutzdary .gt_footnote_glyph {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="gqgutzdary" style="overflow-x:auto;"><!--gt table start-->
+<table class='gt_table'>
+<tr>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>Var1</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>Var2</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>Freq</th>
+</tr>
+<tbody class='gt_table_body'>
+<tr>
+<td class='gt_row gt_right'>Acura</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Aston Martin</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Audi</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Bentley</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>BMW</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Chevrolet</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Dodge</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Ferrari</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>2</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Ford</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Jaguar</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Lamborghini</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Lotus</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Maserati</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>McLaren</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Mercedes-Benz</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>1</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Nissan</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>0</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Porsche</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>1</td>
+</tr>
+<tr>
+<td class='gt_row gt_right gt_striped'>Rolls-Royce</td>
+<td class='gt_row gt_right gt_striped'>convertible</td>
+<td class='gt_row gt_right gt_striped'>1</td>
+</tr>
+<tr>
+<td class='gt_row gt_right'>Tesla</td>
+<td class='gt_row gt_right'>convertible</td>
+<td class='gt_row gt_right'>0</td>
+</tr>
+</tbody>
+</table>
+<!--gt table end-->
+</div>
+<p>So a gt object is clearly in long form. The examples all use pipes to pass the table through dplyr stuff…</p>
+<pre class="r"><code># Define the start and end dates for the data range
+start_date &lt;- &quot;2010-06-07&quot;
+end_date &lt;- &quot;2010-06-14&quot;
+
+# Create a gt table based on preprocessed
+# `sp500` table data
+sp500 %&gt;%
+  dplyr::filter(date &gt;= start_date &amp; date &lt;= end_date) %&gt;%
+  dplyr::select(-adj_close) %&gt;%
+  gt() %&gt;%
+  tab_header(
+    title = &quot;S&amp;P 500&quot;,
+    subtitle = glue::glue(&quot;{start_date} to {end_date}&quot;)
+  ) %&gt;%
+  fmt_date(
+    columns = vars(date),
+    date_style = 3
+  ) %&gt;%
+  fmt_currency(
+    columns = vars(open, high, low, close),
+    currency = &quot;USD&quot;
+  ) %&gt;%
+  fmt_number(
+    columns = vars(volume),
+    suffixing = TRUE
+  )</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ijwnoxjdbm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000000;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  /* table.background.color */
+  width: auto;
+  /* table.width */
+  border-top-style: solid;
+  /* table.border.top.style */
+  border-top-width: 2px;
+  /* table.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table.border.top.color */
+}
+
+#ijwnoxjdbm .gt_heading {
+  background-color: #FFFFFF;
+  /* heading.background.color */
+  border-bottom-color: #FFFFFF;
+}
+
+#ijwnoxjdbm .gt_title {
+  color: #000000;
+  font-size: 125%;
+  /* heading.title.font.size */
+  padding-top: 4px;
+  /* heading.top.padding */
+  padding-bottom: 1px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ijwnoxjdbm .gt_subtitle {
+  color: #000000;
+  font-size: 85%;
+  /* heading.subtitle.font.size */
+  padding-top: 1px;
+  padding-bottom: 4px;
+  /* heading.bottom.padding */
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ijwnoxjdbm .gt_bottom_border {
+  border-bottom-style: solid;
+  /* heading.border.bottom.style */
+  border-bottom-width: 2px;
+  /* heading.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* heading.border.bottom.color */
+}
+
+#ijwnoxjdbm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ijwnoxjdbm .gt_col_heading {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* column_labels.background.color */
+  font-size: 16px;
+  /* column_labels.font.size */
+  font-weight: initial;
+  /* column_labels.font.weight */
+  vertical-align: middle;
+  padding: 10px;
+  margin: 10px;
+}
+
+#ijwnoxjdbm .gt_sep_right {
+  border-right: 5px solid #FFFFFF;
+}
+
+#ijwnoxjdbm .gt_group_heading {
+  padding: 8px;
+  color: #000000;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 16px;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #A8A8A8;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#ijwnoxjdbm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #000000;
+  background-color: #FFFFFF;
+  /* row_group.background.color */
+  font-size: 16px;
+  /* row_group.font.size */
+  font-weight: initial;
+  /* row_group.font.weight */
+  border-top-style: solid;
+  /* row_group.border.top.style */
+  border-top-width: 2px;
+  /* row_group.border.top.width */
+  border-top-color: #A8A8A8;
+  /* row_group.border.top.color */
+  border-bottom-style: solid;
+  /* row_group.border.bottom.style */
+  border-bottom-width: 2px;
+  /* row_group.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* row_group.border.bottom.color */
+  vertical-align: middle;
+}
+
+#ijwnoxjdbm .gt_striped {
+  background-color: #f2f2f2;
+}
+
+#ijwnoxjdbm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ijwnoxjdbm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ijwnoxjdbm .gt_row {
+  padding: 8px;
+  /* row.padding */
+  margin: 10px;
+  vertical-align: middle;
+}
+
+#ijwnoxjdbm .gt_stub {
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #A8A8A8;
+  padding-left: 12px;
+}
+
+#ijwnoxjdbm .gt_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* summary_row.background.color */
+  padding: 8px;
+  /* summary_row.padding */
+  text-transform: inherit;
+  /* summary_row.text_transform */
+}
+
+#ijwnoxjdbm .gt_grand_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  /* grand_summary_row.background.color */
+  padding: 8px;
+  /* grand_summary_row.padding */
+  text-transform: inherit;
+  /* grand_summary_row.text_transform */
+}
+
+#ijwnoxjdbm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+}
+
+#ijwnoxjdbm .gt_first_grand_summary_row {
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #A8A8A8;
+}
+
+#ijwnoxjdbm .gt_table_body {
+  border-top-style: solid;
+  /* table_body.border.top.style */
+  border-top-width: 2px;
+  /* table_body.border.top.width */
+  border-top-color: #A8A8A8;
+  /* table_body.border.top.color */
+  border-bottom-style: solid;
+  /* table_body.border.bottom.style */
+  border-bottom-width: 2px;
+  /* table_body.border.bottom.width */
+  border-bottom-color: #A8A8A8;
+  /* table_body.border.bottom.color */
+}
+
+#ijwnoxjdbm .gt_footnote {
+  font-size: 90%;
+  /* footnote.font.size */
+  padding: 4px;
+  /* footnote.padding */
+}
+
+#ijwnoxjdbm .gt_sourcenote {
+  font-size: 90%;
+  /* sourcenote.font.size */
+  padding: 4px;
+  /* sourcenote.padding */
+}
+
+#ijwnoxjdbm .gt_center {
+  text-align: center;
+}
+
+#ijwnoxjdbm .gt_left {
+  text-align: left;
+}
+
+#ijwnoxjdbm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ijwnoxjdbm .gt_font_normal {
+  font-weight: normal;
+}
+
+#ijwnoxjdbm .gt_font_bold {
+  font-weight: bold;
+}
+
+#ijwnoxjdbm .gt_font_italic {
+  font-style: italic;
+}
+
+#ijwnoxjdbm .gt_super {
+  font-size: 65%;
+}
+
+#ijwnoxjdbm .gt_footnote_glyph {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="ijwnoxjdbm" style="overflow-x:auto;"><!--gt table start-->
+<table class='gt_table'>
+<thead>
+<tr>
+<th colspan='6' class='gt_heading gt_title gt_font_normal gt_center' >S&amp;P 500</th>
+</tr>
+<tr>
+<th colspan='6' class='gt_heading gt_subtitle gt_font_normal gt_center gt_bottom_border' >2010-06-07 to 2010-06-14</th>
+</tr>
+</thead>
+<tr>
+<th class='gt_col_heading gt_left' rowspan='1' colspan='1'>date</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>open</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>high</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>low</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>close</th>
+<th class='gt_col_heading gt_right' rowspan='1' colspan='1'>volume</th>
+</tr>
+<tbody class='gt_table_body'>
+<tr>
+<td class='gt_row gt_left'>Mon, Jun 14, 2010</td>
+<td class='gt_row gt_right'>$1,095.00</td>
+<td class='gt_row gt_right'>$1,105.91</td>
+<td class='gt_row gt_right'>$1,089.03</td>
+<td class='gt_row gt_right'>$1,089.63</td>
+<td class='gt_row gt_right'>4.43B</td>
+</tr>
+<tr>
+<td class='gt_row gt_left gt_striped'>Fri, Jun 11, 2010</td>
+<td class='gt_row gt_right gt_striped'>$1,082.65</td>
+<td class='gt_row gt_right gt_striped'>$1,092.25</td>
+<td class='gt_row gt_right gt_striped'>$1,077.12</td>
+<td class='gt_row gt_right gt_striped'>$1,091.60</td>
+<td class='gt_row gt_right gt_striped'>4.06B</td>
+</tr>
+<tr>
+<td class='gt_row gt_left'>Thu, Jun 10, 2010</td>
+<td class='gt_row gt_right'>$1,058.77</td>
+<td class='gt_row gt_right'>$1,087.85</td>
+<td class='gt_row gt_right'>$1,058.77</td>
+<td class='gt_row gt_right'>$1,086.84</td>
+<td class='gt_row gt_right'>5.14B</td>
+</tr>
+<tr>
+<td class='gt_row gt_left gt_striped'>Wed, Jun 9, 2010</td>
+<td class='gt_row gt_right gt_striped'>$1,062.75</td>
+<td class='gt_row gt_right gt_striped'>$1,077.74</td>
+<td class='gt_row gt_right gt_striped'>$1,052.25</td>
+<td class='gt_row gt_right gt_striped'>$1,055.69</td>
+<td class='gt_row gt_right gt_striped'>5.98B</td>
+</tr>
+<tr>
+<td class='gt_row gt_left'>Tue, Jun 8, 2010</td>
+<td class='gt_row gt_right'>$1,050.81</td>
+<td class='gt_row gt_right'>$1,063.15</td>
+<td class='gt_row gt_right'>$1,042.17</td>
+<td class='gt_row gt_right'>$1,062.00</td>
+<td class='gt_row gt_right'>6.19B</td>
+</tr>
+<tr>
+<td class='gt_row gt_left gt_striped'>Mon, Jun 7, 2010</td>
+<td class='gt_row gt_right gt_striped'>$1,065.84</td>
+<td class='gt_row gt_right gt_striped'>$1,071.36</td>
+<td class='gt_row gt_right gt_striped'>$1,049.86</td>
+<td class='gt_row gt_right gt_striped'>$1,050.47</td>
+<td class='gt_row gt_right gt_striped'>5.47B</td>
+</tr>
+</tbody>
+</table>
+<!--gt table end-->
+</div>
+</div>
+<div id="r-environment" class="section level1">
+<h1><span class="header-section-number">3</span> R environment</h1>
+<p>Packages used:</p>
+<ul>
+<li>gt <span class="citation">(Iannone, Cheng, and Schloerke 2019)</span></li>
+</ul>
+<p>And:</p>
+<ul>
+<li>tidyverse - <span class="citation">(Wickham 2017)</span></li>
+<li>glue - <span class="citation">(Hester 2019)</span></li>
+<li>data.table - <span class="citation">(Dowle et al. 2015)</span></li>
+</ul>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-data.table">
+<p>Dowle, M, A Srinivasan, T Short, S Lianoglou with contributions from R Saporta, and E Antonyan. 2015. <em>Data.table: Extension of Data.frame</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+</div>
+<div id="ref-glue">
+<p>Hester, Jim. 2019. <em>Glue: Interpreted String Literals</em>. <a href="https://CRAN.R-project.org/package=glue" class="uri">https://CRAN.R-project.org/package=glue</a>.</p>
+</div>
+<div id="ref-gt">
+<p>Iannone, Richard, Joe Cheng, and Barret Schloerke. 2019. <em>Gt: Easily Create Presentation-Ready Display Tables</em>. <a href="https://github.com/rstudio/gt" class="uri">https://github.com/rstudio/gt</a>.</p>
+</div>
+<div id="ref-tidyverse">
+<p>Wickham, Hadley. 2017. <em>Tidyverse: Easily Install and Load ’Tidyverse’ Packages</em>. <a href="https://CRAN.R-project.org/package=tidyverse" class="uri">https://CRAN.R-project.org/package=tidyverse</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

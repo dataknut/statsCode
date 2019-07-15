@@ -1,0 +1,105 @@
+---
+params:
+  authors: 'Ben Anderson'
+  title: 'Testing gt for tables'
+title: '`r paste0(params$title)`'
+subtitle: '`r paste0(params$subtitle)`'
+author: '`r paste0(params$authors)` (Contact: b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+always_allow_html: yes
+output:
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: yes
+    self_contained: no
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+  bookdown::word_document2:
+    toc: yes
+    toc_depth: 2
+  bookdown::pdf_document2:
+    toc: yes
+    toc_depth: 2
+bibliography: statsCodeRefs.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# libraries needed in the .Rmd
+
+library(tidyverse)
+library(glue)
+
+library(data.table) # last to avoid masking
+
+library(gt)
+
+```
+
+# Introduction
+
+`kableExtra` makes great tables in html & pdf but not so good in MS Word. Sadly many of our co-authors still like to use MS Word. So we need a Word-friendly way to make nice tables...
+
+# gt
+
+The [gt package](https://github.com/rstudio/gt) might help.
+
+```{r getData}
+df <- gtcars
+dt <- as.data.table(df) # cos we like data.tables
+
+t <- table(dt$mfr, dt$bdy_style)
+
+gt(t)
+```
+
+So a gt object is clearly in long form. The examples all use pipes to pass the table through dplyr stuff...
+
+```{r test}
+
+
+# Define the start and end dates for the data range
+start_date <- "2010-06-07"
+end_date <- "2010-06-14"
+
+# Create a gt table based on preprocessed
+# `sp500` table data
+sp500 %>%
+  dplyr::filter(date >= start_date & date <= end_date) %>%
+  dplyr::select(-adj_close) %>%
+  gt() %>%
+  tab_header(
+    title = "S&P 500",
+    subtitle = glue::glue("{start_date} to {end_date}")
+  ) %>%
+  fmt_date(
+    columns = vars(date),
+    date_style = 3
+  ) %>%
+  fmt_currency(
+    columns = vars(open, high, low, close),
+    currency = "USD"
+  ) %>%
+  fmt_number(
+    columns = vars(volume),
+    suffixing = TRUE
+  )
+```
+
+Well the html version works nicely. The Word version does not <sigh>. We really don't want to have to export to rtf and then paste back in...
+
+# R environment
+
+Packages used:
+
+ * gt [@gt]
+ 
+And:
+ 
+ * tidyverse - [@tidyverse]
+ * glue - [@glue]
+ * data.table - [@data.table]
+ 
+# References

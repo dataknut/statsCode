@@ -1,0 +1,286 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Testing gt for tables},
+            pdfauthor={Ben Anderson (Contact: b.anderson@soton.ac.uk, @dataknut)},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Testing gt for tables}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Ben Anderson (Contact:
+\href{mailto:b.anderson@soton.ac.uk}{\nolinkurl{b.anderson@soton.ac.uk}},
+\texttt{@dataknut})}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{Last run at: 2019-05-10 16:33:44}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Introduction}\label{introduction}
+
+\texttt{kableExtra} makes great tables in html \& pdf but not so good in
+MS Word. Sadly many of our co-authors still like to use MS Word. So we
+need a Word-friendly way to make nice tables\ldots{}
+
+\section{gt}\label{gt}
+
+The \href{https://github.com/rstudio/gt}{gt package} might help.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\NormalTok{gtcars}
+\NormalTok{dt <-}\StringTok{ }\KeywordTok{as.data.table}\NormalTok{(df) }\CommentTok{# cos we like data.tables}
+
+\NormalTok{t <-}\StringTok{ }\KeywordTok{table}\NormalTok{(dt}\OperatorTok{$}\NormalTok{mfr, dt}\OperatorTok{$}\NormalTok{bdy_style)}
+
+\KeywordTok{gt}\NormalTok{(t)}
+\end{Highlighting}
+\end{Shaded}
+
+\captionsetup[table]{labelformat=empty,skip=1pt}
+
+\begin{longtable}{rrr}
+\toprule
+Var1 & Var2 & Freq \\ 
+\midrule
+Acura & convertible & 0 \\ 
+Aston Martin & convertible & 0 \\ 
+Audi & convertible & 0 \\ 
+Bentley & convertible & 0 \\ 
+BMW & convertible & 0 \\ 
+Chevrolet & convertible & 0 \\ 
+Dodge & convertible & 0 \\ 
+Ferrari & convertible & 2 \\ 
+Ford & convertible & 0 \\ 
+Jaguar & convertible & 0 \\ 
+Lamborghini & convertible & 0 \\ 
+Lotus & convertible & 0 \\ 
+Maserati & convertible & 0 \\ 
+McLaren & convertible & 0 \\ 
+Mercedes-Benz & convertible & 1 \\ 
+Nissan & convertible & 0 \\ 
+Porsche & convertible & 1 \\ 
+Rolls-Royce & convertible & 1 \\ 
+Tesla & convertible & 0 \\ 
+\bottomrule
+\end{longtable}
+
+So a gt object is clearly in long form. The examples all use pipes to
+pass the table through dplyr stuff\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Define the start and end dates for the data range}
+\NormalTok{start_date <-}\StringTok{ "2010-06-07"}
+\NormalTok{end_date <-}\StringTok{ "2010-06-14"}
+
+\CommentTok{# Create a gt table based on preprocessed}
+\CommentTok{# `sp500` table data}
+\NormalTok{sp500 }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(date }\OperatorTok{>=}\StringTok{ }\NormalTok{start_date }\OperatorTok{&}\StringTok{ }\NormalTok{date }\OperatorTok{<=}\StringTok{ }\NormalTok{end_date) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{adj_close) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{gt}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{tab_header}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"S&P 500"}\NormalTok{,}
+    \DataTypeTok{subtitle =}\NormalTok{ glue}\OperatorTok{::}\KeywordTok{glue}\NormalTok{(}\StringTok{"\{start_date\} to \{end_date\}"}\NormalTok{)}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{fmt_date}\NormalTok{(}
+    \DataTypeTok{columns =} \KeywordTok{vars}\NormalTok{(date),}
+    \DataTypeTok{date_style =} \DecValTok{3}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{fmt_currency}\NormalTok{(}
+    \DataTypeTok{columns =} \KeywordTok{vars}\NormalTok{(open, high, low, close),}
+    \DataTypeTok{currency =} \StringTok{"USD"}
+\NormalTok{  ) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{fmt_number}\NormalTok{(}
+    \DataTypeTok{columns =} \KeywordTok{vars}\NormalTok{(volume),}
+    \DataTypeTok{suffixing =} \OtherTok{TRUE}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\captionsetup[table]{labelformat=empty,skip=1pt}
+
+\begin{longtable}{lrrrrr}
+\caption*{
+\large S\&P 500\\ 
+\small 2010-06-07 to 2010-06-14\\ 
+} \\ 
+\toprule
+date & open & high & low & close & volume \\ 
+\midrule
+Mon, Jun 14, 2010 & $\text{\$}1,095.00$ & $\text{\$}1,105.91$ & $\text{\$}1,089.03$ & $\text{\$}1,089.63$ & $4.43B$ \\ 
+Fri, Jun 11, 2010 & $\text{\$}1,082.65$ & $\text{\$}1,092.25$ & $\text{\$}1,077.12$ & $\text{\$}1,091.60$ & $4.06B$ \\ 
+Thu, Jun 10, 2010 & $\text{\$}1,058.77$ & $\text{\$}1,087.85$ & $\text{\$}1,058.77$ & $\text{\$}1,086.84$ & $5.14B$ \\ 
+Wed, Jun 9, 2010 & $\text{\$}1,062.75$ & $\text{\$}1,077.74$ & $\text{\$}1,052.25$ & $\text{\$}1,055.69$ & $5.98B$ \\ 
+Tue, Jun 8, 2010 & $\text{\$}1,050.81$ & $\text{\$}1,063.15$ & $\text{\$}1,042.17$ & $\text{\$}1,062.00$ & $6.19B$ \\ 
+Mon, Jun 7, 2010 & $\text{\$}1,065.84$ & $\text{\$}1,071.36$ & $\text{\$}1,049.86$ & $\text{\$}1,050.47$ & $5.47B$ \\ 
+\bottomrule
+\end{longtable}
+
+\section{R environment}\label{r-environment}
+
+Packages used:
+
+\begin{itemize}
+\tightlist
+\item
+  gt (Iannone, Cheng, and Schloerke 2019)
+\end{itemize}
+
+And:
+
+\begin{itemize}
+\tightlist
+\item
+  tidyverse - (Wickham 2017)
+\item
+  glue - ({\textbf{???}})
+\item
+  data.table - (Dowle et al. 2015)
+\end{itemize}
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\hypertarget{ref-data.table}{}
+Dowle, M, A Srinivasan, T Short, S Lianoglou with contributions from R
+Saporta, and E Antonyan. 2015. \emph{Data.table: Extension of
+Data.frame}. \url{https://CRAN.R-project.org/package=data.table}.
+
+\hypertarget{ref-gt}{}
+Iannone, Richard, Joe Cheng, and Barret Schloerke. 2019. \emph{Gt:
+Easily Create Presentation-Ready Display Tables}.
+\url{https://github.com/rstudio/gt}.
+
+\hypertarget{ref-tidyverse}{}
+Wickham, Hadley. 2017. \emph{Tidyverse: Easily Install and Load
+'Tidyverse' Packages}.
+\url{https://CRAN.R-project.org/package=tidyverse}.
+
+
+\end{document}
