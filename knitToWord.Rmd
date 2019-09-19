@@ -1,0 +1,46 @@
+---
+title: "Kniting to Word"
+author: '@dataknut'
+date: "17/09/2019"
+output: word_document
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Knitting to MS Word
+
+...does not always go according to plan...
+
+This is a table which we'd like as a prettified `kableExtra::` table...
+
+```{r testKableExtra}
+df <- mtcars
+library(kableExtra)
+
+kableExtra::kable(df, caption = "mtcars table") %>%
+  kable_styling()
+
+```
+
+But we can use
+
+ * library(flextable)
+ * library(officer)
+
+See https://cran.r-project.org/web/packages/flextable/vignettes/overview.html
+
+```{r testKableExtra}
+
+library(flextable)
+library(officer)
+
+myft <- flextable(
+  head(df), 
+  col_keys = c("am", "carb", "gear", "mpg", "drat" ))
+
+myft
+
+```

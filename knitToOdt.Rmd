@@ -1,0 +1,26 @@
+---
+title: "Kniting to ODT"
+author: '@dataknut'
+date: "17/09/2019"
+output: odt_document
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Knitting to Open documents
+
+...does not always go according to plan...
+
+This is a table which we'd like as a prettified `kableExtra::` table...
+
+```{r testKableExtra}
+df <- mtcars
+library(kableExtra)
+
+kableExtra::kable(df, caption = "mtcars table") %>%
+  kable_styling()
+
+```
