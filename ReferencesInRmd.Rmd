@@ -17,6 +17,10 @@ bibliography: statsCodeRefs.bib
 
 # Citations {#citations}
 
+`[@broom]` -> [@broom] <- single ref
+
+`[@broom; @knitr]` -> [@broom; @knitr] <- multiple refs
+
 This form `[-@broom]` [-@broom] drops author name compared to `[@broom]` [@broom] which doesn't.
 
 Get citation styles from [githb](https://github.com/citation-style-language/styles) & install locally?
