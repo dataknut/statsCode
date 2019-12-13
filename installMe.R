@@ -1,4 +1,5 @@
 # Script to run after updating R
+update.packages()
 
 install.packages(c("data.table", 
                   "drake", 
@@ -7,6 +8,7 @@ install.packages(c("data.table",
                   "here", 
                   "Hmisc",
                   "hms", 
+                  "ipfp",
                   "kableExtra", 
                   "knitr", 
                   "leaflet",
