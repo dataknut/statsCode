@@ -19,6 +19,7 @@ installMyPackages <- function(..., repository = "https://cran.rstudio.com/"){
 }
 
 myPacks <- c("bookdown",
+             "broom",
              "car",
              "data.table", 
              "devtools",
