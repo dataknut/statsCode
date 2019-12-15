@@ -35,6 +35,7 @@ myPacks <- c("bookdown",
              "leaflet",
              "lubridate", 
              "plotly", 
+             "R.utils", #  To read gz and bz2 files directly, fread() requires 'R.utils' package
              "rmarkdown",
              "roxygen2",
              "sf",
