@@ -26,7 +26,7 @@ bibliography: '`r path.expand("~/bibliography.bib")`'
 
 # Intro {#intro}
 
-Some introductory text
+Some introductory text on [bookdown](https://bookdown.org/yihui/bookdown/).
 
 ## A Heading 2 {#h2}
 
