@@ -1,0 +1,99 @@
+---
+title: 'Bookdown Tests'
+subtitle: 'Exploring Rmarkdown & bookdown'
+author: 'Ben Anderson (`@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+output:
+  bookdown::html_document2:
+    fig_caption: yes
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+    toc_float: TRUE
+  bookdown::pdf_document2:
+    fig_caption: yes
+    number_sections: yes
+  bookdown::word_document2:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+    fig_width: 5
+always_allow_html: yes
+bibliography: '`r path.expand("~/bibliography.bib")`'
+---
+
+# Intro {#intro}
+
+Some introductory text
+
+## A Heading 2 {#h2}
+
+Some [random text](https://randomtextgenerator.com/):
+
+At as in understood an remarkably solicitude. Mean them very seen she she. Use totally written the observe pressed justice. Instantly cordially far intention recommend estimable yet her his. Ladies stairs enough esteem add fat all enable. Needed its design number winter see. Oh be me sure wise sons no. Piqued ye of am spirit regret. Stimulated discretion impossible admiration in particular conviction up. 
+
+Placing assured be if removed it besides on. Far shed each high read are men over day. Afraid we praise lively he suffer family estate is. Ample order up in of in ready. Timed blind had now those ought set often which. Or snug dull he show more true wish. No at many deny away miss evil. On in so indeed spirit an mother. Amounted old strictly but marianne admitted. People former is remove remain as. 
+
+He difficult contented we determine ourselves me am earnestly. Hour no find it park. Eat welcomed any husbands moderate. Led was misery played waited almost cousin living. Of intention contained is by middleton am. Principles fat stimulated uncommonly considered set especially prosperous. Sons at park mr meet as fact like. 
+
+Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she. Bore tall nay many many time yet less. Doubtful for answered one fat indulged margaret sir shutters together. Ladies so in wholly around whence in at. Warmth he up giving oppose if. Impossible is dissimilar entreaties oh on terminated. Earnest studied article country ten respect showing had. But required offering him elegance son improved informed. 
+
+Put all speaking her delicate recurred possible. Set indulgence inquietude discretion insensible bed why announcing. Middleton fat two satisfied additions. So continued he or commanded household smallness delivered. Door poor on do walk in half. Roof his head the what. 
+
+Stronger unpacked felicity to of mistaken. Fanny at wrong table ye in. Be on easily cannot innate in lasted months on. Differed and and felicity steepest mrs age outweigh. Opinions learning likewise daughter now age outweigh. Raptures stanhill my greatest mistaken or exercise he on although. Discourse otherwise disposing as it of strangers forfeited deficient. 
+
+Open know age use whom him than lady was. On lasted uneasy exeter my itself effect spirit. At design he vanity at cousin longer looked ye. Design praise me father an favour. As greatly replied it windows of an minuter behaved passage. Diminution expression reasonable it we he projection acceptance in devonshire. Perpetual it described at he applauded. 
+
+### Heading 3
+
+Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar men the not desirous. Acuteness abilities ask can offending furnished fulfilled sex. Warrant fifteen exposed ye at mistake. Blush since so in noisy still built up an again. As young ye hopes no he place means. Partiality diminution gay yet entreaties admiration. In mr it he mention perhaps attempt pointed suppose. Unknown ye chamber of warrant of norland arrived. 
+
+Real sold my in call. Invitation on an advantages collecting. But event old above shy bed noisy. Had sister see wooded favour income has. Stuff rapid since do as hence. Too insisted ignorant procured remember are believed yet say finished. 
+
+A quick link to Section \@ref(h2).
+
+How promotion excellent curiosity yet attempted happiness. Gay prosperous impression had conviction. For every delay death ask style. Me mean able my by in they. Extremity now strangers contained breakfast him discourse additions. Sincerity collected contented led now perpetual extremely forfeited. 
+
+A quick link to Section \@ref(intro).
+
+## Including tables
+
+Since this is really what we're here for...
+
+Table \@ref(tab:carsTable) shows a summary table of the cars data. We use kableExtra [@kableExtra] for reporting the table.
+
+```{r carsTable}
+library(kableExtra)
+t <- summary(cars)
+
+kableExtra::kable(t, caption = "Summary of cars data",
+                  digits = 2) %>%
+  kable_styling()
+```
+
+## Including Plots
+
+Figure \@ref(fig:pressurePlot) shows a pressure plot (based on the data in Table \@ref(tab:pressurePlot) ). We use kableExtra [@kableExtra] for reporting the table and ggplot2 [@ggplot2] for the plot.
+
+```{r pressurePlot, fig.cap="Pressure plot"}
+t <- summary(pressure)
+
+kableExtra::kable(t, caption = "Summary of pressure data",
+                  digits = 2) %>%
+  kable_styling()
+
+library(ggplot2)
+p <- ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_point()
+
+p
+```
+
+# References
+
+If you have a .bib file in the yaml and you insert citations (see .Rmd) the references will go here:
+
+
+
