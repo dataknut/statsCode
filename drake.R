@@ -10,7 +10,8 @@ rDataLoc <- "https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation
 nDays <- 30
 
 # functions ----
-stackedDemandProfilePlot <- function(dt) {
+stackedDemandProfilePlot <- function(data) {
+  dt <- drake::readd(data)
   #nHalfHours <- uniqueN(dt$rDate) * 48
   plotDT <- dt[, .(meanDailyKWh = sum(kWh)/nDays), keyby = .(rTime, Fuel_Code)]
   
@@ -72,7 +73,7 @@ file.exists("drake.Rmd")
 # drake plan ----
 plan <- drake::drake_plan(
   data = getData(rDataLoc),
-  profilePlot = stackedDemandProfilePlot(dt),
+  profilePlot = stackedDemandProfilePlot(data),
   report = rmarkdown::render(
     knitr_in("drake.Rmd"),
     output_file = file_out("drake.html"),
@@ -85,7 +86,7 @@ plan <- drake::drake_plan(
 plan
 
 config <- drake_config(plan)
-vis_drake_graph(config)
+vis_drake_graph(plan)
 
 # do it ----
 make(plan)

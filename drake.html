@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Ben Anderson (Contact: b.anderson@soton.ac.uk, @dataknut)" />
@@ -75,9 +75,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -91,7 +89,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -108,8 +105,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -155,6 +150,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -167,56 +163,12 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -230,6 +182,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -265,8 +223,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -275,6 +231,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -301,20 +267,24 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Testing drake</h1>
-<h3 class="subtitle"><em>Using NZ Electricity Authority grid level generation data</em></h3>
-<h4 class="author"><em>Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</em></h4>
-<h4 class="date"><em>Last run at: 2019-04-30 11:35:03</em></h4>
+<h3 class="subtitle">Using NZ Electricity Authority grid level generation data</h3>
+<h4 class="author">Ben Anderson (Contact: <a href="mailto:b.anderson@soton.ac.uk" class="email">b.anderson@soton.ac.uk</a>, <code>@dataknut</code>)</h4>
+<h4 class="date">Last run at: 2020-05-07 15:18:46</h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Use the <a href="https://ropenscilabs.github.io/drake-manual/">drake</a> <span class="citation">(Landau 2019)</span> R package to make data flow, analysis and reporting pipelines. Drake looks after which bits of the pipeline need refreshing every time you re-run the drake <em>plan</em>. So when you run the report as part of your plan (see <a href="drake.R" class="uri">drake.R</a>), you can <code>readd</code> the objects you created in the R script to report them in this .Rmd file.</p>
+<p>Use the <a href="https://ropenscilabs.github.io/drake-manual/">drake</a> <span class="citation">(Landau 2019)</span> R package to make data flow, analysis and reporting pipelines. Drake looks after which bits of the pipeline need refreshing every time you re-run the drake <em>plan</em>. So when you run the report as part of your plan (see <a href="drake.R">drake.R</a>), you can <code>readd</code> the objects you created in the R script to report them in this .Rmd file.</p>
+<p>Very useful posts on drake:</p>
+<ul>
+<li><a href="https://milesmcbain.xyz/the-drake-post/" class="uri">https://milesmcbain.xyz/the-drake-post/</a></li>
+</ul>
 </div>
 <div id="data" class="section level1">
 <h1><span class="header-section-number">2</span> Data</h1>
-<p>For example, in Table <a href="#tab:desc">2.1</a> we <code>drake::readd</code> NZ Electricity Authority generation data for June 2018 which we downloaded in <a href="drake.R" class="uri">drake.R</a> from <a href="https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201806_Generation_MD.csv" class="uri">https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201806_Generation_MD.csv</a> and present a summary.</p>
+<p>For example, in Table <a href="#tab:desc">2.1</a> we <code>drake::readd</code> NZ Electricity Authority generation data for June 2018 which we downloaded in <a href="drake.R">drake.R</a> from <a href="https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201806_Generation_MD.csv" class="uri">https://www.emi.ea.govt.nz/Wholesale/Datasets/Generation/Generation_MD/201806_Generation_MD.csv</a> and present a summary.</p>
 <pre class="r"><code># readd the data object
 
 dt &lt;- drake::readd(data)
@@ -356,11 +326,14 @@ Trading_date
 Time_Period
 </th>
 <th style="text-align:left;">
-<pre><code>  kWh &lt;/th&gt;</code></pre>
+kWh
+</th>
 <th style="text-align:left;">
-<pre><code>rTime &lt;/th&gt;</code></pre>
+rTime
+</th>
 <th style="text-align:left;">
-<pre><code> rDate &lt;/th&gt;</code></pre>
+rDate
+</th>
 <th style="text-align:left;">
 rDateTime
 </th>
@@ -686,22 +659,22 @@ Figure 3.1: Mean electricity generation in GWh per half hour for New Zealand in 
 <h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-data.table">
-<p>Dowle, M, A Srinivasan, T Short, S Lianoglou with contributions from R Saporta, and E Antonyan. 2015. <em>Data.table: Extension of Data.frame</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+<p>Dowle, M, A Srinivasan, T Short, S Lianoglou with contributions from R Saporta, and E Antonyan. 2015. <em>Data.table: Extension of Data.frame</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
 <div id="ref-lubridate">
-<p>Grolemund, Garrett, and Hadley Wickham. 2011. “Dates and Times Made Easy with lubridate.” <em>Journal of Statistical Software</em> 40 (3): 1–25. <a href="http://www.jstatsoft.org/v40/i03/" class="uri">http://www.jstatsoft.org/v40/i03/</a>.</p>
+<p>Grolemund, Garrett, and Hadley Wickham. 2011. “Dates and Times Made Easy with lubridate.” <em>Journal of Statistical Software</em> 40 (3): 1–25. <a href="http://www.jstatsoft.org/v40/i03/">http://www.jstatsoft.org/v40/i03/</a>.</p>
 </div>
 <div id="ref-drake">
-<p>Landau, William Michael. 2019. <em>Drake: A Pipeline Toolkit for Reproducible Computation at Scale</em>. <a href="https://CRAN.R-project.org/package=drake" class="uri">https://CRAN.R-project.org/package=drake</a>.</p>
+<p>Landau, William Michael. 2019. <em>Drake: A Pipeline Toolkit for Reproducible Computation at Scale</em>. <a href="https://CRAN.R-project.org/package=drake">https://CRAN.R-project.org/package=drake</a>.</p>
 </div>
 <div id="ref-curl">
-<p>Ooms, Jeroen. 2019. <em>Curl: A Modern and Flexible Web Client for R</em>. <a href="https://CRAN.R-project.org/package=curl" class="uri">https://CRAN.R-project.org/package=curl</a>.</p>
+<p>Ooms, Jeroen. 2019. <em>Curl: A Modern and Flexible Web Client for R</em>. <a href="https://CRAN.R-project.org/package=curl">https://CRAN.R-project.org/package=curl</a>.</p>
 </div>
 <div id="ref-ggplot2">
-<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
+<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org">http://ggplot2.org</a>.</p>
 </div>
 <div id="ref-kableExtra">
-<p>Zhu, Hao. 2018. <em>KableExtra: Construct Complex Table with ’Kable’ and Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra" class="uri">https://CRAN.R-project.org/package=kableExtra</a>.</p>
+<p>Zhu, Hao. 2018. <em>KableExtra: Construct Complex Table with ’Kable’ and Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>.</p>
 </div>
 </div>
 </div>
@@ -724,6 +697,54 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
