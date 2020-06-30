@@ -18,7 +18,6 @@
 # [,10] 	gear 	Number of forward gears
 # [,11] 	carb 	Number of carburetors 
 
-rm(list = ls()) 
 # Load required packages ----
 x <- c("rms", # more regression tools
        "car" # regression tools
@@ -85,22 +84,22 @@ loMpgModel1ResultsOR <- exp(cbind(OddsRatio = coef(loMpgModel1),
 
 # Diagnostics:  ----
 # Independence of errors
-durbinWatsonTest(loMpgModel1)
+car::durbinWatsonTest(loMpgModel1)
 # if p < 0.05 then a problem as implies autocorrelation
 
 # Collinearity (vif)
-vif(loMpgModel1)
+car::vif(loMpgModel1)
 # if any values > 10 -> problem
 
 # Collinearity (tolerance)
-1/vif(loMpgModel1)
+1/car::vif(loMpgModel1)
 # if any values < 0.2 -> possible problem
 # if any values < 0.1 -> definitely a problem
 
 # Diagnostic plots ----
 plot(loMpgModel1)
 # requires library(car)
-spreadLevelPlot(loMpgModel1)
+car::spreadLevelPlot(loMpgModel1)
 
 # Run a second slightly different model ----
 
@@ -109,22 +108,22 @@ loMpgModel2 <- glm(formula = mpghi ~ drat + wt + qsec,
 
 # Diagnostics: ----
 # Independence of errors
-durbinWatsonTest(loMpgModel2)
+car::durbinWatsonTest(loMpgModel2)
 # if p < 0.05 then a problem as implies autocorrelation
 
 # Collinearity (vif)
-vif(loMpgModel2)
+car::vif(loMpgModel2)
 # if any values > 10 -> problem
 
 # Collinearity (tolerance)
-1/vif(loMpgModel2)
+1/car::vif(loMpgModel2)
 # if any values < 0.2 -> possible problem
 # if any values < 0.1 -> definitely a problem
 
 # Diagnostic plots ----
 plot(loMpgModel2)
 # requires library(car)
-spreadLevelPlot(loMpgModel2)
+car::spreadLevelPlot(loMpgModel2)
 
 # Compare models ----
 anova(loMpgModel1,loMpgModel2, test="Chisq")
@@ -147,8 +146,8 @@ extractAIC(loMpgModel1)
 extractAIC(loMpgModel2)
 
 # Using the rms package ----
-loMpgModel1b <- lrm(mpghi ~ drat + wt, mtcars)
-loMpgModel2b <- lrm(mpghi ~ drat + wt + qsec, mtcars)
+loMpgModel1b <- rms::lrm(mpghi ~ drat + wt, mtcars)
+loMpgModel2b <- rms::lrm(mpghi ~ drat + wt + qsec, mtcars)
 
 loMpgModel1b
 

@@ -1,0 +1,67 @@
+---
+params:
+  authors: 'Ben Anderson'
+  title: 'Testing ways of building maps'
+title: '`r paste0(params$title)`'
+subtitle: '`r paste0(params$subtitle)`'
+author: '`r paste0(params$authors)` (Contact: b.anderson@soton.ac.uk, `@dataknut`)'
+date: 'Last run at: `r Sys.time()`'
+always_allow_html: yes
+output:
+  bookdown::html_document2:
+    code_folding: hide
+    number_sections: yes
+    self_contained: no
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+  bookdown::word_document2:
+    toc: yes
+    toc_depth: 2
+  bookdown::pdf_document2:
+    toc: yes
+    toc_depth: 2
+bibliography: statsCodeRefs.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Robin Lovelace generally has the answers: https://geocompr.robinlovelace.net/adv-map.html
+
+
+# ggmap
+
+# ggplot2 with maps
+
+```{r ggplot2_test}
+library(ggplot2)
+pointData <- data.table::fread("data/someLatLongs.csv")
+
+```
+
+# sf
+
+```{r libSF}
+library(sf)
+
+
+```
+
+
+# R environment
+
+Packages used:
+
+ * gt [@sf]
+ 
+And:
+ 
+ * tidyverse - [@tidyverse]
+ * glue - [@glue]
+ * data.table - [@data.table]
+ 
+# References
