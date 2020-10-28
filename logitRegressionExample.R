@@ -85,7 +85,16 @@ loMpgModel1ResultsOR <- exp(cbind(OddsRatio = coef(loMpgModel1),
 # Diagnostics:  ----
 # Independence of errors
 car::durbinWatsonTest(loMpgModel1)
-# if p < 0.05 then a problem as implies autocorrelation
+# Andy Field DSUR:The test statistic can vary between 0 and 4 with a value of 2 meaning that the 
+# residuals are uncorrelated. A value greater than 2 indicates a negative correlation between 
+# adjacent residuals, whereas a value below 2 indicates a positive correlation. 
+# The size of the Durbin-Watson statistic depends upon the number of predictors in the model and the 
+# number of observations. As a very conservative rule of thumb, values less than 1 or greater than 
+# 3 are definitely cause for concern; however, values closer to 2 may still be problematic depending on your sample and model.
+# if p < 0.05 then a problem as implies autocorrelation <- only for lm models?
+
+# Note to self: if the data have a specific order and that order matters to the model then D-W will show
+# spurious auto-correlation
 
 # Collinearity (vif)
 car::vif(loMpgModel1)
