@@ -3,8 +3,8 @@ title: "testing performance package"
 author: "Ben Anderson"
 date: "25/04/2022"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 # `Performance` package
@@ -30,7 +30,7 @@ summary(mtcars)
 For example:
 
 ```{r qsec}
-qsecModel <- lm(formula = qsec ~ carb + disp, data = mtcars)
+qsecModel <- lm(formula = qsec ~ carb + disp + wt, data = mtcars)
 
 qsecModel
 
@@ -39,12 +39,27 @@ summary(qsecModel)
 
 # Check model `performance`
 
-```{r qsecCheck}
+```{r qsecCheck, fig.cap="Testing the model"}
 
-performance::check_model(qsecModel)
+performance::check_model(qsecModel, 
+                         panel = FALSE # create 1 plot per check (otherwise we get them as smaller panels)
+                         )
 
 ```
 
-Nice...
+
+> Very Nice...
+
+# Use `see` to look-see the model
+
+```{r plotModel}
+library(see)
+library(parameters)
+library(ggplot2)
+
+plot(parameters::parameters(qsecModel)) +
+  ggplot2::labs(title = "A Dot-and-Whisker Plot")
+```
+> Oh yes, we quite like that too...
 
 # The end
