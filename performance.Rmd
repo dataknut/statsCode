@@ -3,8 +3,8 @@ title: "testing performance package"
 author: "Ben Anderson"
 date: "25/04/2022"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 # `Performance` package
@@ -51,6 +51,8 @@ performance::check_model(qsecModel,
 > Very Nice...
 
 # Use `see` to look-see the model
+
+https://easystats.github.io/see/
 
 ```{r plotModel}
 library(see)
