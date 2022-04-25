@@ -1,0 +1,46 @@
+---
+title: "testing performance package"
+author: "Ben Anderson"
+date: "25/04/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(performance)
+
+mtcars <- mtcars
+```
+
+
+
+```{r cars}
+summary(mtcars)
+```
+
+# Make a model, any model
+
+You can also embed plots, for example:
+
+```{r qsec}
+qsecModel <- lm(formula = qsec ~ carb + disp, data = mtcars)
+
+qsecModel
+
+summary(qsecModel)
+```
+
+# Check performance
+
+```{r qsecCheck}
+
+performance::check_model(qsecModel)
+
+```
+
+Nice...
+
+# The end
