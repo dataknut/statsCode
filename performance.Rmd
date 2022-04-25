@@ -7,7 +7,11 @@ output:
   html_document: default
 ---
 
-```{r setup, include=FALSE}
+# `Performance` package
+
+https://easystats.github.io/performance/
+
+```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(performance)
@@ -15,7 +19,7 @@ library(performance)
 mtcars <- mtcars
 ```
 
-
+Use some mtcars data
 
 ```{r cars}
 summary(mtcars)
@@ -23,7 +27,7 @@ summary(mtcars)
 
 # Make a model, any model
 
-You can also embed plots, for example:
+For example:
 
 ```{r qsec}
 qsecModel <- lm(formula = qsec ~ carb + disp, data = mtcars)
@@ -33,7 +37,7 @@ qsecModel
 summary(qsecModel)
 ```
 
-# Check performance
+# Check model `performance`
 
 ```{r qsecCheck}
 
