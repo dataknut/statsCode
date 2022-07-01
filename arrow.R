@@ -20,7 +20,6 @@ dkUtils::loadLibraries(libs)
 
 # Test on SAVE electricity use data (large dataset)
 # https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=8676
-
 path <- "~/Dropbox/data/SAVE/UKDA-SN-8676-1/save_consumption_data/"
 
 save_Wh <- arrow::open_dataset(path, format = "csv")
