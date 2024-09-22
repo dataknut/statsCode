@@ -1,5 +1,7 @@
 # h/t chatgpt
 
+# see also https://meghan.rbind.io/blog/2022-06-28-a-beginners-guide-to-mixed-effects-models/
+  
 # Example data
 set.seed(123)
 df <- data.frame(
